@@ -1,0 +1,65 @@
+\documentclass[12pt]{report}
+\usepackage{auhonors}
+
+\usepackage{ulem}
+\usepackage{url}
+\usepackage{tikz}
+\usepackage{pgf}
+
+% for list of abbreviations
+\usepackage[intoc]{nomencl}
+\renewcommand{\nomname}{List of Abbreviations}
+\makenomenclature
+%% don't forget to run:   makeindex ausample.nlo -s nomencl.ist -o ausample.nls
+
+% May want theorems numbered by chapter
+\newtheorem{theorem}{Theorem}[chapter]
+
+\title{A Visual Driver Aid for Vehicle Following Based on Differential Real-Time Kinematic Positioning}
+\author{Robert Cofield}
+\date{May 5, 2013}
+\copyrightyear{2013}
+\adviser{David Bevly}
+
+\keywords{DRTK, GPS, GUI}
+
+\professor{David Bevly, ...distinctions...}
+\professor{Kathie Maddox, ... ...}
+
+\begin{document}
+
+\begin{romanpages}
+
+\TitlePage
+
+\begin{abstract}
+Abstract
+\end{abstract}
+
+\begin{acknowledgments}
+Thank people.
+\end{acknowledgments}
+
+\tableofcontents
+\listoffigures
+\listoftables
+
+\printnomenclature[0.5in] 
+
+\end{romanpages}
+
+\normalem       % Make italics the default for \em
+
+\chapter{Motivation}
+
+Introduce the chapter
+
+\section{Section}
+asdf
+
+\subsection{Subsection}
+asdf
+
+\bibliography{./thesis}
+
+\end{document}

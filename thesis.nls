@@ -1,0 +1,9 @@
+\begin{thenomenclature}
+
+\nomgroup{A}
+    \item[{DRTK}]\begingroup Differential Real-Time Kinematic \nomeqref{1.0}
+        \nompageref{1}
+    \item[{GUI}]\begingroup Graphical User Interface \nomeqref{1.0}
+        \nompageref{1}
+
+\end{thenomenclature}
