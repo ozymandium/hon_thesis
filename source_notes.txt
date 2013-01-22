@@ -1,0 +1,52 @@
+Sources & References
+====================
+
+Scott's Thesis
+    --what is the difference between DGPS and DRTK?
+    - RPV's RMS error ~ 0.0033 m when fixed integer ambiguity estimates available
+        - significantly higher when floating point ambiguity estimates only used
+    - slight increase in variance as separation distance increases
+        - >600m single freq will not produce a high precision solution
+    -- Chap 4 is on following
+
+LF/DRTK SBIR
+
+Distributed Leader-Follower Navigation of Mobile robots
+    - not very useful, mostly controls
+
+Vision-based Localization of Leader-Follower Formations
+    - leader carries out all computation
+    - one leader many followers
+    - a lot of controls
+
+GPS: Theory, Algorithms, and Applications
+    - book in lab
+
+Flocking for Heterogeneous Robot Swarms: A Military Convoy Scenario
+    -
+
+Wireless, Mesh & Ad Hoc Networks; Military Convoy Location and Situation Awareness
+
+
+Precise gps sensor subsystem for vehicle platoon control
+    -- referenced by scott's thesis
+    -- use carrier phase to maintain spacing
+    -- results for static and moving base station
+    -- in absence of truth data, used measured vector between two fixed antennae to validate results
+    -- mostly just shows that DRTK/RTK is good for use in convoys, long range stuff
+    - accuracy is same up to 7200 m
+
+Nonlinear Control for Urban Vehicles Platooning, Relying upon a Unique Kinematic GPS
+    -- mostly control law design
+    -- use RTK and reference
+
+Comparative Performance Analysis of Aided Carrier Tracking Loop Algorithms in High Noise/High Dynamic Environments (ION 2004)
+    --GAVLab
+    --just controls
+
+Experiments in sensing and communication for robot convoy navigation
+
+
+Automated short distance vehicle following using a dynamic base RTK system
+    --written by the GAVLab
+    - must maintain common set of satellites
