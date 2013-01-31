@@ -1,0 +1,105 @@
+% This file was created with JabRef 2.7b.
+% Encoding: UTF-8
+
+@INPROCEEDINGS{jordanlidar,
+  author = {Britt, Jordan and Broderick, David J. and Bevly, David and Hung,
+	John},
+  title = {Lidar attitude estimation for vehicle safety systems},
+  booktitle = {Position Location and Navigation Symposium (PLANS), 2010 IEEE/ION},
+  year = {2010},
+  pages = {1226 -1231},
+  month = {may},
+  doi = {10.1109/PLANS.2010.5507283},
+  issn = {2153-358X},
+  keywords = {Acoustic beams;Calibration;Gaussian processes;Global Positioning System;Laser
+	radar;Position measurement;Sensor systems;Sonar detection;Vehicle
+	safety;Vehicles;Attitude;Gaussian Processes;Lidar;}
+}
+
+@CONFERENCE{cameralidarlane,
+  author = {Britt, Jordan and Rose, Christopher and Bevly, David M},
+  title = {A Comparative Study of Lidar and Camera-based Lane Departure Warning
+	Systems},
+  booktitle = {Proceedings of the 24th International Technical Meeting of The Satellite
+	Division of the Institute of Navigation (ION GNSS 2011)},
+  year = {2011},
+  owner = {rgcofield},
+  timestamp = {2013.01.30}
+}
+
+@INPROCEEDINGS{visionrec,
+  author = {Kehtarnavaz, N. and Lee, J.S. and Griswold, N.C.},
+  title = {Vision-based Convoy Following by Recursive Filtering},
+  booktitle = {American Control Conference, 1990},
+  year = {1990},
+  pages = {268 -273},
+  month = {may},
+  keywords = {Automatic control;Filtering;Intelligent vehicles;Motion control;Noise
+	robustness;Recursive estimation;Remotely operated vehicles;Stereo
+	vision;Testing;Velocity measurement;}
+}
+
+@CONFERENCE{gian,
+  author = {Mariottini, Gian Luca and Pappas, George and Prattichizzo, Domenico
+	and Daniilidis, Kostas},
+  title = {Vision-based Localization of Leader-Follower Formations},
+  booktitle = {Proceedings of the 44th IEEE Conference on Decision and Control,
+	and the European Control Conference 2005},
+  year = {2005},
+  owner = {rgcofield},
+  timestamp = {2013.01.30}
+}
+
+@MASTERSTHESIS{scottthesis,
+  author = {Martin, Scott},
+  title = {Closely Coupled GPS/INS Relative Positioning For Automated Vehicle
+	Convoys},
+  school = {Auburn University},
+  year = {2011},
+  owner = {rgcofield},
+  timestamp = {2013.01.30}
+}
+
+@ARTICLE{newman2003moos,
+  author = {Newman, PM},
+  title = {MOOS—A mission oriented operating suite (Tech. Rep. OE2003--07)},
+  journal = {Cambridge, MA: Department of Ocean Engineering, MIT},
+  year = {2003}
+}
+
+@PHDTHESIS{travisdiss,
+  author = {Travis, William},
+  title = {Path Duplication Using GPS Carrier Based Relative Position for Automated
+	Ground Vehicle Convoys},
+  school = {Auburn University},
+  year = {2010},
+  owner = {rgcofield},
+  timestamp = {2013.01.30}
+}
+
+@INPROCEEDINGS{travisconvoy,
+  author = {Travis, W. and Bevly, D.M.},
+  title = {Trajectory duplication using relative position information for automated
+	ground vehicle convoys},
+  booktitle = {Position, Location and Navigation Symposium, 2008 IEEE/ION},
+  year = {2008},
+  pages = {1022 -1032},
+  month = {may},
+  doi = {10.1109/PLANS.2008.4570076},
+  keywords = {Automotive engineering;Educational institutions;Global Positioning
+	System;Land vehicles;Motion estimation;Position measurement;Remotely
+	operated vehicles;Vehicle driving;Vehicle dynamics;Vehicle safety;Global
+	Positioning System;position control;remotely operated vehicles;space
+	vehicles;GPS carrier measurements;automated ground vehicle convoys;autonomous
+	ground vehicles;relative position information;trajectory duplication;vehicle
+	controller;vehicle path;}
+}
+
+@comment{jabref-meta: selector_publisher:}
+
+@comment{jabref-meta: selector_author:}
+
+@comment{jabref-meta: selector_journal:}
+
+@comment{jabref-meta: selector_keywords:}
+

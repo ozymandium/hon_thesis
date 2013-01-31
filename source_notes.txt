@@ -48,5 +48,11 @@ Experiments in sensing and communication for robot convoy navigation
 
 
 Automated short distance vehicle following using a dynamic base RTK system
-    --written by the GAVLab
+    --written by Will, Scott
     - must maintain common set of satellites
+
+Path Duplication Using GPS Carrier Based Relative Position for Automated Ground vehicle convoys
+    -- Will Travis' article
+
+Vision-based Convoy Following by Recursive Filtering
+    --old (1990)

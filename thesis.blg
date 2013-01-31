@@ -1,0 +1,47 @@
+This is BibTeX, Version 0.99c (TeX Live 2009/Debian)
+The top-level auxiliary file: thesis.aux
+The style file: asmems4.bst
+Database file #1: thesis.bib
+Warning--I didn't find a database entry for "camerlidarlane"
+You've used 7 entries,
+            1984 wiz_defined-function locations,
+            521 strings with 4664 characters,
+and the built_in function-call counts, 1816 in all, are:
+= -- 161
+> -- 55
+< -- 0
++ -- 23
+- -- 16
+* -- 91
+:= -- 255
+add.period$ -- 21
+call.type$ -- 7
+change.case$ -- 7
+chr.to.int$ -- 0
+cite$ -- 7
+duplicate$ -- 110
+empty$ -- 191
+format.name$ -- 16
+if$ -- 435
+int.to.chr$ -- 0
+int.to.str$ -- 7
+missing$ -- 5
+newline$ -- 38
+num.names$ -- 7
+pop$ -- 44
+preamble$ -- 1
+purify$ -- 0
+quote$ -- 0
+skip$ -- 64
+stack$ -- 0
+substring$ -- 115
+swap$ -- 42
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 0
+warning$ -- 0
+while$ -- 13
+width$ -- 8
+write$ -- 77
+(There was 1 warning)

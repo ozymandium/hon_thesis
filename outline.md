@@ -2,22 +2,20 @@ Honors Thesis Outline
 =====================
 
 ## Abstract ##
-__*Why this paper is important [one line]*__  
 *What was done?*  
 
 - A GUI was developed to aid in driver-assisted automated following  
 - Error propagation in convoys was examined  
 
+__*Why this paper is important [one line]*__  
 *Why? What questions were answered?*  
 
-- Are DRTK errors when daisy-chained in a convoy the same from 1st vehicle to last as that from first vehicle to 2nd?  
+- Are DRTK errors in a convoy the same from 1st vehicle to last as that from first vehicle to 2nd?  
 
 *How was it done?*  
 *What was learned?* [maybe not applicable except to error propagation]  
-*Why does this matter?*  
 
-
-## Chap 1: Introduction/Background/ ##
+## Chap 1: Introduction/Background/DRTK  [Finish by 2/1/2013] ##
 - Introductory remarks
     - establish use case
         - convoy
@@ -58,58 +56,54 @@ __*Why this paper is important [one line]*__
         - lidar
             - Use of intensity measurement can help with other tasks (lanes)
             -  requires line-of sight
-    - fused solutions
+    - fused and coupled solutions
         - mention FHWA2 work
-- GNSS Principles 
-    - Pseudorange basics (Time-of-flight)
-        - Error sources in GPS  
-        - Accuracy -- characterize  
-    - Overview of improvements to standalone GPS that DRTK build on  
-        - DGPS
-        - Carrier Phase basics
-            -  how integer ambiguity is corrected by a base station link
-    - DRTK
-        - Theory
-            - sacrificing global accuracy for relative accuracy
-        - Current Implementation
-            - Hardware
-            - Communications
-            - Accuracy
-            - Limitations
-                - must maintain a common set of satellites - 
+        - Scott thesis on coupling    
+    - advantages of GPS-based
+- What comes from DRTK
+    - TDCP - path accuracy
+    - Lateral Dev
+    - Distance (direct)
+    - velocities
 
-## Chap 2: Graphical User Interface ##
+## Chap 2: Graphical User Interface  [Finish by 2/15/2013] ##
 - Introductory remarks
     - development using playback
     -  could prove useful in the development of LF control algorithms (out of the scope of this paper)
 - Architecture
-    - Message passing
-        - how the messages are received
-        - message structure
+    - [figure] Depict GUI as a block with defined inputs & outputs
+    - global Message passing
+            - how messages arrive from receiver - modularity of gui's global messaging interface
+            - message structure
+            - how messages get from raw data to qt-usable form
+    - Qt message pasing
+        - signals/slots
+        - connections between renderarea, mainwindow
     - Threading
-    - Qt stuff
 - Real World
     - method used for validation of screen info
-    - usefulness
-- Optimization
+    - usefulness - can a driver use it exclusively?
+- Optimization Process
     - Simulation in lab using Logitech controllers
     - Optimize using human subjects
     - Indust. Eng./ Psychology stuff on conveying information
+- Final Design
+    - [figure] arrows pointing to key parts
 
-
-## Chap 3: Experimental Validation ##
+## Chap 3: Experimental Validation [Finish by 4/1/2013] ##
 *Prowler/Santa Fe?*  
 *Record Lateral Errors and Speed consistency*  
 
 - 2 Vehicle - *focus on GUI usefulness*  
 - 3 Vehicle - *focus on error propagation*  
+    - 
 
-## Chap 4: Extension to Longer Chains ##
+## Chap 4: Extension to Longer Chains [Finish by end of semester]##
 - Daisy chain with a set configuration
 - Simulate with 3 Vehicles, test?
 
 
-## Chap 5: Conclusions ##
+## Chap 5: Conclusions [Finish by end of semester]##
 - Evaluation of DRTK in convoys
     - accuracy behavior
     -limitations
