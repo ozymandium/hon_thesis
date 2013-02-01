@@ -2,46 +2,44 @@ This is BibTeX, Version 0.99c (TeX Live 2009/Debian)
 The top-level auxiliary file: thesis.aux
 The style file: asmems4.bst
 Database file #1: thesis.bib
-Warning--I didn't find a database entry for "camerlidarlane"
-You've used 7 entries,
+You've used 10 entries,
             1984 wiz_defined-function locations,
-            521 strings with 4664 characters,
-and the built_in function-call counts, 1816 in all, are:
-= -- 161
-> -- 55
+            535 strings with 5391 characters,
+and the built_in function-call counts, 2524 in all, are:
+= -- 216
+> -- 94
 < -- 0
-+ -- 23
-- -- 16
-* -- 91
-:= -- 255
-add.period$ -- 21
-call.type$ -- 7
-change.case$ -- 7
++ -- 38
+- -- 28
+* -- 136
+:= -- 368
+add.period$ -- 30
+call.type$ -- 10
+change.case$ -- 11
 chr.to.int$ -- 0
-cite$ -- 7
-duplicate$ -- 110
-empty$ -- 191
-format.name$ -- 16
-if$ -- 435
+cite$ -- 10
+duplicate$ -- 146
+empty$ -- 259
+format.name$ -- 28
+if$ -- 596
 int.to.chr$ -- 0
-int.to.str$ -- 7
-missing$ -- 5
-newline$ -- 38
-num.names$ -- 7
-pop$ -- 44
+int.to.str$ -- 10
+missing$ -- 7
+newline$ -- 53
+num.names$ -- 10
+pop$ -- 59
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 64
+skip$ -- 79
 stack$ -- 0
-substring$ -- 115
-swap$ -- 42
+substring$ -- 143
+swap$ -- 53
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
 warning$ -- 0
-while$ -- 13
-width$ -- 8
-write$ -- 77
-(There was 1 warning)
+while$ -- 18
+width$ -- 12
+write$ -- 109

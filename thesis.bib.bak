@@ -27,6 +27,18 @@
   timestamp = {2013.01.30}
 }
 
+@TECHREPORT{lidarvsradaracc,
+  author = {Glenn R. Widmann, Michele K. Daniels, Lisa Hamilton, Lawrence Humm,
+	Bryan Riley, Jan K. Schiffmann, David E. Schnelker and William H.
+	Wishon},
+  title = {Comparison of Lidar-Based and Radar-Based Adaptive Cruise Control
+	Systems},
+  institution = {Society of Automotive Engineers},
+  year = {2000},
+  owner = {rgcofield},
+  timestamp = {2013.01.31}
+}
+
 @INPROCEEDINGS{visionrec,
   author = {Kehtarnavaz, N. and Lee, J.S. and Griswold, N.C.},
   title = {Vision-based Convoy Following by Recursive Filtering},
@@ -60,9 +72,9 @@
   timestamp = {2013.01.30}
 }
 
-@ARTICLE{newman2003moos,
+@ARTICLE{moos,
   author = {Newman, PM},
-  title = {MOOS—A mission oriented operating suite (Tech. Rep. OE2003--07)},
+  title = {MOOS: A mission oriented operating suite (Tech. Rep. OE2003--07)},
   journal = {Cambridge, MA: Department of Ocean Engineering, MIT},
   year = {2003}
 }
@@ -93,6 +105,20 @@
 	vehicles;GPS carrier measurements;automated ground vehicle convoys;autonomous
 	ground vehicles;relative position information;trajectory duplication;vehicle
 	controller;vehicle path;}
+}
+
+@ARTICLE{travisshort,
+  author = {Travis, William and Martin, Scott and
+	
+	Bevly, David},
+  title = {Automated short distance vehicle following using a dynamic base RTK
+	system},
+  journal = {International Journal of Vehicle Autonomous Systems},
+  year = {2011},
+  volume = {9},
+  pages = {126-141},
+  owner = {rgcofield},
+  timestamp = {2013.01.31}
 }
 
 @comment{jabref-meta: selector_publisher:}
