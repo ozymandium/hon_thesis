@@ -1,9 +1,15 @@
 \begin{thenomenclature}
-
 \nomgroup{A}
-    \item[{DRTK}]\begingroup Differential Real-Time Kinematic \nomeqref{1.0}
-        \nompageref{1}
-    \item[{GUI}]\begingroup Graphical User Interface \nomeqref{1.0}
-        \nompageref{1}
-
+    \item[{ ACC    }]\begingroup    Adaptive Cruise Control \nomeqref{2.0} \nompageref{1}
+    \item[{ DAF    }]\begingroup    Driver Assisted Following \nomeqref{2.0} \nompageref{1}
+    \item[{ DRTK   }]\begingroup    Dynamic base Real-Time Kinematic \nomeqref{2.0} \nompageref{1}
+    \item[{ ENU    }]\begingroup    East-North-Up \nomeqref{2.0} \nompageref{1}
+    \item[{ GNSS   }]\begingroup    Global Navigation Satellite System \nomeqref{2.0} \nompageref{1}
+    \item[{ GPS    }]\begingroup    Global Positioning System \nomeqref{2.0} \nompageref{1}
+    \item[{ GUI    }]\begingroup    Graphical User Interface \nomeqref{2.0} \nompageref{1}
+    \item[{ LiDAR  }]\begingroup    Light Detection and Ranging \nomeqref{2.0} \nompageref{1}
+    \item[{ MOOS   }]\begingroup    Mission Oriented Operating Suite \nomeqref{2.0} \nompageref{1}
+    \item[{ RADAR  }]\begingroup    Radio Detection and Ranging \nomeqref{2.0} \nompageref{1} 
+    \item[{ RPV    }]\begingroup    Relative Position Vector \nomeqref{2.0} \nompageref{1}
+    \item[{ SV     }]\begingroup    Satellite Vehicle \nomeqref{2.0} \nompageref{1}
 \end{thenomenclature}

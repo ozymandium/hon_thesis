@@ -1,5 +1,65 @@
-@Article{asdf,
-    author = "ASDF JKL",
-    title = "asdfasdf",
-    year = 2003,
-}
+\begin{thebibliography}{10}
+
+\bibitem{gian}
+Mariottini, G.~L., Pappas, G., Prattichizzo, D., and Daniilidis, K., 2005.
+\newblock ``Vision-based localization of leader-follower formations''.
+\newblock In Proceedings of the 44th IEEE Conference on Decision and Control,
+  and the European Control Conference 2005.
+
+\bibitem{scottthesis}
+Martin, S., 2011.
+\newblock ``Closely coupled gps/ins relative positioning for automated vehicle
+  convoys''.
+\newblock Master's thesis, Auburn University.
+
+\bibitem{lidarvsradaracc}
+Widmann, G.~R., Daniels, M.~K., Hamilton, L., Humm, L., Bryan~Riley, Jan
+  K.~Schiffmann, D. E.~S., and Wishon, W.~H., 2000.
+\newblock Comparison of lidar-based and radar-based adaptive cruise control
+  systems.
+\newblock Tech. rep., Society of Automotive Engineers.
+
+\bibitem{jordanlidar}
+Britt, J., Broderick, D.~J., Bevly, D., and Hung, J., 2010.
+\newblock ``Lidar attitude estimation for vehicle safety systems''.
+\newblock In Position Location and Navigation Symposium (PLANS), 2010 IEEE/ION,
+  pp.~1226 --1231.
+
+\bibitem{cameralidarlane}
+Britt, J., Rose, C., and Bevly, D.~M., 2011.
+\newblock ``A comparative study of lidar and camera-based lane departure
+  warning systems''.
+\newblock In Proceedings of the 24th International Technical Meeting of The
+  Satellite Division of the Institute of Navigation (ION GNSS 2011).
+
+\bibitem{visionrec}
+Kehtarnavaz, N., Lee, J., and Griswold, N., 1990.
+\newblock ``Vision-based convoy following by recursive filtering''.
+\newblock In American Control Conference, 1990, pp.~268 --273.
+
+\bibitem{travisdiss}
+Travis, W., 2010.
+\newblock ``Path duplication using gps carrier based relative position for
+  automated ground vehicle convoys''.
+\newblock PhD thesis, Auburn University.
+
+\bibitem{travisshort}
+Travis, W., Martin, S., and Bevly, D., 2011.
+\newblock ``Automated short distance vehicle following using a dynamic base rtk
+  system''.
+\newblock {\em International Journal of Vehicle Autonomous Systems, \textbf{
+  9}}, pp.~126--141.
+
+\bibitem{travisconvoy}
+Travis, W., and Bevly, D., 2008.
+\newblock ``Trajectory duplication using relative position information for
+  automated ground vehicle convoys''.
+\newblock In Position, Location and Navigation Symposium, 2008 IEEE/ION,
+  pp.~1022 --1032.
+
+\bibitem{moos}
+Newman, P., 2003.
+\newblock ``Moos: A mission oriented operating suite (tech. rep. oe2003--07)''.
+\newblock {\em Cambridge, MA: Department of Ocean Engineering, MIT}.
+
+\end{thebibliography}
