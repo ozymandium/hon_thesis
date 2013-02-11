@@ -62,7 +62,7 @@ Thank people.
 
 % Establish the use case
 The convoy scenario is examined, wherein a chain of vehicles are aligned front to back along some path determined by the front-most vehicle. Each inner vehicle acts as a leader to that following it, and follows the one preceding it. As such, vehicle must maintain some form of communication with those directly adjacent to it.
-The computational tasks for each leader-follower pairing is carried out in the lead vehicle. This is often the ideal setup for other secenarios, such as when the follower is an unmanned aerial vehicle, as UAV's are often limited by weight, and thus outsource processing tasks to ground computers where possible. Relying on the leader for positioning data is even used for swarm setups with a single leader and multiple followers \cite{gian}, regardless of the positioning method. For the present scenario, however, this structure makes the implementation of visualization software for data recieved from each leader much easier to implement with a low computational cost. The following chapter highlights why a navigational aid is necessary for convoy scenarios, why DRTK with TDCP is the ideal solution, and how it functions.
+The computational tasks for each leader-follower pairing is carried out in the following vehicle. This is typically done in the lead vehicle for other secenarios, such as when the follower is an unmanned aerial vehicle, as UAV's are often limited by weight, and thus outsource processing tasks to ground computers where possible. Relying on the leader for positioning data is even used for swarm setups with a single leader and multiple followers \cite{gian}, regardless of the positioning method. For the present scenario, however, this structure makes the implementation of visualization software for data recieved from each leader much easier to implement with a low computational cost. The following chapter highlights why a navigational aid is necessary for convoy scenarios, why DRTK with TDCP is the ideal solution, and how it functions.
 
 \section{Motivation} %% GET CITATIONS!
 %Autonomous scenarios?
@@ -108,7 +108,7 @@ At the fundamental level, GNSS
 \footnote{GNSS is a protocol-agnostic term referring to any of several systems worldwide which use satellites to provide a receiver on the ground with position information. The US implementation is known as GPS, the Russian positioning system is referred to as GLONASS, and the European Union has Galileo.}
 comprises a constellation of orbitting satellites whose positions above the earth are known, corresponding with a receiver to give as many range measurements as possible so that a global 3 dimensional location may be calculated. GNSS does not necessitate line of sight, and is not impaired by lighting effects, though a clear view of the sky is needed to connect to as many satellites as possible. The range for highly accurate following is large, on the order of kilometers depending upon speed, and lower accuracy following can be performed for two vehicles at any distance. These make GNSS ideal for use in the leader-follower convoy scenario.
 
-% \subsection{Relevant Improvements to Standalone GPS}
+% Improvements to standalone
 % RTK - finished
 Oftentimes, when working in a defined area, the exact location of a nearby point is known. If this is not the case, the exact location of a point may be found by setting up a static GPS receiver and allowing the measurements to average towards zero error over a long period of time. Once the precise location is known, the base station can transmit the difference between this value and the position received by standalone GPS to nearby receivers in real-time. Using these corrections to compensate for errors is known as Real Time Kinematic (RTK) GPS. It produces extremely accurate global positioning (i.e., in the earth coordinate frame).
 % DRTK
@@ -137,7 +137,8 @@ Figure \ref{fig:drtktdcp} illustrates how information is taken from each receive
 The accuracy of DRTK GPS is primarily contingent upon the availability of dual-band (L1 and L2, rather than L1 only) signals, and of high precision ambiguity estimates (fixed integer rather than floating point). Under ideal conditions, the root-mean-square error of DRTK positions will be as low as $0.33~cm$ with a variance of $0.10~cm^2$. 
 % TDCP accuracy 
 The accuracy of the TDCP algorithm decreases over time as errors in the position changes accumulate. The mean time for a static receiver to accumulate $1.0~m$ lateral error is $378~s$, so the curvilinear distance at which this error will be present is contingent upon the speed of the follower. A complete analysis of the DRTK/TDCP algorithm error behavior is provided by \cite{scottthesis}. The combined accuracy traits of the system when employed for convoys of three or more vehicles are explored in Chapter \ref{chap:errprop}.
-
+% Combined output of TDCP and DRTK for path
+% Velocity accuracy
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -145,10 +146,15 @@ The accuracy of the TDCP algorithm decreases over time as errors in the position
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Graphical User Interface}
 
+This chapter will explain ____.
+
+% integrate this sentece with the MOOS stuff
+
+
 %%%%%%%%%%%%%%%%%%%%%%
 % Architecture Section
 \section{Architecture}
-Figure \ref{fig:blackboxflow} depicts the predefined inputs and outputs of the GUI.
+Figure \ref{fig:blackboxflow} depicts the predefined inputs and outputs of the GUI. The primary message passing architecture used to deliver data to the GUI, as depicted in Fig. \ref{fig:blackboxflow}, was the Mission Oriented Operating Suite (MOOS), as developed by \cite{moos}. The GUI was primarily developed using postprocessed data collected from an Prowler ATV automously following an Infiniti G35 using the same positioning and radio setup described in Sect. \ref{sec:hardware}. This is made possible by the playback feature of the 
 
 % Black box info flow chart
 \begin{figure}[htbp]
@@ -158,12 +164,19 @@ Figure \ref{fig:blackboxflow} depicts the predefined inputs and outputs of the G
     \label{fig:blackboxflow}
 \end{figure}
 
-\subsection{Message Passing}
-The primary message passing architecture used was the Mission Oriented Operating Suite (MOOS), as developed by \cite{moos}.
+%%%% Qt Signals/Slots
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Simulation/Optimization Section
+\section{Simulation \& Design Optimization}
+\label{sec:sim_opt}
+
 
 %%%%%%%%%%%%%%%%%%%%%%
 % Final Design Section
 \section{Final Design}
+\label{sec:finaldes}
 The end user---the driver---will primarily be presented with the screen depicted in Fig. \ref{fig:finaldesdriv}. There is always the option to change operational parameters, using the screen depicted in Figure \ref{fig:finaldesopts}.
 
 % the driver screen
@@ -189,6 +202,11 @@ The end user---the driver---will primarily be presented with the screen depicted
 \chapter{Experimentation}
 \label{chap:exper}
 
+%%%%%%%%%%%%%%%%%%%%%%%%
+% Hardware Setup Section
+\section{Hardware Setup}
+\label{sec:hardware}
+All experimental data was taken using a Novatel Propak v3 as the GPS receiver with pinwheel-type antennas, identical to those used in \cite{scottthesis}. All positioning computation was conducted on an Advantech ARK 3440 running Ubuntu Linux 12.04.1 in the rearmost vehicle. Novatel data was relayed directly from receivers in other vehicles to the positioning computer through the use of XTend $1~W,~900~MHz$ radio modems connected via RS232-USB adapters. This eliminated the need for additional computers, a setup which was found to introduce unacceptable latency into the system. In this manner, a single central hub was able to host the MOOS database while controlling all receivers and data flow to all position algorithms for multiple vehicle testing.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %   Chapter 4
@@ -211,7 +229,7 @@ The end user---the driver---will primarily be presented with the screen depicted
 
 \nocite{travisdiss}
 \nocite{travisshort}
-% \bibitem{travismartin} William Travis, Scott Martin and David M. Bevly, ``Automated short distance vehicle following using a dynamic base RTK system." Int. J. Vehicle Autonomous Systems, Vol. 9, Nos. 1/2, 2011. pp 126-141
+\nocite{calgary}
 
 % \bibitem{platoon} M. E. Cannon, C. Basnayake, S. Syed, and G. Lachapelle. ``Precise gps sensor subsystem for Vehicle Platoon  Control." In Proceedings of ION GPS/GNSS 2003 Conference. pp 213-224, 2003.
 

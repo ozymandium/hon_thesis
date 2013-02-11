@@ -56,11 +56,8 @@ __*Why this paper is important [one line]*__
         - lidar
             - Use of intensity measurement can help with other tasks (lanes)
             -  requires line-of sight
-    - fused and coupled solutions
-        - mention FHWA2 work
-        - Scott thesis on coupling    
     - advantages of GPS-based
-- What comes from DRTK
+- What comes from DRTK - need to redo
     - TDCP - path accuracy
     - Lateral Dev
     - Distance (direct)
@@ -90,13 +87,15 @@ __*Why this paper is important [one line]*__
 - Final Design
     - [figure] arrows pointing to key parts
 
-## Chap 3: Experimental Validation [Finish by 4/1/2013] ##
+## Chap 3: Experimental Validation [Finish by 4/1/2013] ##  
+- Hardware Setup
+
+
 *Prowler/Santa Fe?*  
 *Record Lateral Errors and Speed consistency*  
 
 - 2 Vehicle - *focus on GUI usefulness*  
 - 3 Vehicle - *focus on error propagation*  
-    - 
 
 ## Chap 4: Extension to Longer Chains [Finish by end of semester]##
 - Daisy chain with a set configuration

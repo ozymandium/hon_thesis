@@ -27,18 +27,6 @@
   timestamp = {2013.01.30}
 }
 
-@TECHREPORT{lidarvsradaracc,
-  author = {Glenn R. Widmann, Michele K. Daniels, Lisa Hamilton, Lawrence Humm,
-	Bryan Riley, Jan K. Schiffmann, David E. Schnelker and William H.
-	Wishon},
-  title = {Comparison of Lidar-Based and Radar-Based Adaptive Cruise Control
-	Systems},
-  institution = {Society of Automotive Engineers},
-  year = {2000},
-  owner = {rgcofield},
-  timestamp = {2013.01.31}
-}
-
 @INPROCEEDINGS{visionrec,
   author = {Kehtarnavaz, N. and Lee, J.S. and Griswold, N.C.},
   title = {Vision-based Convoy Following by Recursive Filtering},
@@ -117,6 +105,18 @@
   year = {2011},
   volume = {9},
   pages = {126-141},
+  owner = {rgcofield},
+  timestamp = {2013.01.31}
+}
+
+@TECHREPORT{lidarvsradaracc,
+  author = {Glenn R. Widmann and Michele K. Daniels and Lisa Hamilton and Lawrence
+	Humm and Bryan Riley, Jan K. Schiffmann, David E. Schnelker and William
+	H. Wishon},
+  title = {Comparison of Lidar-Based and Radar-Based Adaptive Cruise Control
+	Systems},
+  institution = {Society of Automotive Engineers},
+  year = {2000},
   owner = {rgcofield},
   timestamp = {2013.01.31}
 }
