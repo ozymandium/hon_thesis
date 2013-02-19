@@ -85,6 +85,7 @@ __*Why this paper is important [one line]*__
     - Optimize using human subjects
     - Indust. Eng./ Psychology stuff on conveying information
 - Final Design
+    - calculating path deviation
     - [figure] arrows pointing to key parts
 
 ## Chap 3: Experimental Validation [Finish by 4/1/2013] ##  

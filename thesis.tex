@@ -6,6 +6,11 @@
 \usepackage{tikz}
 \usepackage{pgf}
 
+% enable expand math support
+\usepackage{amsmath}
+% enable graphic support
+\usepackage{graphicx}
+
 % for list of abbreviations
 \usepackage[intoc]{nomencl}
 \renewcommand{\nomname}{List of Abbreviations}
@@ -146,7 +151,7 @@ The accuracy of the TDCP algorithm decreases over time as errors in the position
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Graphical User Interface}
 
-This chapter will explain ____.
+This chapter will explain ...
 
 % integrate this sentece with the MOOS stuff
 
@@ -154,7 +159,9 @@ This chapter will explain ____.
 %%%%%%%%%%%%%%%%%%%%%%
 % Architecture Section
 \section{Architecture}
-Figure \ref{fig:blackboxflow} depicts the predefined inputs and outputs of the GUI. The primary message passing architecture used to deliver data to the GUI, as depicted in Fig. \ref{fig:blackboxflow}, was the Mission Oriented Operating Suite (MOOS), as developed by \cite{moos}. The GUI was primarily developed using postprocessed data collected from an Prowler ATV automously following an Infiniti G35 using the same positioning and radio setup described in Sect. \ref{sec:hardware}. This is made possible by the playback feature of the 
+\label{sec:arch}
+%%%% MOOS Messages
+Figure \ref{fig:blackboxflow} depicts the predefined inputs and outputs of the GUI. The primary message passing architecture used to deliver data to the GUI, as depicted in Fig. \ref{fig:blackboxflow}, was the Mission Oriented Operating Suite (MOOS), as developed by \cite{moos}. The GUI was primarily developed using postprocessed data collected from an Prowler ATV automously following an Infiniti G35 using the same positioning and radio setup described in Sect. \ref{sec:hardware}. This is made possible by the playback feature of the MOOS framework, which is used in live operation to send raw data between the GPS receiver and the DRTK, TDCP and DAF algorithms, as well as the GUI
 
 % Black box info flow chart
 \begin{figure}[htbp]
@@ -164,20 +171,46 @@ Figure \ref{fig:blackboxflow} depicts the predefined inputs and outputs of the G
     \label{fig:blackboxflow}
 \end{figure}
 
-%%%% Qt Signals/Slots
-
+%%%% Qt Signals/Slots - segway into hooking up to ROS
+The Qt framework has an internal message passing scheme similar to a publisher/subscriber model, using instead what are called signals and slots. This is 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Simulation/Optimization Section
 \section{Simulation \& Design Optimization}
-\label{sec:sim_opt}
+\label{sec:simopt}
 
+To determine the efficiency with which information was being conveyed, a simulation setup was devised to mimic the conditions of driving a vehicle using the GUI to varying degrees while within a controllable laboratory setting. Prior to testing path fidelity in experimental trials, qualitative feedback was received from drivers using line-of-sight following and the GUI side by side. These recommendation were then incorporated into the overall design.
+
+% What the tester was presented with
+Test drivers sat at a computer desk with a video game steering wheel and brake/accelerator pedals placed in a position similar to that of a motor vehicle. The inputs they were required to give to the simulator for operation were an angular velocity via the steering wheel, and a longitudinal velocity via the pedals---accelerator for forward, brake for reverse or negative acceleration. The simulation was presented visually to the test drivers via two computer screens placed at eye level. These screens displayed a first-person view from the model of the robotic vehicle being simulated, as if looking out a windshield. These conditions, depicted in Fig. \ref{fig:simsetup}, were chosen to provide an experience similar to that of a convoy. 
+
+% The backend
+The simulated robot interacted with an environment created using the Modular Open Robots Simulation Engine (MORSE). The dynamics were simulated using the Bullet physics engine.
+
+% picture of the setup
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=6.5in]{./figs/sim_setup.png}
+    \caption{Simulation setup}
+    \label{fig:simsetup}
+\end{figure}
+
+% testing procedures and how the gui was changed
+Three tests were performed: one using only visual line-of-sight to follow a vehicle, one using line-of-sight while presented with the GUI in the top-right corner of the view screen, and one with only the GUI visible to the driver. All test drivers were asked to follow a lead vehicle which was controlled by a pre-recorded path.
+
+% table of results...
+Results ...
 
 %%%%%%%%%%%%%%%%%%%%%%
 % Final Design Section
 \section{Final Design}
 \label{sec:finaldes}
-The end user---the driver---will primarily be presented with the screen depicted in Fig. \ref{fig:finaldesdriv}. There is always the option to change operational parameters, using the screen depicted in Figure \ref{fig:finaldesopts}.
+
+% primary view screen
+The end user---the driver---will primarily be presented with the screen depicted in Fig. \ref{fig:finaldesdriv}. The overarching concept behind this view is that the driver be presented a path and location of the leading vehicle in a coordinate frame relative to the host (following) vehicle, i.e., an overhead view such that "up" corresponds to the positive longitudinal axis of the vehicle. Three pieces of numerical information are also presentd: the curvilinear following distance, lateral path deviation, and velocity of the host. 
+
+% options screen
+There is always the option to change operational parameters, using the screen depicted in Figure \ref{fig:finaldesopts}, which are primarily the lateral deviation thresholds, following distance thresholds, 
 
 % the driver screen
 \begin{figure}[htbp]
@@ -195,6 +228,24 @@ The end user---the driver---will primarily be presented with the screen depicted
     \label{fig:finaldesopts}
 \end{figure}
 
+%%%% Calculating the lateral error
+The array of relative path points starts with the nearest point behind the antenna of following vehicle $x_1,y_1)$, proceeding to the nearest point in front of the vehicle's antenna $(x_2,y_2)$. The path is assumed to be straight between these two points, and the lateral error is defined as the length of a line perpendicular to the path line which includes the point $(x_0,y_0)$ representing the position of the follower. The formulation of the lateral error is then given by Eq. \ref{eq:laterr} \cite{laterrformula}. Once this value has been determined, it may be compared against user-input threshold values to determine the display color to use for the follower on-screen.
+
+% Lateral error formula
+\begin{align}
+    \label{eq:laterr}
+    e &= \frac{ (x_2 - x_1)(y_1 - y_0) - (x_1 - x_0)(y_2 - y_1) |}{ \sqrt{ (x_2 - x_1)^2 + (y_2 - y_1)^2 } }\\
+\end{align}
+
+%%%% Calculating the leader color
+The color of the leader represents a safety estimate for forward spacing at any given time. This is determined by a user-input scalar value $\mu$ representing the negative acceleration in earth gravities required to come to a complete stop from a given present velocity vector $\bar{v}$ before reaching the leader's present location which is curvilinear stopping distance $d_s$ away. The relation is given in Eq. \ref{eq:stopdist}. When 
+
+% stopping distance equation (mu)
+\begin{align}
+    \label{eq:stopdist}
+    d_s &= \frac {|\bar{v}|^2} {2 \mu g}
+\end{align}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %   Chapter 3
@@ -206,7 +257,7 @@ The end user---the driver---will primarily be presented with the screen depicted
 % Hardware Setup Section
 \section{Hardware Setup}
 \label{sec:hardware}
-All experimental data was taken using a Novatel Propak v3 as the GPS receiver with pinwheel-type antennas, identical to those used in \cite{scottthesis}. All positioning computation was conducted on an Advantech ARK 3440 running Ubuntu Linux 12.04.1 in the rearmost vehicle. Novatel data was relayed directly from receivers in other vehicles to the positioning computer through the use of XTend $1~W,~900~MHz$ radio modems connected via RS232-USB adapters. This eliminated the need for additional computers, a setup which was found to introduce unacceptable latency into the system. In this manner, a single central hub was able to host the MOOS database while controlling all receivers and data flow to all position algorithms for multiple vehicle testing.
+All experimental data was taken using a Novatel Propak v3 as the GPS receiver with pinwheel-type antennas, identical to those used in \cite{scottthesis}. All positioning computation was conducted on an Advantech ARK 3440 running Ubuntu Linux 12.04.1 in the rearmost vehicle. Novatel data was relayed directly from receivers in other vehicles to the positioning computer through the use of XTend $1~W,~900~MHz$ radio modems connected via RS232-USB adapters. This eliminated the need for additional computers, which was found to introduce unacceptable latency into the system. In this manner, a single central hub was able to host the MOOS database while controlling all receivers and data flow to all position algorithms for multiple vehicle testing.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %   Chapter 4
@@ -219,6 +270,10 @@ All experimental data was taken using a Novatel Propak v3 as the GPS receiver wi
 %   Chapter 5
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Conclusions}
+
+
+\section{Future Work}
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
