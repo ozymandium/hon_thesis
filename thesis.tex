@@ -153,9 +153,6 @@ The accuracy of the TDCP algorithm decreases over time as errors in the position
 
 This chapter will explain ...
 
-% integrate this sentece with the MOOS stuff
-
-
 %%%%%%%%%%%%%%%%%%%%%%
 % Architecture Section
 \section{Architecture}
@@ -172,7 +169,7 @@ Figure \ref{fig:blackboxflow} depicts the predefined inputs and outputs of the G
 \end{figure}
 
 %%%% Qt Signals/Slots - segway into hooking up to ROS
-The Qt framework has an internal message passing scheme similar to a publisher/subscriber model, using instead what are called signals and slots. This is 
+The Qt framework used to generate the GUI from common building blocks has an internal message passing scheme similar to a publisher/subscriber model, using instead what are called signals and slots. For instance, the main window widget alerts the render area to the left when a spinbox in the options has been changed via a signal/slot by passing a boolean value. All data coming into the GUI from MOOS passes through an interface that bridges MOOS with two signal/slot pairs: one for the relative path list and for the follower velocity. In this way GUI inputs can be made agnostic to the middleware used, requiring only a simple widget be written in order to be hooked up to a new data stream. This approach was taken to make the simulation with a ROS (Robotic Operating System) middleware in Sec. \ref{sec:simopt} output data in a format useable by the GUI.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Simulation/Optimization Section
@@ -185,7 +182,7 @@ To determine the efficiency with which information was being conveyed, a simulat
 Test drivers sat at a computer desk with a video game steering wheel and brake/accelerator pedals placed in a position similar to that of a motor vehicle. The inputs they were required to give to the simulator for operation were an angular velocity via the steering wheel, and a longitudinal velocity via the pedals---accelerator for forward, brake for reverse or negative acceleration. The simulation was presented visually to the test drivers via two computer screens placed at eye level. These screens displayed a first-person view from the model of the robotic vehicle being simulated, as if looking out a windshield. These conditions, depicted in Fig. \ref{fig:simsetup}, were chosen to provide an experience similar to that of a convoy. 
 
 % The backend
-The simulated robot interacted with an environment created using the Modular Open Robots Simulation Engine (MORSE). The dynamics were simulated using the Bullet physics engine.
+The simulated robot interacted with an environment created using the Modular Open Robots Simulation Engine (MORSE). The dynamics were simulated using the built in Bullet physics engine. Input from the driving wheel and pedals, as well as position and velocity and output from the simulation was conducted using the ROS message passing framework.
 
 % picture of the setup
 \begin{figure}[htbp]
@@ -201,6 +198,7 @@ Three tests were performed: one using only visual line-of-sight to follow a vehi
 % table of results...
 Results ...
 
+
 %%%%%%%%%%%%%%%%%%%%%%
 % Final Design Section
 \section{Final Design}
@@ -209,9 +207,6 @@ Results ...
 % primary view screen
 The end user---the driver---will primarily be presented with the screen depicted in Fig. \ref{fig:finaldesdriv}. The overarching concept behind this view is that the driver be presented a path and location of the leading vehicle in a coordinate frame relative to the host (following) vehicle, i.e., an overhead view such that "up" corresponds to the positive longitudinal axis of the vehicle. Three pieces of numerical information are also presentd: the curvilinear following distance, lateral path deviation, and velocity of the host. 
 
-% options screen
-There is always the option to change operational parameters, using the screen depicted in Figure \ref{fig:finaldesopts}, which are primarily the lateral deviation thresholds, following distance thresholds, 
-
 % the driver screen
 \begin{figure}[htbp]
     \centering
@@ -219,6 +214,9 @@ There is always the option to change operational parameters, using the screen de
     \caption{Final Design --- Driver view}
     \label{fig:finaldesdriv}
 \end{figure}
+
+% options screen
+There is always the option to change operational parameters, using the screen depicted in Figure \ref{fig:finaldesopts}, which are primarily the lateral deviation thresholds, following distance thresholds and the maximum distance to display onscreen during fixed-scale mode. When the option for to always display the lead vehicle is enabled, the maximum following distance becomes the minimum value, and whenever the direct distance to the follower exceeds this, the screen is scaled to include it in the range semicircle.
 
 % the option screen
 \begin{figure}[htbp]
@@ -234,11 +232,11 @@ The array of relative path points starts with the nearest point behind the anten
 % Lateral error formula
 \begin{align}
     \label{eq:laterr}
-    e &= \frac{ (x_2 - x_1)(y_1 - y_0) - (x_1 - x_0)(y_2 - y_1) |}{ \sqrt{ (x_2 - x_1)^2 + (y_2 - y_1)^2 } }\\
+    e &= \frac{ (x_2 - x_1)(y_1 - y_0) - (x_1 - x_0)(y_2 - y_1) |}{ \sqrt{ (x_2 - x_1)^2 + (y_2 - y_1)^2 } }
 \end{align}
 
 %%%% Calculating the leader color
-The color of the leader represents a safety estimate for forward spacing at any given time. This is determined by a user-input scalar value $\mu$ representing the negative acceleration in earth gravities required to come to a complete stop from a given present velocity vector $\bar{v}$ before reaching the leader's present location which is curvilinear stopping distance $d_s$ away. The relation is given in Eq. \ref{eq:stopdist}. When 
+The color of the leader represents a safety estimate for forward spacing at any given time. This is determined by a user-input scalar value $\mu$ representing the negative acceleration in earth gravities required to come to a complete stop from a given present velocity vector $\bar{v}$ before reaching the leader's present location which is curvilinear stopping distance $d_s$ away. The relation is given in Eq. \ref{eq:stopdist}. Since this value is contingent upon velocity it must be recalculated for each color threshold (red and yellow) at every update of the host velocity, then compared to the host curvilinear following distance to make a color determination.
 
 % stopping distance equation (mu)
 \begin{align}
@@ -257,6 +255,7 @@ The color of the leader represents a safety estimate for forward spacing at any 
 % Hardware Setup Section
 \section{Hardware Setup}
 \label{sec:hardware}
+
 All experimental data was taken using a Novatel Propak v3 as the GPS receiver with pinwheel-type antennas, identical to those used in \cite{scottthesis}. All positioning computation was conducted on an Advantech ARK 3440 running Ubuntu Linux 12.04.1 in the rearmost vehicle. Novatel data was relayed directly from receivers in other vehicles to the positioning computer through the use of XTend $1~W,~900~MHz$ radio modems connected via RS232-USB adapters. This eliminated the need for additional computers, which was found to introduce unacceptable latency into the system. In this manner, a single central hub was able to host the MOOS database while controlling all receivers and data flow to all position algorithms for multiple vehicle testing.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -264,6 +263,8 @@ All experimental data was taken using a Novatel Propak v3 as the GPS receiver wi
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Error Propagation in Convoys}
 \label{chap:errprop}
+
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
