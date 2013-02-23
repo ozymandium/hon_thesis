@@ -17,8 +17,12 @@
 \makenomenclature
 %% don't forget to run:   makeindex ausample.nlo -s nomencl.ist -o ausample.nls
 
+% click on links to jump in pdf - should come last of usepackages
+\usepackage{hyperref}
+\hypersetup{}
+
 % May want theorems numbered by chapter
-\newtheorem{theorem}{Theorem}[chapter]
+% \newtheorem{theorem}{Theorem}[chapter]
 
 \title{A Visual Driver Aid and Investigation of Error Propagation in Convoy Following Based on Dynamic Base Real-Time Kinematic Positioning}
 \author{Robert Cofield}
