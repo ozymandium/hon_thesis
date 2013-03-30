@@ -235,13 +235,15 @@ where $m_{12}$ and $m_{03}$ represent the slopes of the rearmost path line and t
 
 % TODO pseudo-code representing state determination from stopping distance and current distance
 %%%% Calculating the leader color
-The color of the leader represents a safety estimate for forward spacing at any given time. This is determined by a user-input scalar value $\mu$ representing the negative acceleration in earth gravities required to come to a complete stop from a given present velocity vector $\bar{v}$ before reaching the leader's present location which is curvilinear stopping distance $d_s$ away. The relation is given in Eq. \ref{eq:stopdist}. Since this value is contingent upon velocity it must be recalculated for each color threshold (red and yellow) at every update of the host velocity, then compared to the follower's curvilinear following distance to make a color determination.
+The color of the leader represents a safety estimate for forward spacing at any given time. For this estimate it is assumed that the vehicle in question is equipped with anti-lock brakes to keep friction in the static regime, and that the braking system is capable of maintaining peak longitudinal forces during extreme deceleration. At each time update, a minimum stopping distance is calculated for two different road surfaces with user-input coefficients of friction. This relation is given in Eq. \ref{eq:stopdist}, where $\mu$  is the combined coefficient of friction between the terrain surface and the tires,  $|\bar{v}|$ is the magnitude of ground-plane velocity, and $g$ is the acceleration due to gravity.
 
 % stopping distance equation (mu)
 \begin{align} \label{eq:stopdist}
     d_s &= \frac {|\bar{v}|^2} {2 \mu g}
 \end{align}
 
+This relation assumes level terrain such that gravity only impacts the normal force acting on tires, and no longitudinal effects on the vehicle. Two scenarii are used: a 'warning' state---when the present minimum stopping distance is less than that for a low-friction surface such as gravel ($\mu=0.4$)---and a 'critical' state---when the present minimum stopping distance is than that for a typical asphalt roadway($\mu=0.7$). 
+% TODO add citation for mu values
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Data Dissemenation and Architecture
@@ -327,14 +329,12 @@ The end user---the driver---will primarily be presented with the screen depicted
 \section{Hardware Setup}
 \label{sec:hardware}
 
-All experimental data was taken using Novatel Propak v3 GPS receivers with pinwheel antennas, identical to those used in \cite{scottthesis}. All positioning computation was conducted on an laptop running Ubuntu Linux 12.04.1 in the rearmost vehicle. Novatel data was relayed directly from receivers in other vehicles to the positioning computer through the use of XTend $1~W,~900~MHz$ radio modems connected via RS232-USB adapters. This eliminated the need for additional computers, which was found to introduce unacceptable latency into the system. In this manner, a single central hub was able to host the MOOS database while controlling all receivers and data flow to all position algorithms for multiple vehicle testing.
+All experimental data was taken using Novatel Propak v3 GPS receivers with pinwheel antennas, identical to those used in \cite{scottthesis}. All positioning computation was conducted on an Apple MacBook Pro Laptop running Ubuntu Linux 12.04.1 in a Parallels virtual machine in the rearmost vehicle. Novatel data was relayed directly from receivers in other vehicles to the positioning computer through the use of XTend $1~W,~900~MHz$ radio modems connected via RS232-USB adapters. This eliminated the need for additional computers, which was found to introduce unacceptable latency into the system. In this manner, a single central hub was able to host the MOOS database while controlling all receivers and data flow to all position algorithms for multiple vehicle testing.
 
-%%%%%%%%%%%%%%%%%%%%%%%%
-% Demo @ Benning Section
-\section{Military Field Testing}
-\label{sec:benning}
-
-To evaluate the usefulness of the GUI in combat scenarios, a demonstration was held at Fort Benning in Columbus, GA, USA to a group of active duty soldiers. Two use-cases were tested: 
+%%%%%%%%%%%%%%%%%%%%%%%%%
+% Tuning Distance Section
+\section{Tuning Friction Coefficient Values}
+\label{sec:tunemu}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

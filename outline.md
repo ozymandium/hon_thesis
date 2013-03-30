@@ -61,18 +61,18 @@ __*Why this paper is important [one line]*__
     - TDCP - path accuracy
     - Lateral Dev
     - Distance (direct)
-    - velocities    w
+    - velocities  
 
 ## Chap 2: Graphical User Interface  [Finish by 2/15/2013] ##
     
-
 - Introductory remarks
     - development using playback
     -  could prove useful in the development of LF control algorithms (out of the scope of this paper)
-- Calculations  
+- Calculations to determine color states
         - use of UTM makes calculations easier, but must be translated to LatLon for GUI
     - path deviation
-    - projection of deviation point onto path for distance calc
+    - distance
+        - projection of deviation point onto path for distance calc
 -  Data dissemenation
     - Qt Signal/Slot
     - Instance reference passing
@@ -84,26 +84,26 @@ __*Why this paper is important [one line]*__
         - message structure
         - how messages get from raw data to qt-usable form
     - Threading
-- Real World
-    - method used for validation of screen info
-    - usefulness - can a driver use it exclusively?
-    - 
-- Optimization Process
-    - Simulation in lab using Logitech controllers
-    - Optimize using human subjects
-    - Indust. Eng./ Psychology stuff on conveying information
 - Final Design
     - [figure] arrows pointing to key parts
 
+
 ## Chap 3: Experimental Validation [Finish by 4/1/2013] ##  
+
 - Introductory remarks
-- Hardware Setup
 
-*Prowler/Santa Fe?*  
-*Record Lateral Errors and Speed consistency*  
+- Hardware Setup  
+    
+- Tests
+    - Description of Tests
+        - Straight Line
+        - Constant Radius, constant velocity
+        - Skid Pad?
+            - need place with no visual cues
+            - hard to replicate path between drivers
+    - Processing of Results
+        - 
 
-- 2 Vehicle - *focus on GUI usefulness*  
-- 3 Vehicle - *focus on error propagation*  
 
 - User Feedback
     - Intro: outline Ft. Benning Demo
