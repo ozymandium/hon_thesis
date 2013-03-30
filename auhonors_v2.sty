@@ -1,18 +1,7 @@
-% auhonors.sty
-\typeout{Document Style Option 'auhonors' <3 Sep 2008>}
+% auhonors_v2.sty
 
-% Style-option file for Auburn University Master's Thesis. 
-% See the file ausample.tex for an example of its use.
-% Initial version 22-Dec-1989 by Darrel Hankerson.
-% Updated version 22-Oct-2009 by Christopher Wilson.
-% Use with:
-%     \documentclass[11pt]{report}
-%     \usepackage{aums,ulem}
-
-%%Change Log:
-%%Changed 2009/11/19: Changed \year to \copyrightyear to fix issue with the TikZ package
-
-\ProvidesPackage{auhonors}
+\typeout{Document Style Option 'auhonors_v2' <29 Mar 2013>}
+\ProvidesPackage{auhonors_v2}
 
 \oddsidemargin0in  \textwidth6.5in  \topmargin-.5in  \textheight9in
 \def\@topvspace{.6in}
@@ -61,7 +50,7 @@
 \def\@date{\@Need{date}}
 \def\@Need#1{Put the {$\scriptstyle\backslash$\tt#1} command in your file!}
 
-\def\@degree{University Honors Scholar}
+\def\@degree{Master of Science}
 \def\@ThesisDissertation{Thesis}
 \def\@thesisdissertation{thesis}
 \def\@submittedto{Graduate Faculty of\\ Auburn University}
@@ -108,161 +97,159 @@
      \addpenalty{\@secpenalty}\addvspace{\@tempskipa}\fi \@ifstar
      {\@ssect{#3}{#4}{#5}{#6}}{\@dblarg{\@sect{#1}{#2}{#3}{#4}{#5}{#6}}}}
 
+% Removed 02-Apr-01
+%\def\ApprovalPage{\newpage\thispagestyle{empty}{\def\thanks##1{}
+%\def\@ApprovalPage{%
+%\parbox[t]{.45\textwidth}{\underline{\hspace*{.45\textwidth}}\\
+%\csname professor\arabic{enumi}\endcsname}}
+%\begin{center}\vspace*{\@topvspace}
+%{\sc\@title \par} \addvspace{36pt} {\lineskip .75em
+%\begin{tabular}[t]{c}\@author 
+%\end{tabular}\par} 
+%\vfill\singlespace\setcounter{enumii}{\arabic{professor}}
+%\ifodd\c@professor \else\stepcounter{enumii}\fi
+%\begin{tabular}{@{}l@{\hspace{.09\textwidth}}l}\setcounter{enumi}{1}%
+%Certificate of Approval: \\[48pt]
+%\@whilenum \c@enumi<\c@enumii\do{\def\@and{&}%
+%\@ApprovalPage
+%\ifnum\c@enumi < \c@professor 
+% \ifodd\c@enumi \@and \else \\ \mbox{}\\[24pt] \fi
+%\fi
+%\stepcounter{enumi}}
+%\end{tabular}\par
+%\ifodd\c@professor \@ApprovalPage \fi
+%\end{center}\newpage}\gdef\ApprovalPage{}}
 
-\def\ApprovalPage{\newpage\thispagestyle{empty}{\def\thanks##1{}
-\def\@ApprovalPage{%
-\parbox[t]{.45\textwidth}{\underline{\hspace*{.45\textwidth}}\\
-\csname professor\arabic{enumi}\endcsname}}
-\begin{center}\vspace*{\@topvspace}
-{\sc\@title \par} \addvspace{36pt}
- \vspace*{0.5in}\singlespace
- Except where reference is made to the work of others, the work
- described in this
- \@thesisdissertation{} is my own or was done in collaboration
- with my advisory committee.
- This \@thesisdissertation{} does not include proprietary or classified
- information.
- \par\vspace*{0.6in}
- \underline{\hspace*{3.5in}}\\
- \@author
-\vfill\setcounter{enumii}{\arabic{professor}}
-\ifodd\c@professor \else\stepcounter{enumii}\fi
-\begin{tabular}{@{}l@{\hspace{.09\textwidth}}l}\setcounter{enumi}{1}%
-Certificate of Approval: \\[48pt]
-\@whilenum \c@enumi<\c@enumii\do{\def\@and{&}%
-\@ApprovalPage
-\ifnum\c@enumi < \c@professor 
-\ifodd\c@enumi \@and \else \\ \mbox{}\\[24pt] \fi
-\fi
-\stepcounter{enumi}}
-\end{tabular}\par
-\ifodd\c@professor \@ApprovalPage \fi
-\end{center}\newpage}\gdef\ApprovalPage{}}
+%%Removed 2009
+%\def\ApprovalPage{\newpage\thispagestyle{empty}{\def\thanks##1{}
+%\def\@ApprovalPage{%
+%\parbox[t]{.45\textwidth}{\underline{\hspace*{.45\textwidth}}\\
+%\csname professor\arabic{enumi}\endcsname}}
+%\begin{center}\vspace*{\@topvspace}
+%{\sc\@title \par} \addvspace{36pt}
+%  \vspace*{0.5in}\singlespace
+%  Except where reference is made to the work of others, the work
+%  described in this
+%  \@thesisdissertation{} is my own or was done in collaboration
+%  with my advisory committee.
+%  This \@thesisdissertation{} does not include proprietary or classified
+%  information.
+%  \par\vspace*{0.6in}
+%  \underline{\hspace*{3.5in}}\\
+%  \@author
+%\vfill\setcounter{enumii}{\arabic{professor}}
+%\ifodd\c@professor \else\stepcounter{enumii}\fi
+%\begin{tabular}{@{}l@{\hspace{.09\textwidth}}l}\setcounter{enumi}{1}%
+%Certificate of Approval: \\[48pt]
+%\@whilenum \c@enumi<\c@enumii\do{\def\@and{&}%
+%\@ApprovalPage
+%\ifnum\c@enumi < \c@professor 
+% \ifodd\c@enumi \@and \else \\ \mbox{}\\[24pt] \fi
+%\fi
+%\stepcounter{enumi}}
+%\end{tabular}\par
+%\ifodd\c@professor \@ApprovalPage \fi
+%\end{center}\newpage}\gdef\ApprovalPage{}}
 
 
 \def\@TitlePage{
-        A \@thesisdissertation~ \\
-        Submitted to the \\
-        Auburn University Honors College \\
-        In partial fulfillment of the \\
-        Requirements for \\
-        \@degree
+        A \@thesisdissertation{} submitted to the Graduate Faculty of \\
+        Auburn University \\
+        in partial fulfillment of the \\
+        requirements for the Degree of \\
+        \@degree{}
 }
+
 %%Title page underwent significant changes, 2009
 \def\TitlePage{\newpage\thispagestyle{empty}{
 \let\footnotesize\small \let\footnoterule\relax
 %\vspace*{1ex}% 12-Jul-90 Problem with rubber lengths on this page?
 \begin{center}\vspace*{\@topvspace}
-{\singlespace\textbf{\@title} \par}
-\addvspace{72pt} 
-% by\\
-% \addvspace{12pt}
-{\lineskip .75em
+{\singlespace\textbf{\@title} \par} \addvspace{12pt} by\\ \addvspace{12pt} {\lineskip .75em
 \begin{tabular}[t]{c}\@author 
 \end{tabular}\par} 
-\end{center} \par
-\addvspace{36pt}
+\end{center} \par \addvspace{36pt}
 %\@thanks
 \begin{center}%\renewcommand{\baselinestretch}{3}\small\normalsize
         %\vfil
-        % \singlespace
-        \addvspace{96pt}
+        \singlespace
         \@TitlePage \\
-        % \addvspace{12pt}
-        \vfill
+        \addvspace{12pt}
         Auburn, Alabama\\ 
         \@date \\
-        % \addvspace{48pt}
-        % Keywords: \@keywords \\
-        % \addvspace{24pt}
-        % Copyright~\@copyrightyear~by~\@author   \\       
-        % \addvspace{24pt}
-        % Approved by\\
-        % \addvspace{12pt}
-% \setcounter{enumii}{\arabic{professor}}
-% \setcounter{enumi}{1}%
-% \@whilenum \c@enumi<\c@enumii\do{%
-% {\csname professor\arabic{enumi}\endcsname}\\
-% \stepcounter{enumi}}
-% {\csname professor\arabic{enumi}\endcsname}\\
+        \addvspace{48pt}
+        Keywords: \@keywords \\
+        \addvspace{24pt}
+        Copyright~\@copyrightyear~by~\@author   \\       
+        \addvspace{24pt}
+        Approved by\\
+        \addvspace{12pt}
+\setcounter{enumii}{\arabic{professor}}
+\setcounter{enumi}{1}%
+\@whilenum \c@enumi<\c@enumii\do{%
+{\csname professor\arabic{enumi}\endcsname}\\
+\stepcounter{enumi}}
+{\csname professor\arabic{enumi}\endcsname}\\
 \end{center}
 \setcounter{footnote}{0} 
 \gdef\@thanks{}\newpage}\gdef\TitlePage{}\gdef\@TitlePage{}}
 
-
-\def\vita{\newpage\begin{center}\vspace*{\@topvspace}\sc Vita \end{center}
-\par}
-\def\endvita{\newpage}
-
+%\def\vita{\newpage\begin{center}\vspace*{\@topvspace}\sc Vita \end{center}
+%\par}
+%\def\endvita{\newpage}
 
 \def\acknowledgments{\newpage\begin{center}\vspace*{\@topvspace}
 \addcontentsline{toc}{chapter}{Acknowledgments} Acknowledgments \end{center}\par}
 \def\endacknowledgments{\newpage}
 
 %%Copyright page no longer included, 2009.
-\def\CopyrightPage{\newpage{\def\thanks##1{}%
-\begin{center}\vspace*{\@topvspace}
-{\sc\@title \par} \addvspace{36pt} {\lineskip .75em
-\begin{tabular}[t]{c}\@author 
-\end{tabular}\par} 
-\end{center}
-\singlespace
-%
-% Grad school demands V shape text, 2005.  Match their example.
-% Breakage can occur on font changes.
-%
-\begin{center}
-Permission is granted to Auburn University to make copies of this
-\@thesisdissertation{} at its \\
-discretion, upon the request of individuals or institutions and at \\
-their expense.  The author reserves all publication rights.
-\end{center}
-\addvspace{48pt}
-\begin{flushright}
-\parbox{.4\textwidth}{\underline{\hspace*{.4\textwidth}}\\Signature of
-Author}\\[48pt]
-\parbox{.4\textwidth}{\underline{\hspace*{.4\textwidth}}\\Date of Graduation}
-\end{flushright}
-%
-% Removed Feb 2006
-%\addvspace{24pt}\noindent Copy sent to:
-%\begin{center}
-%\underline{Name} \hspace{.7\textwidth} \underline{Date}
+
+%\def\CopyrightPage{\newpage{\def\thanks##1{}%
+%\begin{center}\vspace*{\@topvspace}
+%{\sc\@title \par} \addvspace{36pt} {\lineskip .75em
+%\begin{tabular}[t]{c}\@author 
+%\end{tabular}\par} 
 %\end{center}
-%
-\newpage}\gdef\CopyrightPage{}} 
+%\singlespace
+%%
+%% Grad school demands V shape text, 2005.  Match their example.
+%% Breakage can occur on font changes.
+%%
+%\begin{center}
+%Permission is granted to Auburn University to make copies of this
+%\@thesisdissertation{} at its \\
+%discretion, upon the request of individuals or institutions and at \\
+%their expense.  The author reserves all publication rights.
+%\end{center}
+%\addvspace{48pt}
+%\begin{flushright}
+%\parbox{.4\textwidth}{\underline{\hspace*{.4\textwidth}}\\Signature of
+%Author}\\[48pt]
+%\parbox{.4\textwidth}{\underline{\hspace*{.4\textwidth}}\\Date of Graduation}
+%\end{flushright}
+%%
+%% Removed Feb 2006
+%%\addvspace{24pt}\noindent Copy sent to:
+%%\begin{center}
+%%\underline{Name} \hspace{.7\textwidth} \underline{Date}
+%%\end{center}
+%%
+%\newpage}\gdef\CopyrightPage{}} 
 
-
-% \def\abstract{\newpage
-% \begin{center}\vspace*{\@topvspace}
-% \addcontentsline{toc}{chapter}{Abstract}{Abstract}\par\addvspace{12pt}
-% \end{center}\par}
-% \def\endabstract{\newpage}
 \def\abstract{\newpage
 \begin{center}\vspace*{\@topvspace}
-{\sc \@ThesisDissertation{} Abstract\\
-\@title}\par\addvspace{12pt}
-\@author\\
-\begin{singlespace}
-\@degree, \@date\par
-\@previousdegree\par
-\end{singlespace}
-\PAGEREF{LastPage} Typed Pages\par
-Directed by \@adviser
+\addcontentsline{toc}{chapter}{Abstract}{Abstract}\par\addvspace{12pt}
 \end{center}\par}
 \def\endabstract{\newpage}
 
 
-
-\def\StylePage{\newpage% \thispagestyle{empty}
-\vspace*{\bigskipamount}\vspace*{\@topvspace}\sloppy
-Style manual or journal used: {{\expandafter\em\@style}\hspace*{\fill}}
-\par\addvspace{\bigskipamount}
-Computer software used: {{\expandafter\em\@software}\hspace*{\fill}}\par
-\newpage% \addtocounter{page}{-1} % No page number for style-page
-\gdef\StylePage{}}
-
-
+%\def\StylePage{\newpage% \thispagestyle{empty}
+%\vspace*{\bigskipamount}\vspace*{\@topvspace}\sloppy
+%Style manual or journal used {{\expandafter\em\@style}\hspace*{\fill}}
+%\par\addvspace{\bigskipamount}
+%Computer software used {{\expandafter\em\@software}\hspace*{\fill}}\par
+%\newpage% \addtocounter{page}{-1} % No page number for style-page
+%\gdef\StylePage{}}
 
 \def\contentsname{Table of Contents}
 \def\tableofcontents{\@restonecolfalse\if@twocolumn\@restonecoltrue\onecolumn
@@ -319,9 +306,7 @@ Computer software used: {{\expandafter\em\@software}\hspace*{\fill}}\par
 
 
 \AtEndDocument{%
-    \clearpage\addtocounter{page}{\romanpages}
-    \def\romanpages{0}
-}
+\clearpage\addtocounter{page}{\romanpages}}
 \usepackage{lastpage}
 
 \@ifpackageloaded{hyperref}{
@@ -338,4 +323,3 @@ Computer software used: {{\expandafter\em\@software}\hspace*{\fill}}\par
 \doublespacing
 
 \endinput
-

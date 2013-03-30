@@ -61,42 +61,56 @@ __*Why this paper is important [one line]*__
     - TDCP - path accuracy
     - Lateral Dev
     - Distance (direct)
-    - velocities
+    - velocities    w
 
 ## Chap 2: Graphical User Interface  [Finish by 2/15/2013] ##
+    
+
 - Introductory remarks
     - development using playback
     -  could prove useful in the development of LF control algorithms (out of the scope of this paper)
+- Calculations  
+        - use of UTM makes calculations easier, but must be translated to LatLon for GUI
+    - path deviation
+    - projection of deviation point onto path for distance calc
+-  Data dissemenation
+    - Qt Signal/Slot
+    - Instance reference passing
+    - didn't use another database to avoid overhead
 - Architecture
     - [figure] Depict GUI as a block with defined inputs & outputs
     - global Message passing
-            - how messages arrive from receiver - modularity of gui's global messaging interface
-            - message structure
-            - how messages get from raw data to qt-usable form
-    - Qt message pasing
-        - signals/slots
-        - connections between renderarea, mainwindow
+        - how messages arrive from receiver - modularity of gui's global messaging interface
+        - message structure
+        - how messages get from raw data to qt-usable form
     - Threading
 - Real World
     - method used for validation of screen info
     - usefulness - can a driver use it exclusively?
+    - 
 - Optimization Process
     - Simulation in lab using Logitech controllers
     - Optimize using human subjects
     - Indust. Eng./ Psychology stuff on conveying information
 - Final Design
-    - calculating path deviation
     - [figure] arrows pointing to key parts
 
 ## Chap 3: Experimental Validation [Finish by 4/1/2013] ##  
+- Introductory remarks
 - Hardware Setup
-
 
 *Prowler/Santa Fe?*  
 *Record Lateral Errors and Speed consistency*  
 
 - 2 Vehicle - *focus on GUI usefulness*  
 - 3 Vehicle - *focus on error propagation*  
+
+- User Feedback
+    - Intro: outline Ft. Benning Demo
+    - Test 1: 
+    - Test 2: nighttime
+        - essentially 
+    - Response Session outline
 
 ## Chap 4: Extension to Longer Chains [Finish by end of semester]##
 - Daisy chain with a set configuration

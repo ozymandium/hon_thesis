@@ -1,20 +1,13 @@
-% auhonors.sty
-\typeout{Document Style Option 'auhonors' <3 Sep 2008>}
-
 % Style-option file for Auburn University Master's Thesis. 
 % See the file ausample.tex for an example of its use.
 % Initial version 22-Dec-1989 by Darrel Hankerson.
-% Updated version 22-Oct-2009 by Christopher Wilson.
 % Use with:
 %     \documentclass[11pt]{report}
 %     \usepackage{aums,ulem}
 
-%%Change Log:
-%%Changed 2009/11/19: Changed \year to \copyrightyear to fix issue with the TikZ package
+\typeout{Document Style Option 'aums' <3 Sep 2008>}
 
-\ProvidesPackage{auhonors}
-
-\oddsidemargin0in  \textwidth6.5in  \topmargin-.5in  \textheight9in
+\oddsidemargin.5in  \textwidth6in  \topmargin-.5in  \textheight8.5in
 \def\@topvspace{.6in}
 
 \clubpenalty=10000 % penalty for creating club line at bottom of page
@@ -36,11 +29,11 @@
 
 
 \newcounter{professor}
-\def\professor#1{ % Save the professors; swap first 2 names. -- Update: No longer swapping. 
+\def\professor#1{ % Save the professors; swap first 2 names.
  \stepcounter{professor}
  \ifcase \arabic{professor} 
-  \or \setcounter{enumi}{1}
   \or \setcounter{enumi}{2}
+  \or \setcounter{enumi}{1}
   \else \setcounter{enumi}{\arabic{professor}}
  \fi
  \expandafter\def\csname professor\arabic{enumi}\endcsname{#1}}
@@ -53,27 +46,25 @@
 \def\adviser#1{\def\@adviser{#1}}    \def\@adviser{\@Need{adviser}}
 \def\style#1{\def\@style{#1}}        \def\@style{\@Need{style}}
 \def\software#1{\def\@software{#1}}  \def\@software{\@Need{software}}
-\def\keywords#1{\def\@keywords{#1}}  \def\@keywords{\@Need{keywords}}
-\def\copyrightyear#1{\def\@copyrightyear{#1}}          \def\@copyrightyear{\@Need{copyrightyear}}
 
 \def\@author{\@Need{author}}
 \def\@title{\@Need{title}}
 \def\@date{\@Need{date}}
 \def\@Need#1{Put the {$\scriptstyle\backslash$\tt#1} command in your file!}
 
-\def\@degree{University Honors Scholar}
+\def\@degree{Master of Science}
 \def\@ThesisDissertation{Thesis}
 \def\@thesisdissertation{thesis}
 \def\@submittedto{Graduate Faculty of\\ Auburn University}
 
 
 \def\@makechapterhead#1{{\parindent 0pt
- \begin{center}\vspace*{\@topvspace}
+ \begin{center}\vspace*{\@topvspace}\sc
  \ifnum \c@secnumdepth >\m@ne \@chapapp{} \thechapter\par\fi #1 
  \end{center}} }
 
 \def\@makeschapterhead#1{{\parindent 0pt
- \begin{center}\vspace*{\@topvspace}#1\end{center}} }
+ \begin{center}\vspace*{\@topvspace}\sc#1\end{center}} }
 
 
 \def\chapter{\clearpage \thispagestyle{plain} \global\@topnum\z@
@@ -108,6 +99,28 @@
      \addpenalty{\@secpenalty}\addvspace{\@tempskipa}\fi \@ifstar
      {\@ssect{#3}{#4}{#5}{#6}}{\@dblarg{\@sect{#1}{#2}{#3}{#4}{#5}{#6}}}}
 
+% Removed 02-Apr-01
+%\def\ApprovalPage{\newpage\thispagestyle{empty}{\def\thanks##1{}
+%\def\@ApprovalPage{%
+%\parbox[t]{.45\textwidth}{\underline{\hspace*{.45\textwidth}}\\
+%\csname professor\arabic{enumi}\endcsname}}
+%\begin{center}\vspace*{\@topvspace}
+%{\sc\@title \par} \addvspace{36pt} {\lineskip .75em
+%\begin{tabular}[t]{c}\@author 
+%\end{tabular}\par} 
+%\vfill\singlespace\setcounter{enumii}{\arabic{professor}}
+%\ifodd\c@professor \else\stepcounter{enumii}\fi
+%\begin{tabular}{@{}l@{\hspace{.09\textwidth}}l}\setcounter{enumi}{1}%
+%Certificate of Approval: \\[48pt]
+%\@whilenum \c@enumi<\c@enumii\do{\def\@and{&}%
+%\@ApprovalPage
+%\ifnum\c@enumi < \c@professor 
+% \ifodd\c@enumi \@and \else \\ \mbox{}\\[24pt] \fi
+%\fi
+%\stepcounter{enumi}}
+%\end{tabular}\par
+%\ifodd\c@professor \@ApprovalPage \fi
+%\end{center}\newpage}\gdef\ApprovalPage{}}
 
 \def\ApprovalPage{\newpage\thispagestyle{empty}{\def\thanks##1{}
 \def\@ApprovalPage{%
@@ -115,16 +128,16 @@
 \csname professor\arabic{enumi}\endcsname}}
 \begin{center}\vspace*{\@topvspace}
 {\sc\@title \par} \addvspace{36pt}
- \vspace*{0.5in}\singlespace
- Except where reference is made to the work of others, the work
- described in this
- \@thesisdissertation{} is my own or was done in collaboration
- with my advisory committee.
- This \@thesisdissertation{} does not include proprietary or classified
- information.
- \par\vspace*{0.6in}
- \underline{\hspace*{3.5in}}\\
- \@author
+  \vspace*{0.5in}\singlespace
+  Except where reference is made to the work of others, the work
+  described in this
+  \@thesisdissertation{} is my own or was done in collaboration
+  with my advisory committee.
+  This \@thesisdissertation{} does not include proprietary or classified
+  information.
+  \par\vspace*{0.6in}
+  \underline{\hspace*{3.5in}}\\
+  \@author
 \vfill\setcounter{enumii}{\arabic{professor}}
 \ifodd\c@professor \else\stepcounter{enumii}\fi
 \begin{tabular}{@{}l@{\hspace{.09\textwidth}}l}\setcounter{enumi}{1}%
@@ -132,7 +145,7 @@ Certificate of Approval: \\[48pt]
 \@whilenum \c@enumi<\c@enumii\do{\def\@and{&}%
 \@ApprovalPage
 \ifnum\c@enumi < \c@professor 
-\ifodd\c@enumi \@and \else \\ \mbox{}\\[24pt] \fi
+ \ifodd\c@enumi \@and \else \\ \mbox{}\\[24pt] \fi
 \fi
 \stepcounter{enumi}}
 \end{tabular}\par
@@ -141,65 +154,44 @@ Certificate of Approval: \\[48pt]
 
 
 \def\@TitlePage{
-        A \@thesisdissertation~ \\
-        Submitted to the \\
-        Auburn University Honors College \\
-        In partial fulfillment of the \\
-        Requirements for \\
+        A \@ThesisDissertation \\
+        Submitted to \\
+        the Graduate Faculty of \\
+        Auburn University \\
+        in Partial Fulfillment of the \\
+        Requirements for the \\
+        Degree of \\
         \@degree
 }
-%%Title page underwent significant changes, 2009
+
+
 \def\TitlePage{\newpage\thispagestyle{empty}{
 \let\footnotesize\small \let\footnoterule\relax
-%\vspace*{1ex}% 12-Jul-90 Problem with rubber lengths on this page?
+\vspace*{1ex}% 12-Jul-90 Problem with rubber lengths on this page?
 \begin{center}\vspace*{\@topvspace}
-{\singlespace\textbf{\@title} \par}
-\addvspace{72pt} 
-% by\\
-% \addvspace{12pt}
-{\lineskip .75em
+{\sc\@title \par} \addvspace{36pt} {\lineskip .75em
 \begin{tabular}[t]{c}\@author 
 \end{tabular}\par} 
 \end{center} \par
-\addvspace{36pt}
-%\@thanks
-\begin{center}%\renewcommand{\baselinestretch}{3}\small\normalsize
-        %\vfil
-        % \singlespace
-        \addvspace{96pt}
+\@thanks
+\begin{center}\renewcommand{\baselinestretch}{3}\small\normalsize
+        \vfil
         \@TitlePage \\
-        % \addvspace{12pt}
-        \vfill
-        Auburn, Alabama\\ 
-        \@date \\
-        % \addvspace{48pt}
-        % Keywords: \@keywords \\
-        % \addvspace{24pt}
-        % Copyright~\@copyrightyear~by~\@author   \\       
-        % \addvspace{24pt}
-        % Approved by\\
-        % \addvspace{12pt}
-% \setcounter{enumii}{\arabic{professor}}
-% \setcounter{enumi}{1}%
-% \@whilenum \c@enumi<\c@enumii\do{%
-% {\csname professor\arabic{enumi}\endcsname}\\
-% \stepcounter{enumi}}
-% {\csname professor\arabic{enumi}\endcsname}\\
+        \vfil\singlespace
+        \raisebox{-2ex}[0pt][0pt]{
+                \begin{tabular}[t]{c}Auburn, Alabama\\ \@date\end{tabular}}
 \end{center}
 \setcounter{footnote}{0} 
 \gdef\@thanks{}\newpage}\gdef\TitlePage{}\gdef\@TitlePage{}}
-
 
 \def\vita{\newpage\begin{center}\vspace*{\@topvspace}\sc Vita \end{center}
 \par}
 \def\endvita{\newpage}
 
-
 \def\acknowledgments{\newpage\begin{center}\vspace*{\@topvspace}
-\addcontentsline{toc}{chapter}{Acknowledgments} Acknowledgments \end{center}\par}
+\sc Acknowledgments \end{center}\par}
 \def\endacknowledgments{\newpage}
 
-%%Copyright page no longer included, 2009.
 \def\CopyrightPage{\newpage{\def\thanks##1{}%
 \begin{center}\vspace*{\@topvspace}
 {\sc\@title \par} \addvspace{36pt} {\lineskip .75em
@@ -230,14 +222,8 @@ Author}\\[48pt]
 %\underline{Name} \hspace{.7\textwidth} \underline{Date}
 %\end{center}
 %
-\newpage}\gdef\CopyrightPage{}} 
+\newpage}\gdef\CopyrightPage{}}
 
-
-% \def\abstract{\newpage
-% \begin{center}\vspace*{\@topvspace}
-% \addcontentsline{toc}{chapter}{Abstract}{Abstract}\par\addvspace{12pt}
-% \end{center}\par}
-% \def\endabstract{\newpage}
 \def\abstract{\newpage
 \begin{center}\vspace*{\@topvspace}
 {\sc \@ThesisDissertation{} Abstract\\
@@ -253,61 +239,53 @@ Directed by \@adviser
 \def\endabstract{\newpage}
 
 
-
 \def\StylePage{\newpage% \thispagestyle{empty}
 \vspace*{\bigskipamount}\vspace*{\@topvspace}\sloppy
-Style manual or journal used: {{\expandafter\em\@style}\hspace*{\fill}}
+Style manual or journal used {{\expandafter\em\@style}\hspace*{\fill}}
 \par\addvspace{\bigskipamount}
-Computer software used: {{\expandafter\em\@software}\hspace*{\fill}}\par
+Computer software used {{\expandafter\em\@software}\hspace*{\fill}}\par
 \newpage% \addtocounter{page}{-1} % No page number for style-page
 \gdef\StylePage{}}
-
 
 
 \def\contentsname{Table of Contents}
 \def\tableofcontents{\@restonecolfalse\if@twocolumn\@restonecoltrue\onecolumn
  \fi\chapter*{\contentsname
-  \@mkboth{{\contentsname}}{{\contentsname}}
-  }
- {\doublespacing\@starttoc{toc}}\if@restonecol\twocolumn\fi}
+  \@mkboth{\uppercase{\contentsname}}{\uppercase{\contentsname}}}
+ {\singlespace\@starttoc{toc}}\if@restonecol\twocolumn\fi}
 
 \def\listfigurename{List of Figures}
 \def\listoffigures{\@restonecolfalse\if@twocolumn\@restonecoltrue\onecolumn
  \fi\chapter*{\listfigurename\@mkboth
- {{\listfigurename}}{{\listfigurename}}}
+ {\uppercase{\listfigurename}}{\uppercase{\listfigurename}}}
  \addcontentsline{toc}{chapter}{\listfigurename}
-  {\@starttoc{lof}}\if@restonecol
+ {\vspace{-\bigskipamount}\singlespace\@starttoc{lof}}\if@restonecol
  \twocolumn\fi}
-
-% {\vspace{-\bigskipamount}\singlespace\@starttoc{lof}}\if@restonecol
-% \twocolumn\fi}
-
 \def\l@figure{\par\addvspace{\bigskipamount}\pagebreak[2]
- \@dottedtocline{1}{0.1em}{2.3em}}
+ \@dottedtocline{1}{1.5em}{2.3em}}
 \def\listtablename{List of Tables}
 \def\listoftables{\@restonecolfalse\if@twocolumn\@restonecoltrue\onecolumn
  \fi\chapter*{\listtablename\@mkboth
- {{\listtablename}}{{\listtablename}}}
+ {\uppercase{\listtablename}}{\uppercase{\listtablename}}}
  \addcontentsline{toc}{chapter}{\listtablename}
  {\vspace{-\bigskipamount}\singlespace\@starttoc{lot}}\if@restonecol
  \twocolumn\fi}
 \let\l@table\l@figure
 
-%\def\l@chapter#1#2{\pagebreak[3] 
-%   \vskip 1.0em plus 1pt  % space above chapter line
-%   \@tempdima 1.5em       % width of box holding chapter number
-%   \begingroup
-%     \parindent \z@ \rightskip \@pnumwidth 
-%     \addtolength{\leftskip}{\@tempdima}% 24-May-91
-%     \parfillskip -\@pnumwidth   
-%%     \bf                  % Boldface.
-%     \leavevmode          % TeX command to enter horizontal mode.       
-%     {\hspace*{-\@tempdima}#1}\hfil  \hbox to\@pnumwidth{\hss #2}\par
-%   \endgroup}
-\def\l@chapter#1#2{\@dottedtocline{0}{0em}{2.3em}{#1}{#2}}
+\def\l@chapter#1#2{\pagebreak[3] 
+   \vskip 1.0em plus 1pt  % space above chapter line
+   \@tempdima 1.5em       % width of box holding chapter number
+   \begingroup
+     \parindent \z@ \rightskip \@pnumwidth 
+     \addtolength{\leftskip}{\@tempdima}% 24-May-91
+     \parfillskip -\@pnumwidth   
+%     \bf                  % Boldface.
+     \leavevmode          % TeX command to enter horizontal mode.       
+     {\hspace*{-\@tempdima}\sc#1}\hfil \hbox to\@pnumwidth{\hss #2}\par
+   \endgroup}
 
 \def\thebibliography#1{\chapter*{Bibliography\@mkboth
- {BIBLIOGRAPHY}{BIBLIOGRAPHY}\addcontentsline{toc}{chapter}{Bibliography}}
+ {BIBLIOGRAPHY}{BIBLIOGRAPHY}\addcontentsline{toc}{chapter}{\sc Bibliography}}
  \list
  {[\arabic{enumi}]}{\settowidth\labelwidth{[#1]}\leftmargin\labelwidth
  \advance\leftmargin\labelsep
@@ -319,9 +297,7 @@ Computer software used: {{\expandafter\em\@software}\hspace*{\fill}}\par
 
 
 \AtEndDocument{%
-    \clearpage\addtocounter{page}{\romanpages}
-    \def\romanpages{0}
-}
+\clearpage\addtocounter{page}{\romanpages}}
 \usepackage{lastpage}
 
 \@ifpackageloaded{hyperref}{
@@ -338,4 +314,3 @@ Computer software used: {{\expandafter\em\@software}\hspace*{\fill}}\par
 \doublespacing
 
 \endinput
-

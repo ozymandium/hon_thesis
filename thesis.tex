@@ -11,11 +11,20 @@
 % enable graphic support
 \usepackage{graphicx}
 
+% table stuff
+% \usepackage{array}
+% \newcolumntype{$}{>{\global\let\currentrowstyle\relax}}
+% \newcolumntype{^}{>{\currentrowstyle}}
+% \newcommand{\rowstyle}[1]{\gdef\currentrowstyle{#1}%
+%   #1\ignorespaces
+% }
+
 % for list of abbreviations
 \usepackage[intoc]{nomencl}
 \renewcommand{\nomname}{List of Abbreviations}
 \makenomenclature
 %% don't forget to run:   makeindex ausample.nlo -s nomencl.ist -o ausample.nls
+
 
 % click on links to jump in pdf - should come last of usepackages
 \usepackage{hyperref}
@@ -25,15 +34,13 @@
 % \newtheorem{theorem}{Theorem}[chapter]
 
 \title{A Visual Driver Aid and Investigation of Error Propagation in Convoy Following Based on Dynamic Base Real-Time Kinematic Positioning}
-\author{Robert Cofield}
+\author{Robert Grissom Cofield}
 \date{May 5, 2013}
 \copyrightyear{2013}
-\adviser{David Bevly}
+\adviser{David M. Bevly}
 
-\keywords{DRTK, GPS, GUI, Leader-follower, Convoy}
-
-\professor{David Bevly, ...distinctions...}
-\professor{Kathie Maddox, ... ...}
+\professor{David Bevly \\ Professor \\ Mechanical Engineering}
+\professor{Kathie Maddox \\ Associate Director \\ Honors College}
 
 \begin{document}
 
@@ -43,15 +50,28 @@
 
 \begin{romanpages}
 
+\ApprovalPage
 \TitlePage
+\CopyrightPage
+
+\begin{vita}%\def\romanpages{0}
+Vita goes here ...
+\end{vita}
+
 
 \begin{abstract}
-Abstract
+Abstract goes here ...
 \end{abstract}
 
+
 \begin{acknowledgments}
-Thank people.
+Thank people here ...
 \end{acknowledgments}
+
+
+\style{ASME}
+\software{\LaTeX}
+\StylePage
 
 \tableofcontents
 \listoffigures
@@ -114,7 +134,7 @@ Stereo cameras function much like the human eye, in that depth is obtained from 
 
 % \subsection{Principles of GNSS}
 At the fundamental level, GNSS
-\footnote{GNSS is a protocol-agnostic term referring to any of several systems worldwide which use satellites to provide a receiver on the ground with position information. The US implementation is known as GPS, the Russian positioning system is referred to as GLONASS, and the European Union has Galileo.}
+\footnote{GNSS is a protocol-agnostic term referring to any of several constellations worldwide which use satellites to provide a receiver on the ground with position information. The US implementation is known as GPS, the Russian positioning system is referred to as GLONASS, and the European Union has Galileo.}
 comprises a constellation of orbitting satellites whose positions above the earth are known, corresponding with a receiver to give as many range measurements as possible so that a global 3 dimensional location may be calculated. GNSS does not necessitate line of sight, and is not impaired by lighting effects, though a clear view of the sky is needed to connect to as many satellites as possible. The range for highly accurate following is large, on the order of kilometers depending upon speed, and lower accuracy following can be performed for two vehicles at any distance. These make GNSS ideal for use in the leader-follower convoy scenario.
 
 % Improvements to standalone
@@ -132,7 +152,7 @@ This practice of subtracting errors can be extended to work with a single receiv
 Figure \ref{fig:drtktdcp} illustrates how information is taken from each receiver to obtain the information necessary for the display. The algorithms used to calculate information displayed by the GUI have been developed extensively by \cite{scottthesis},\cite{travisshort}, \cite{travisconvoy} and \cite{travisdiss}. The Driver Assisted Following (DAF) algorithm adds odometry from the TDCP algorithm to RPVs from the DRTK algorithm to obtain a set of points in the East-North-Up (ENU) coordinate frame---with the origin at the follower---which lie along the path taken by the leader. Distance between relative path points depends upon the velocity of the leader and the frequency of the slowest algorithm. The specifications of all hardware used are outlined in Chapter \ref{chap:exper}.
 
 % flowchart - How the data gets from receiver to gui
-\begin{figure}[htbp]
+\begin{figure}[ht]
     \centering
     \includegraphics[width=6.5in]{./figs/data_algo.png}
     \caption{Relative path determination processes}
@@ -154,26 +174,85 @@ The accuracy of the TDCP algorithm decreases over time as errors in the position
 %   Chapter 2
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Graphical User Interface}
+\label{chap:gui}
 
 This chapter will explain ...
 
-%%%%%%%%%%%%%%%%%%%%%%
-% Architecture Section
-\section{Architecture}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% High-level Functionality Section
+\section{High-Level Functionality}
 \label{sec:arch}
-%%%% MOOS Messages
-Figure \ref{fig:blackboxflow} depicts the predefined inputs and outputs of the GUI. The primary message passing architecture used to deliver data to the GUI, as depicted in Fig. \ref{fig:blackboxflow}, was the Mission Oriented Operating Suite (MOOS), as developed by \cite{moos}. The GUI was primarily developed using postprocessed data collected from an Prowler ATV automously following an Infiniti G35 using the same positioning and radio setup described in Sect. \ref{sec:hardware}. This is made possible by the playback feature of the MOOS framework, which is used in live operation to send raw data between the GPS receiver and the DRTK, TDCP and DAF algorithms, as well as the GUI
+This section will examine at an abstract level the ....
+
+%%%% MOOS Messages - input to GUI
+Figure \ref{fig:blackboxflow} depicts the predefined inputs and outputs of the GUI. The primary message passing architecture used to deliver data to the GUI, as depicted in Fig. \ref{fig:blackboxflow}, was the Mission Oriented Operating Suite (MOOS), as developed by \cite{moos}. The GUI was initially developed using postprocessed data collected from an Prowler ATV automously following an Infiniti G35 using the same positioning and radio setup described in Sect. \ref{sec:hardware}. This is made possible by the playback feature of the MOOS framework, which is used in live operation to send raw data between the GPS receiver and the DRTK, TDCP and DAF algorithms, and then to the GUI middleware interface.
+
+%%%% Output of GUI
 
 % Black box info flow chart
-\begin{figure}[htbp]
+\begin{figure}[ht]
     \centering
     \includegraphics[width=6.5in]{./figs/blackbox_flowchart.png}
-    \caption{Information flow architecture}
+    \caption{Information flow architecture in and out of the GUI}
     \label{fig:blackboxflow}
 \end{figure}
 
-%%%% Qt Signals/Slots - segway into hooking up to ROS
+After developing a prototype to meet the requirements listed above, it was determined that satellite imagery
+
+
+%%%%%%%%%%%%%%
+% Calculations
+\section{Calculations}
+\label{sec:guicalc}
+
+% TODO talk about UTM coordinates
+% TODO introduce
+
+%%%% Calculating the lateral error
+The array of relative path points starts with the nearest point behind the antenna of following vehicle $x_1,y_1)$, proceeding to the nearest point in front of the vehicle's antenna $(x_2,y_2)$. The path is assumed to be straight between these two points, and the lateral error is defined as the length of a line perpendicular to the path line which includes the point $(x_0,y_0)$ representing the position of the follower. This position is always at the origin $(0,0)$ but is treated as non-zero in the derivations to verify the resultant equations. The formulation of the lateral error is then given by Eq. \ref{eq:laterr} \cite{laterrformula}.
+
+% path lines and points of importance
+\begin{figure}[ht] \centering
+    \includegraphics[width=3in]{./figs/path_points.png}
+    \caption{Points used to calculate distance and deviation}
+    \label{fig:pathpts}
+\end{figure}
+
+% Lateral error formula
+\begin{align} \label{eq:laterr}
+    e &= \frac{ (x_2 - x_1)(y_1 - y_0) - (x_1 - x_0)(y_2 - y_1) |} { \sqrt{ (x_2 - x_1)^2 + (y_2 - y_1)^2 } }
+\end{align}
+
+Once this value has been determined, it may be compared against user-input threshold values to determine the display color to use for the follower on-screen. Next, a measure of the distance separating the leader and follower is desired for collision avoidance purposes. To do this, it is assumed that the follower will adhere to the path, and that the current position of the follower lies along rearmost path line at point $(x_3, y_3)$
+
+% projection of deviation point
+\begin{align} \label{eq:devproj}
+    x_3 &= \frac{ m_{12} x_1 - m_{03} x_0 + y_0 - y_1 } { m_{12} - m_{03} } \\
+    y_3 &= m_{03} (x_3 - x_0) + y_0
+\end{align}
+
+where $m_{12}$ and $m_{03}$ represent the slopes of the rearmost path line and the perpendicular deviation line, respectively.
+
+% TODO pseudo-code representing state determination from stopping distance and current distance
+%%%% Calculating the leader color
+The color of the leader represents a safety estimate for forward spacing at any given time. This is determined by a user-input scalar value $\mu$ representing the negative acceleration in earth gravities required to come to a complete stop from a given present velocity vector $\bar{v}$ before reaching the leader's present location which is curvilinear stopping distance $d_s$ away. The relation is given in Eq. \ref{eq:stopdist}. Since this value is contingent upon velocity it must be recalculated for each color threshold (red and yellow) at every update of the host velocity, then compared to the follower's curvilinear following distance to make a color determination.
+
+% stopping distance equation (mu)
+\begin{align} \label{eq:stopdist}
+    d_s &= \frac {|\bar{v}|^2} {2 \mu g}
+\end{align}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Data Dissemenation and Architecture
+\section{Data Dissemenation \& Architecture}
+\label{sec:datadiss}
+
+%%%% Qt Signals/Slots - segway into hooking up to ROS  -- Orphan paragraph
 The Qt framework used to generate the GUI from common building blocks has an internal message passing scheme similar to a publisher/subscriber model, using instead what are called signals and slots. For instance, the main window widget alerts the render area to the left when a spinbox in the options has been changed via a signal/slot by passing a boolean value. All data coming into the GUI from MOOS passes through an interface that bridges MOOS with two signal/slot pairs: one for the relative path list and for the follower velocity. In this way GUI inputs can be made agnostic to the middleware used, requiring only a simple widget be written in order to be hooked up to a new data stream. This approach was taken to make the simulation with a ROS (Robotic Operating System) middleware in Sec. \ref{sec:simopt} output data in a format useable by the GUI.
+
+% passing middleware object instance references
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Simulation/Optimization Section
@@ -189,8 +268,7 @@ Test drivers sat at a computer desk with a video game steering wheel and brake/a
 The simulated robot interacted with an environment created using the Modular Open Robots Simulation Engine (MORSE). The dynamics were simulated using the built in Bullet physics engine. Input from the driving wheel and pedals, as well as position and velocity and output from the simulation was conducted using the ROS message passing framework.
 
 % picture of the setup
-\begin{figure}[htbp]
-    \centering
+\begin{figure}[ht] \centering
     \includegraphics[width=6.5in]{./figs/sim_setup.png}
     \caption{Simulation setup}
     \label{fig:simsetup}
@@ -200,7 +278,15 @@ The simulated robot interacted with an environment created using the Modular Ope
 Three tests were performed: one using only visual line-of-sight to follow a vehicle, one using line-of-sight while presented with the GUI in the top-right corner of the view screen, and one with only the GUI visible to the driver. All test drivers were asked to follow a lead vehicle which was controlled by a pre-recorded path.
 
 % table of results...
-Results ...
+\begin{table}[ht] \centering
+    \label{tab:simexper}
+    \caption{Simulation results}
+    \begin{tabular}{l||c|c|c} \hline
+                        &          \textbf{Simulation only}&    \textbf{Simulation + GUI}&       \textbf{GUI only}\\ \hline\hline
+        Mean lat. dev.&          &                   &                       \\ \hline
+        Mean foll. dist.&         &                   &                       \\ \hline
+
+\end{tabular} \end{table}
 
 
 %%%%%%%%%%%%%%%%%%%%%%
@@ -208,45 +294,26 @@ Results ...
 \section{Final Design}
 \label{sec:finaldes}
 
-% primary view screen
-The end user---the driver---will primarily be presented with the screen depicted in Fig. \ref{fig:finaldesdriv}. The overarching concept behind this view is that the driver be presented a path and location of the leading vehicle in a coordinate frame relative to the host (following) vehicle, i.e., an overhead view such that "up" corresponds to the positive longitudinal axis of the vehicle. Three pieces of numerical information are also presentd: the curvilinear following distance, lateral path deviation, and velocity of the host. 
+% TODO redo view orientation explanation
+% primary view screen 
+The end user---the driver---will primarily be presented with the screen depicted in Fig. \ref{fig:finaldesdriv}. The overarching concept behind this view is that the driver be presented a path and location of the leading vehicle in a coordinate frame relative to the host (following) vehicle, i.e., an overhead view such that "up" corresponds to the positive longitudinal axis of the vehicle. Three pieces of numerical information are also presented: the curvilinear following distance, lateral path deviation, and velocity of the host. 
 
 % the driver screen
-\begin{figure}[htbp]
-    \centering
+\begin{figure}[ht] \centering
     \includegraphics[width=6.5in]{./figs/final_design_data.png}
     \caption{Final Design --- Driver view}
     \label{fig:finaldesdriv}
 \end{figure}
 
-% options screen
-There is always the option to change operational parameters, using the screen depicted in Figure \ref{fig:finaldesopts}, which are primarily the lateral deviation thresholds, following distance thresholds and the maximum distance to display onscreen during fixed-scale mode. When the option for to always display the lead vehicle is enabled, the maximum following distance becomes the minimum value, and whenever the direct distance to the follower exceeds this, the screen is scaled to include it in the range semicircle.
+%% options screen
+% There is always the option to change operational parameters, using the screen depicted in Figure \ref{fig:finaldesopts}, which are primarily the lateral deviation thresholds, following distance thresholds and the maximum distance to display onscreen during fixed-scale mode. When the option for to always display the lead vehicle is enabled, the maximum following distance becomes the minimum value, and whenever the direct distance to the follower exceeds this, the screen is scaled to include it in the range semicircle.
 
 % the option screen
-\begin{figure}[htbp]
-    \centering
+\begin{figure}[ht] \centering
     \includegraphics[width=6.5in]{./figs/final_design_opts.png}
     \caption{Final Design --- Setting of operational parameters }
     \label{fig:finaldesopts}
 \end{figure}
-
-%%%% Calculating the lateral error
-The array of relative path points starts with the nearest point behind the antenna of following vehicle $x_1,y_1)$, proceeding to the nearest point in front of the vehicle's antenna $(x_2,y_2)$. The path is assumed to be straight between these two points, and the lateral error is defined as the length of a line perpendicular to the path line which includes the point $(x_0,y_0)$ representing the position of the follower. The formulation of the lateral error is then given by Eq. \ref{eq:laterr} \cite{laterrformula}. Once this value has been determined, it may be compared against user-input threshold values to determine the display color to use for the follower on-screen.
-
-% Lateral error formula
-\begin{align}
-    \label{eq:laterr}
-    e &= \frac{ (x_2 - x_1)(y_1 - y_0) - (x_1 - x_0)(y_2 - y_1) |}{ \sqrt{ (x_2 - x_1)^2 + (y_2 - y_1)^2 } }
-\end{align}
-
-%%%% Calculating the leader color
-The color of the leader represents a safety estimate for forward spacing at any given time. This is determined by a user-input scalar value $\mu$ representing the negative acceleration in earth gravities required to come to a complete stop from a given present velocity vector $\bar{v}$ before reaching the leader's present location which is curvilinear stopping distance $d_s$ away. The relation is given in Eq. \ref{eq:stopdist}. Since this value is contingent upon velocity it must be recalculated for each color threshold (red and yellow) at every update of the host velocity, then compared to the host curvilinear following distance to make a color determination.
-
-% stopping distance equation (mu)
-\begin{align}
-    \label{eq:stopdist}
-    d_s &= \frac {|\bar{v}|^2} {2 \mu g}
-\end{align}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -260,7 +327,15 @@ The color of the leader represents a safety estimate for forward spacing at any 
 \section{Hardware Setup}
 \label{sec:hardware}
 
-All experimental data was taken using a Novatel Propak v3 as the GPS receiver with pinwheel-type antennas, identical to those used in \cite{scottthesis}. All positioning computation was conducted on an Advantech ARK 3440 running Ubuntu Linux 12.04.1 in the rearmost vehicle. Novatel data was relayed directly from receivers in other vehicles to the positioning computer through the use of XTend $1~W,~900~MHz$ radio modems connected via RS232-USB adapters. This eliminated the need for additional computers, which was found to introduce unacceptable latency into the system. In this manner, a single central hub was able to host the MOOS database while controlling all receivers and data flow to all position algorithms for multiple vehicle testing.
+All experimental data was taken using Novatel Propak v3 GPS receivers with pinwheel antennas, identical to those used in \cite{scottthesis}. All positioning computation was conducted on an laptop running Ubuntu Linux 12.04.1 in the rearmost vehicle. Novatel data was relayed directly from receivers in other vehicles to the positioning computer through the use of XTend $1~W,~900~MHz$ radio modems connected via RS232-USB adapters. This eliminated the need for additional computers, which was found to introduce unacceptable latency into the system. In this manner, a single central hub was able to host the MOOS database while controlling all receivers and data flow to all position algorithms for multiple vehicle testing.
+
+%%%%%%%%%%%%%%%%%%%%%%%%
+% Demo @ Benning Section
+\section{Military Field Testing}
+\label{sec:benning}
+
+To evaluate the usefulness of the GUI in combat scenarios, a demonstration was held at Fort Benning in Columbus, GA, USA to a group of active duty soldiers. Two use-cases were tested: 
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %   Chapter 4
@@ -275,10 +350,11 @@ All experimental data was taken using a Novatel Propak v3 as the GPS receiver wi
 %   Chapter 5
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Conclusions}
+\label{chap:concl}
 
 
 \section{Future Work}
-
+\label{sec:futwork}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
