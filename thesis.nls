@@ -9,10 +9,12 @@
     \item[{ GUI    }]\begingroup    Graphical User Interface                    \nomeqref{2.0} \nompageref{1}
     \item[{ KML    }]\begingroup    Keyhole Markup Language                     \nomeqref{2.0} \nompageref{1}
     \item[{ LiDAR  }]\begingroup    Light Detection and Ranging                 \nomeqref{2.0} \nompageref{1}
+    \item[{ LLA   }]\begingroup     Latitude-Longitude-Altitude                 \nomeqref{2.0} \nompageref{1}
     \item[{ MOOS   }]\begingroup    Mission Oriented Operating Suite            \nomeqref{2.0} \nompageref{1}
     \item[{ RADAR  }]\begingroup    Radio Detection and Ranging                 \nomeqref{2.0} \nompageref{1} 
     \item[{ RPV    }]\begingroup    Relative Position Vector                    \nomeqref{2.0} \nompageref{1}
-    \item[{ RTK    }]\begingroup     Real-Time Kinematic                         \nomeqref{2.0} \nompageref{1}
+    \item[{ RTK    }]\begingroup    Real-Time Kinematic                         \nomeqref{2.0} \nompageref{1}
     \item[{ SV     }]\begingroup    Satellite Vehicle                           \nomeqref{2.0} \nompageref{1}
     \item[{ TDCP   }]\begingroup    Time-Differenced Carrier Phase              \nomeqref{2.0} \nompageref{1}
+    \item[{ UTM   }]\begingroup     Universal Transverse Mercator               \nomeqref{2.0} \nompageref{1}
 \end{thenomenclature}

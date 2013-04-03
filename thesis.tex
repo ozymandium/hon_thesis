@@ -55,7 +55,7 @@
 \CopyrightPage
 
 \begin{vita}%\def\romanpages{0}
-Vita goes here ...
+Robert Cofield ...
 \end{vita}
 
 
@@ -170,52 +170,92 @@ The accuracy of the TDCP algorithm decreases over time as errors in the position
 % Velocity accuracy
 
 
+
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %   Chapter 2
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{Graphical User Interface}
-\label{chap:gui}
+\chapter{Graphical User Interface} \label{chap:gui}
 
-This chapter will explain ...
+%%%%%%%%%%%%%%
+% Introduction
+\section{Introduction} \label{sec:guiintro}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% High-level Functionality Section
-\section{High-Level Functionality}
-\label{sec:arch}
-This section will examine at an abstract level the ....
+%%%% Role of the GUI
+% enumerate the datas: pos, vel, crs, path
+
+% Black box info flow chart
+\begin{figure}[ht] \label{fig:blackboxflow} \centering
+    \includegraphics[width=6.5in]{./figs/blackbox_flowchart.png}
+    \caption{Information flow architecture in and out of the GUI}
+\end{figure}
+
+%%%% Development process
+
+%%%% Made 2 GUIs
+%% Monolith
+%% Earth
+Since a significant end use case involves military convoys, feedback was sought from personnel in the Armed Forces. One primary criticism was the lack of visual stimuli by which to reconcile the screen output with what the user sees around them. To remedy this, it was suggested that satellite imagery be incorporated into the background of the information already displayed on the screen. As the directly contradicted the clean, distraction-free nature of the prototype already developed, it was determined that another version needed to be constructed following these new design principals, and that the two GUI's should be juxtaposed. In determining what software package to use to supply this, a trade study was performed and the resulting candidates were narrowed to Quantum GIS and Google Earth. The maturity, user-base and documentation on representing data with the Keyhole Markup Language (KML) ultimately made Google Earth the favored tool. As elaborated upon in Section \ref{sec:interp}, the addition of satellite imagery made the user highly aware of the update rate of each piece of information displayed spatially, necessitating the incorporation of data smoothing techniques.
+
+%%%%%%%%%%%%%%%%%%%%%%
+% Interpolator Section
+\section{Real-Time Interpolation} \label{sec:interp}
+
+%%%%% introductory
+% TODO better segway, why linear interpolation used (speed?)
+Since the end goal is to display information that has been received rather than predict future states, the newest and second newest measurments are fewest points required to do a live interpolation. With this, a continuous-time linear interpolation of the measurment any instant between those two times is possible. By making more data points available and considering the type of data in question, more accurate interpolation may be possible. However, due to speed and efficiency, the linear interpolation is preferable in this situation. All values which are displayed in the GUI (listed in Sect. \ref{sec:guiintro}) are passed through the interpolation algorithm.
+
+%%%%% general algorithm
+%% time update
+On the first measurment update, the value and CPU time at which it arrived are stored. It is important that CPU time is recorded upon arrival rather than upon processing or sending, as the goal of this process is to obscure lags incurred during calculation or radio transmission. The end result is that the user is presented with data which changes at a consistent, even frequency, regardless of whether multiple sensors take varying amounts of time to relay data.
+
+Upon each subsequent measurment update, the previous two entities are stored moved to slots for old data $(x_0, t_0)$ and the new value is stored along with present CPU time. An interpolation object is created with the present Any interpolation thread which is still running is then stopped, and a new one spawned.
+
+%% formula
+\begin{align} \label{eq:interp}
+    x(t) &= \frac{ (x_1 - x_0)(t - t_0) } { t_1 - t_0 } + x_0
+\end{align}
+
+The general form of the linear interpolation to obtain a value $x$ at time $t$ which lies between values $x_0$ and $x_1$ corresponding to times $t_0$ and $t_1$, respectively, is given by Eq. \ref{eq:interp}.
+%%%% data-type specific
+For two dimensional positions, this procedure is carried out on both the East and North coordinates. 
+%% angle
+Angles are a different matter. The course dimension contains an inherent discontinuity due to "wrapping" at the North axis. A course change of $-1^\circ$ may result in a measurment change of $-359^\circ$, which if naively interpolated would result in a complete spin over a full timestep, ending at essentially the same location as the beginning. For this reason, 
+%% path
+%%%%% transition to data dissemanation
+
+%%%%%%%%%%%%%%%%%%%%
+% Data Dissemenation
+\section{Data Dissemenation} \label{sec:datadiss}
+
+%%%% Intro 
+
+%%%% Qt Signals/Slots
+The Qt framework used to generate the GUI from common building blocks has an internal message passing scheme similar to a publisher/subscriber model, using instead what are called signals and slots. For instance, the main window widget alerts the render area to the left when a spinbox in the options has been changed via a signal/slot by passing a boolean value. All data coming into the GUI from MOOS passes through an interface that bridges MOOS with two signal/slot pairs: one for the relative path list and for the follower velocity. In this way GUI inputs can be made agnostic to the middleware used, requiring only a simple widget be written in order to be hooked up to a new data stream.
 
 %%%% MOOS Messages - input to GUI
 Figure \ref{fig:blackboxflow} depicts the predefined inputs and outputs of the GUI. The primary message passing architecture used to deliver data to the GUI, as depicted in Fig. \ref{fig:blackboxflow}, was the Mission Oriented Operating Suite (MOOS), as developed by \cite{moos}. The GUI was initially developed using postprocessed data collected from an Prowler ATV automously following an Infiniti G35 using the same positioning and radio setup described in Sect. \ref{sec:hardware}. This is made possible by the playback feature of the MOOS framework, which is used in live operation to send raw data between the GPS receiver and the DRTK, TDCP and DAF algorithms, and then to the GUI middleware interface.
 
-%%%% Output of GUI
-
-% Black box info flow chart
-\begin{figure}[ht]
-    \centering
-    \includegraphics[width=6.5in]{./figs/blackbox_flowchart.png}
-    \caption{Information flow architecture in and out of the GUI}
-    \label{fig:blackboxflow}
-\end{figure}
-
-After developing a prototype to meet the requirements listed above, it was determined that satellite imagery
-
+%%%% Specific to Earth GUI
+Due to the large and 
+%% passing middleware object instance references
+%% KML server
 
 %%%%%%%%%%%%%%
 % Calculations
-\section{Calculations}
-\label{sec:guicalc}
+\section{Calculations} \label{sec:guicalc}
 
-% TODO talk about UTM coordinates
-% TODO introduce
+% UTM coordinates - REDO
+When displaying data on a flat, rectangular screen, it becomes desirable to utilize a coordinate system more suited to cartesian calculations than Latitude-Longitude-Altitude (LLA), one which employs standard metric units of length. Whenever rectangular coordinates are necessary the Universal Transverse Mercator (UTM) east and north representations of global positions are used. The conversions between LLA and UTM are outlined in \cite{projections}.
 
 %%%% Calculating the lateral error
-The array of relative path points starts with the nearest point behind the antenna of following vehicle $x_1,y_1)$, proceeding to the nearest point in front of the vehicle's antenna $(x_2,y_2)$. The path is assumed to be straight between these two points, and the lateral error is defined as the length of a line perpendicular to the path line which includes the point $(x_0,y_0)$ representing the position of the follower. This position is always at the origin $(0,0)$ but is treated as non-zero in the derivations to verify the resultant equations. The formulation of the lateral error is then given by Eq. \ref{eq:laterr} \cite{laterrformula}.
+The array of relative path points starts with the nearest point behind the antenna of following vehicle $x_1,y_1)$, proceeding to the nearest point in front of the vehicle's antenna $(x_2,y_2)$. The path is assumed to be straight between these two points, and the lateral error is defined as the length of a line perpendicular to the path line which includes the point $(x_0,y_0)$ representing the position of the follower. This position is always at the origin $(0,0)$ but is treated as non-zero in the derivations to verify the resultant equations. The formulation of the lateral error is then given by Eq. \ref{eq:laterr} \cite{laterrformula}. Once this value has been determined, it may be compared against user-input threshold values to determine the display color to use for the follower on-screen.
 
 % path lines and points of importance
-\begin{figure}[ht] \centering
+\begin{figure}[ht] \label{fig:pathpts} \centering
     \includegraphics[width=3in]{./figs/path_points.png}
     \caption{Points used to calculate distance and deviation}
-    \label{fig:pathpts}
 \end{figure}
 
 % Lateral error formula
@@ -223,7 +263,8 @@ The array of relative path points starts with the nearest point behind the anten
     e &= \frac{ (x_2 - x_1)(y_1 - y_0) - (x_1 - x_0)(y_2 - y_1) |} { \sqrt{ (x_2 - x_1)^2 + (y_2 - y_1)^2 } }
 \end{align}
 
-Once this value has been determined, it may be compared against user-input threshold values to determine the display color to use for the follower on-screen. Next, a measure of the distance separating the leader and follower is desired for collision avoidance purposes. To do this, it is assumed that the follower will adhere to the path, and that the current position of the follower lies along rearmost path line at point $(x_3, y_3)$
+%%%% Calculating the leader color
+Next, a measure of the distance separating the leader and follower is desired for collision avoidance purposes. To do this, it is assumed that the follower will adhere to the path, and that the current position of the follower lies along rearmost path line at point $(x_3, y_3)$
 
 % projection of deviation point
 \begin{align} \label{eq:devproj}
@@ -232,9 +273,6 @@ Once this value has been determined, it may be compared against user-input thres
 \end{align}
 
 where $m_{12}$ and $m_{03}$ represent the slopes of the rearmost path line and the perpendicular deviation line, respectively.
-
-% TODO pseudo-code representing state determination from stopping distance and current distance
-%%%% Calculating the leader color
 The color of the leader represents a safety estimate for forward spacing at any given time. For this estimate it is assumed that the vehicle in question is equipped with anti-lock brakes to keep friction in the static regime, and that the braking system is capable of maintaining peak longitudinal forces during extreme deceleration. At each time update, a minimum stopping distance is calculated for two different road surfaces with user-input coefficients of friction. This relation is given in Eq. \ref{eq:stopdist}, where $\mu$  is the combined coefficient of friction between the terrain surface and the tires,  $|\bar{v}|$ is the magnitude of ground-plane velocity, and $g$ is the acceleration due to gravity.
 
 % stopping distance equation (mu)
@@ -245,70 +283,21 @@ The color of the leader represents a safety estimate for forward spacing at any 
 This relation assumes level terrain such that gravity only impacts the normal force acting on tires, and no longitudinal effects on the vehicle. Two scenarii are used: a 'warning' state---when the present minimum stopping distance is less than that for a low-friction surface such as gravel ($\mu=0.4$)---and a 'critical' state---when the present minimum stopping distance is than that for a typical asphalt roadway($\mu=0.7$). 
 % TODO add citation for mu values
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Data Dissemenation and Architecture
-\section{Data Dissemenation \& Architecture}
-\label{sec:datadiss}
-
-%%%% Qt Signals/Slots - segway into hooking up to ROS  -- Orphan paragraph
-The Qt framework used to generate the GUI from common building blocks has an internal message passing scheme similar to a publisher/subscriber model, using instead what are called signals and slots. For instance, the main window widget alerts the render area to the left when a spinbox in the options has been changed via a signal/slot by passing a boolean value. All data coming into the GUI from MOOS passes through an interface that bridges MOOS with two signal/slot pairs: one for the relative path list and for the follower velocity. In this way GUI inputs can be made agnostic to the middleware used, requiring only a simple widget be written in order to be hooked up to a new data stream. This approach was taken to make the simulation with a ROS (Robotic Operating System) middleware in Sec. \ref{sec:simopt} output data in a format useable by the GUI.
-
-% passing middleware object instance references
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Simulation/Optimization Section
-\section{Simulation \& Design Optimization}
-\label{sec:simopt}
-
-To determine the efficiency with which information was being conveyed, a simulation setup was devised to mimic the conditions of driving a vehicle using the GUI to varying degrees while within a controllable laboratory setting. Prior to testing path fidelity in experimental trials, qualitative feedback was received from drivers using line-of-sight following and the GUI side by side. These recommendation were then incorporated into the overall design.
-
-% What the tester was presented with
-Test drivers sat at a computer desk with a video game steering wheel and brake/accelerator pedals placed in a position similar to that of a motor vehicle. The inputs they were required to give to the simulator for operation were an angular velocity via the steering wheel, and a longitudinal velocity via the pedals---accelerator for forward, brake for reverse or negative acceleration. The simulation was presented visually to the test drivers via two computer screens placed at eye level. These screens displayed a first-person view from the model of the robotic vehicle being simulated, as if looking out a windshield. These conditions, depicted in Fig. \ref{fig:simsetup}, were chosen to provide an experience similar to that of a convoy. 
-
-% The backend
-The simulated robot interacted with an environment created using the Modular Open Robots Simulation Engine (MORSE). The dynamics were simulated using the built in Bullet physics engine. Input from the driving wheel and pedals, as well as position and velocity and output from the simulation was conducted using the ROS message passing framework.
-
-% picture of the setup
-\begin{figure}[ht] \centering
-    \includegraphics[width=6.5in]{./figs/sim_setup.png}
-    \caption{Simulation setup}
-    \label{fig:simsetup}
-\end{figure}
-
-% testing procedures and how the gui was changed
-Three tests were performed: one using only visual line-of-sight to follow a vehicle, one using line-of-sight while presented with the GUI in the top-right corner of the view screen, and one with only the GUI visible to the driver. All test drivers were asked to follow a lead vehicle which was controlled by a pre-recorded path.
-
-% table of results...
-\begin{table}[ht] \centering
-    \label{tab:simexper}
-    \caption{Simulation results}
-    \begin{tabular}{l||c|c|c} \hline
-                        &          \textbf{Simulation only}&    \textbf{Simulation + GUI}&       \textbf{GUI only}\\ \hline\hline
-        Mean lat. dev.&          &                   &                       \\ \hline
-        Mean foll. dist.&         &                   &                       \\ \hline
-
-\end{tabular} \end{table}
-
 
 %%%%%%%%%%%%%%%%%%%%%%
 % Final Design Section
 \section{Final Design}
 \label{sec:finaldes}
 
-% TODO redo view orientation explanation
-% primary view screen 
-The end user---the driver---will primarily be presented with the screen depicted in Fig. \ref{fig:finaldesdriv}. The overarching concept behind this view is that the driver be presented a path and location of the leading vehicle in a coordinate frame relative to the host (following) vehicle, i.e., an overhead view such that "up" corresponds to the positive longitudinal axis of the vehicle. Three pieces of numerical information are also presented: the curvilinear following distance, lateral path deviation, and velocity of the host. 
-
 % the driver screen
 \begin{figure}[ht] \centering
     \includegraphics[width=6.5in]{./figs/final_design_data.png}
     \caption{Final Design --- Driver view}
-    \label{fig:finaldesdriv}
+    \label{fig:finaldesdriv_monolith}
 \end{figure}
 
 %% options screen
-% There is always the option to change operational parameters, using the screen depicted in Figure \ref{fig:finaldesopts}, which are primarily the lateral deviation thresholds, following distance thresholds and the maximum distance to display onscreen during fixed-scale mode. When the option for to always display the lead vehicle is enabled, the maximum following distance becomes the minimum value, and whenever the direct distance to the follower exceeds this, the screen is scaled to include it in the range semicircle.
+% There is always the option to change operational parameters, using the screen depicted in Figure \ref{fig:finaldesopts}, which are primarily the lateral deviation thresholds, following distance $\mu$ thresholds, for the monolithic and the maximum distance to display onscreen during fixed-scale mode. When the option for to always display the lead vehicle is enabled, the maximum following distance becomes the minimum value, and whenever the direct distance to the follower exceeds this, the screen is scaled to include it in the range semicircle.
 
 % the option screen
 \begin{figure}[ht] \centering
@@ -316,6 +305,19 @@ The end user---the driver---will primarily be presented with the screen depicted
     \caption{Final Design --- Setting of operational parameters }
     \label{fig:finaldesopts}
 \end{figure}
+
+\subsection{Alerts}
+\label{sec:alerts}
+
+%%%% Deviation
+% Monolith
+
+% Earth
+
+%%%% Distance
+% Monolith
+
+% Earth
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -331,10 +333,30 @@ The end user---the driver---will primarily be presented with the screen depicted
 
 All experimental data was taken using Novatel Propak v3 GPS receivers with pinwheel antennas, identical to those used in \cite{scottthesis}. All positioning computation was conducted on an Apple MacBook Pro Laptop running Ubuntu Linux 12.04.1 in a Parallels virtual machine in the rearmost vehicle. Novatel data was relayed directly from receivers in other vehicles to the positioning computer through the use of XTend $1~W,~900~MHz$ radio modems connected via RS232-USB adapters. This eliminated the need for additional computers, which was found to introduce unacceptable latency into the system. In this manner, a single central hub was able to host the MOOS database while controlling all receivers and data flow to all position algorithms for multiple vehicle testing.
 
-%%%%%%%%%%%%%%%%%%%%%%%%%
-% Tuning Distance Section
-\section{Tuning Friction Coefficient Values}
-\label{sec:tunemu}
+% \begin{figure}[ht] \centering
+%     \includegraphics[width=6.5in]{./figs/.png}
+%     \caption{Equipment used in the leading vehicle}
+%     \label{fig:hardwarelead}
+% \end{figure}
+
+% \begin{figure}[ht] \centering
+%     \includegraphics[width=6.5in]{./figs/.png}
+%     \caption{Equipment used in the following vehicle}
+%     \label{fig:hardwarefoll}
+% \end{figure}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% What tests were performed
+\section{Testing}
+\label{sec:test}
+
+%%%% Lane change replication
+\subsection{Lane Change Replication}
+\label{sec:lanechange}
+
+In determining the usefulness of any tool, it is highly desirable to devise a test which yield concise results that are either completely positive or negative. To this end, a maneuver common in the characterization of vehicle dynamics, the lane change, was used in a situation in which the maneuver could be replicated properly or improperly.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
