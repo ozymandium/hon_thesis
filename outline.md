@@ -73,6 +73,10 @@ Honors Thesis: Important Updates
         - [figure] Depict GUI as a block with defined inputs & outputs
         - convey distance and deviation info
             - colors: reference Color state calc section below
+    - briefly discuss development process
+        - using playback of raw data:
+            - refine DRTK/TDCP at the same time as the GUI
+        - live testing used mostly to ensure proper memory usage and peripheral software/hardware setup correctly
     -  2 GUIS were made
         -  monolith
             -  follower-centric
@@ -81,21 +85,19 @@ Honors Thesis: Important Updates
             -  transition via: reason - Mike's comments
             -  mention reason for discarding QGIS as possibility
             -  reference interpolator section, was needed as a result
-    - briefly discuss development process
-        - using playback of raw data:
-            - refine DRTK/TDCP at the same time as the GUI
-        - live testing used mostly to ensure proper memory usage and peripheral software/hardware setup correctly
 - __Interpolator__
     - introductory paragraph
         - needed when using Earth, b/c choppiness @ 1 Hz limits readability of the screen
         - first tried simple synchronization to slowest data stream, magnitude of jumps still a problem
         - drawback: must induce a 1 timestep lag
-    - general algorithm
-        - time update
+    - general algorithm:
         - linear interp formula
-    - path:
-        - algorithm for resolving unequal vector lengths
-        - interp for each coordinate of each point
+        - positions
+        - angles: resolving discontinuity
+        - path:
+            - algorithm for resolving unequal vector lengths
+            - interp for each coordinate of each point
+    - time(measurement) update
     - transition to data dissemanation:
         - did interpolation between middleware and GUI-specific objects
         - designed and tested on Earth GUI, and wanted way to hook up to monolithic GUI
@@ -132,12 +134,11 @@ Honors Thesis: Important Updates
 
 ## Chap 3: Experimental Validation
 
-- __Introductory remarks__
-
 - __Hardware Setup__
     - emphasize portability
     - [photo] Leader hardware
     - [photo] follower hardware
+    - mention 2 modes of data collection
 
 - __Description of Tests for the GUI__
     - Lane change replication

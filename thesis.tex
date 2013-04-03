@@ -70,7 +70,18 @@ Thank people here ...
 
 
 \style{ASME}
-\software{\LaTeX}
+\software{
+    \LaTeX,
+    Python v2.7.3,
+    MOOS v10,
+    pyMOOS,
+    Qt v4.8.3,
+    Qt4 Designer,
+    PySide v1.1.1,
+    tornado v2.3,
+    Google Earth v7.0.3.8542,
+    simplekml v1.2.1
+}
 \StylePage
 
 \tableofcontents
@@ -183,18 +194,21 @@ The accuracy of the TDCP algorithm decreases over time as errors in the position
 \section{Introduction} \label{sec:guiintro}
 
 %%%% Role of the GUI
-% enumerate the datas: pos, vel, crs, path
+Before beginning creation of the GUI, a very high level analysis of its role was performed---it was treated as a "black box" system to define inputs and outputs. Neighboring systems were consolidated into singular systems so that interfaces could be designed to robustly communicated with them. The result of this analysis is the information flow architecture depicted in Fig. \ref{fig:blackboxflow}.
+% list the output data: dst, dev magnitude and direction
+% list the input data: pos, vel, crs, path
+The inputs necessary to relay that information were then determined
 
 % Black box info flow chart
 \begin{figure}[ht] \label{fig:blackboxflow} \centering
     \includegraphics[width=6.5in]{./figs/blackbox_flowchart.png}
-    \caption{Information flow architecture in and out of the GUI}
+    \caption{High level information flow architecture in and out of the GUI}
 \end{figure}
-
-%%%% Development process
 
 %%%% Made 2 GUIs
 %% Monolith
+From the outset, a primary design goal was to minimize the amount of visual and cognitive effort required on the part of the driver for determining whether course and speed corrections are necessary, and if so, what they are. Facilities for accepting driver-input operational parameters must therefore be obscured during the driving task, yet easily accessible on the fly. In addition, a clean and minimal visual presence ensures that a passing glance is sufficient to check on distance and deviations. When following very closely, a follower will need to anticipate upcoming turns without being able to see the leader actually turn, so course information---specifically, the leader's course relative to that of the follower---will be needed.  These were the fundamentals driving the GUI development at the outset.
+
 %% Earth
 Since a significant end use case involves military convoys, feedback was sought from personnel in the Armed Forces. One primary criticism was the lack of visual stimuli by which to reconcile the screen output with what the user sees around them. To remedy this, it was suggested that satellite imagery be incorporated into the background of the information already displayed on the screen. As the directly contradicted the clean, distraction-free nature of the prototype already developed, it was determined that another version needed to be constructed following these new design principals, and that the two GUI's should be juxtaposed. In determining what software package to use to supply this, a trade study was performed and the resulting candidates were narrowed to Quantum GIS and Google Earth. The maturity, user-base and documentation on representing data with the Keyhole Markup Language (KML) ultimately made Google Earth the favored tool. As elaborated upon in Section \ref{sec:interp}, the addition of satellite imagery made the user highly aware of the update rate of each piece of information displayed spatially, necessitating the incorporation of data smoothing techniques.
 
@@ -207,11 +221,6 @@ Since a significant end use case involves military convoys, feedback was sought 
 Since the end goal is to display information that has been received rather than predict future states, the newest and second newest measurments are fewest points required to do a live interpolation. With this, a continuous-time linear interpolation of the measurment any instant between those two times is possible. By making more data points available and considering the type of data in question, more accurate interpolation may be possible. However, due to speed and efficiency, the linear interpolation is preferable in this situation. All values which are displayed in the GUI (listed in Sect. \ref{sec:guiintro}) are passed through the interpolation algorithm.
 
 %%%%% general algorithm
-%% time update
-On the first measurment update, the value and CPU time at which it arrived are stored. It is important that CPU time is recorded upon arrival rather than upon processing or sending, as the goal of this process is to obscure lags incurred during calculation or radio transmission. The end result is that the user is presented with data which changes at a consistent, even frequency, regardless of whether multiple sensors take varying amounts of time to relay data.
-
-Upon each subsequent measurment update, the previous two entities are stored moved to slots for old data $(x_0, t_0)$ and the new value is stored along with present CPU time. An interpolation object is created with the present Any interpolation thread which is still running is then stopped, and a new one spawned.
-
 %% formula
 \begin{align} \label{eq:interp}
     x(t) &= \frac{ (x_1 - x_0)(t - t_0) } { t_1 - t_0 } + x_0
@@ -221,9 +230,17 @@ The general form of the linear interpolation to obtain a value $x$ at time $t$ w
 %%%% data-type specific
 For two dimensional positions, this procedure is carried out on both the East and North coordinates. 
 %% angle
-Angles are a different matter. The course dimension contains an inherent discontinuity due to "wrapping" at the North axis. A course change of $-1^\circ$ may result in a measurment change of $-359^\circ$, which if naively interpolated would result in a complete spin over a full timestep, ending at essentially the same location as the beginning. For this reason, 
+Angles are a different matter. The course dimension contains an inherent discontinuity due to "wrapping" at the North axis. A course change of $-1^\circ$ may result in a measurment change of $-359^\circ$, which if naively interpolated would result in a complete spin over a full timestep, ending at essentially the same location as the beginning. For this reason, the angles must be occasionally be resolved (i.e., when $|x_1 - x_0| > 180^\circ$ ) by adding $360^\circ$ to the lowest value. For example, values of $(x_0, x_1) = (0.5^\circ, 359.5^\circ)$ would then become $(x_0, x_1) = (360.5^\circ, 359.5^\circ)$ .
 %% path
+For the path to be interpolated, 
+
+%% time update
+On the first measurment update, the value and CPU time at which it arrived are stored. It is important that CPU time is recorded upon arrival rather than upon processing or sending, as the goal of this process is to obscure lags incurred during calculation or radio transmission. The end result is that the user is presented with data which changes at a consistent, even frequency, regardless of whether multiple sensors take varying amounts of time to relay data.
+
+Upon each subsequent measurement update, the previous two entities are stored moved to slots for old data $(x_0, t_0)$ and the new value is stored along with present CPU time. An interpolation object representing Eq. \ref{eq:interp} is created with the present data so that between times $t_0$ and $t_1$ an input $t$ will yield the respective measurement $x$. Any interpolation thread which is still running is then stopped, and a new one spawned. This thread the iteratively calculates data between $x_0$ and $x_1$, then waits a period of time corresponding to the desired frequency, repeating until a new measurement update occurs.
+
 %%%%% transition to data dissemanation
+The effect this had upon readability and being able to intuitively interpret data was positive. Even though it was initially 
 
 %%%%%%%%%%%%%%%%%%%%
 % Data Dissemenation
@@ -277,7 +294,7 @@ The color of the leader represents a safety estimate for forward spacing at any 
 
 % stopping distance equation (mu)
 \begin{align} \label{eq:stopdist}
-    d_s &= \frac {|\bar{v}|^2} {2 \mu g}
+    d_{stop, min} &= \frac {|\bar{v}|^2} {2 \mu g}
 \end{align}
 
 This relation assumes level terrain such that gravity only impacts the normal force acting on tires, and no longitudinal effects on the vehicle. Two scenarii are used: a 'warning' state---when the present minimum stopping distance is less than that for a low-friction surface such as gravel ($\mu=0.4$)---and a 'critical' state---when the present minimum stopping distance is than that for a typical asphalt roadway($\mu=0.7$). 
@@ -286,38 +303,43 @@ This relation assumes level terrain such that gravity only impacts the normal fo
 
 %%%%%%%%%%%%%%%%%%%%%%
 % Final Design Section
-\section{Final Design}
-\label{sec:finaldes}
+\section{Final Design} \label{sec:finaldes}
+
+%%%% Monolith %%%%
+\subsection{Monolithic GUI} \label{sec:finaldes_monolith}
+
+%%%% alerts
+%% dev
+%% dst
 
 % the driver screen
-\begin{figure}[ht] \centering
+\begin{figure}[ht] \centering \label{fig:finaldesdriv_monolith}
     \includegraphics[width=6.5in]{./figs/final_design_data.png}
     \caption{Final Design --- Driver view}
-    \label{fig:finaldesdriv_monolith}
 \end{figure}
 
 %% options screen
 % There is always the option to change operational parameters, using the screen depicted in Figure \ref{fig:finaldesopts}, which are primarily the lateral deviation thresholds, following distance $\mu$ thresholds, for the monolithic and the maximum distance to display onscreen during fixed-scale mode. When the option for to always display the lead vehicle is enabled, the maximum following distance becomes the minimum value, and whenever the direct distance to the follower exceeds this, the screen is scaled to include it in the range semicircle.
 
 % the option screen
-\begin{figure}[ht] \centering
+\begin{figure}[ht] \centering \label{fig:finaldesopts}
     \includegraphics[width=6.5in]{./figs/final_design_opts.png}
     \caption{Final Design --- Setting of operational parameters }
-    \label{fig:finaldesopts}
 \end{figure}
 
-\subsection{Alerts}
-\label{sec:alerts}
+%%%% Earth %%%%
+\subsection{Google Earth GUI} \label{finaldes_earth}
 
-%%%% Deviation
-% Monolith
+%%%% alerts
 
-% Earth
+%% dev
 
-%%%% Distance
-% Monolith
+\begin{figure}[ht] \centering \label{fig:earth_dev}
+    \includegraphics[width=6.5in]{./figs/yellow_dev_no_leader_follower_centered.png}
+    \caption{Following driver being signalled in Google Earth to correct left}
+\end{figure}
 
-% Earth
+%% dst
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -328,35 +350,36 @@ This relation assumes level terrain such that gravity only impacts the normal fo
 
 %%%%%%%%%%%%%%%%%%%%%%%%
 % Hardware Setup Section
-\section{Hardware Setup}
-\label{sec:hardware}
+\section{Hardware Setup} \label{sec:hardware}
 
 All experimental data was taken using Novatel Propak v3 GPS receivers with pinwheel antennas, identical to those used in \cite{scottthesis}. All positioning computation was conducted on an Apple MacBook Pro Laptop running Ubuntu Linux 12.04.1 in a Parallels virtual machine in the rearmost vehicle. Novatel data was relayed directly from receivers in other vehicles to the positioning computer through the use of XTend $1~W,~900~MHz$ radio modems connected via RS232-USB adapters. This eliminated the need for additional computers, which was found to introduce unacceptable latency into the system. In this manner, a single central hub was able to host the MOOS database while controlling all receivers and data flow to all position algorithms for multiple vehicle testing.
 
-% \begin{figure}[ht] \centering
-%     \includegraphics[width=6.5in]{./figs/.png}
-%     \caption{Equipment used in the leading vehicle}
-%     \label{fig:hardwarelead}
-% \end{figure}
+\begin{figure}[ht] \centering \label{fig:hardwarelead}
+    \includegraphics[width=6.5in]{./figs/leader_hardware.png}
+    \caption{Equipment used in the leading vehicle}
+\end{figure}
 
-% \begin{figure}[ht] \centering
-%     \includegraphics[width=6.5in]{./figs/.png}
-%     \caption{Equipment used in the following vehicle}
-%     \label{fig:hardwarefoll}
-% \end{figure}
+% data collection
+The stream of available data may be divided into two categories: raw GPS measurements used to compute a relative path online, and the measurements coming either the receiver or DAF algorithm which is displayed on-screen. When conducting experimental trials for formal analysis, the latter is recorded in order to capture exactly what was displayed to the following driver and examine their performance. The former is excluded in order to reduce the volume of data throughput and increase computing efficiency, as following distance and lateral path deviation are derived from the relative path and follower velocity alone. 
+However, during the develop-test-refine cycle, the inverse is true; raw GPS measurements alone are recorded (again, neglecting other data for efficiency). This is then replayed to simulate online operation as algorithms are tuned.
 
+\begin{figure}[ht] \centering \label{fig:hardwarefoll}
+    \includegraphics[width=6.5in]{./figs/follower_hardware.png}
+    \caption{Equipment used in the following vehicle}
+\end{figure}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
 % What tests were performed
-\section{Testing}
-\label{sec:test}
+\section{Testing} \label{sec:test}
 
 %%%% Lane change replication
-\subsection{Lane Change Replication}
-\label{sec:lanechange}
+\subsection{Lane Change Replication} \label{sec:lanechange}
 
-In determining the usefulness of any tool, it is highly desirable to devise a test which yield concise results that are either completely positive or negative. To this end, a maneuver common in the characterization of vehicle dynamics, the lane change, was used in a situation in which the maneuver could be replicated properly or improperly.
+In determining the usefulness of any tool, it is highly desirable to devise a test which yields concise results that are either completely positive or negative. To this end, a maneuver common in the characterization of vehicle dynamics, the lane change, was used in a situation in which the maneuver could be replicated properly or improperly. 
+
+
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
