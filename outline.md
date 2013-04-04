@@ -182,4 +182,5 @@ Honors Thesis: Important Updates
     - accuracy behavior
     -limitations
 -  Future Work 
-    - Very Long chains (~10 vehicles) -->
+    - Very Long chains (~10 vehicles)
+    - audible alerts for the colorblind-->
