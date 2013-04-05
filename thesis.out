@@ -20,8 +20,14 @@
 \BOOKMARK [0][-]{chapter.3}{Experimentation}{}% 20
 \BOOKMARK [1][-]{section.3.1}{Hardware Setup}{chapter.3}% 21
 \BOOKMARK [1][-]{section.3.2}{Testing}{chapter.3}% 22
-\BOOKMARK [2][-]{subsection.3.2.1}{Lane Change Replication}{section.3.2}% 23
-\BOOKMARK [0][-]{chapter.4}{Error Propagation in Convoys}{}% 24
-\BOOKMARK [0][-]{chapter.5}{Conclusions}{}% 25
-\BOOKMARK [1][-]{section.5.1}{Future Work}{chapter.5}% 26
-\BOOKMARK [0][-]{chapter*.5}{Bibliography}{}% 27
+\BOOKMARK [2][-]{subsection.3.2.1}{Lane Change Replication Test}{section.3.2}% 23
+\BOOKMARK [2][-]{subsection.3.2.2}{Target Spacing Test}{section.3.2}% 24
+\BOOKMARK [2][-]{subsection.3.2.3}{Varied Driving Test}{section.3.2}% 25
+\BOOKMARK [1][-]{section.3.3}{Results}{chapter.3}% 26
+\BOOKMARK [2][-]{subsection.3.3.1}{Lane Change Replication Test Results}{section.3.3}% 27
+\BOOKMARK [2][-]{subsection.3.3.2}{Target Spacing Test Results}{section.3.3}% 28
+\BOOKMARK [2][-]{subsection.3.3.3}{Varied Driving Test Results}{section.3.3}% 29
+\BOOKMARK [0][-]{chapter.4}{Error Propagation in Convoys}{}% 30
+\BOOKMARK [0][-]{chapter.5}{Conclusions}{}% 31
+\BOOKMARK [1][-]{section.5.1}{Future Work}{chapter.5}% 32
+\BOOKMARK [0][-]{chapter*.5}{Bibliography}{}% 33
