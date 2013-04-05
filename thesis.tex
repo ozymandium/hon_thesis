@@ -257,7 +257,7 @@ The effect this had upon readability and being able to intuitively interpret dat
 \section{Data Dissemenation} \label{sec:datadiss}
 
 %%%% Qt Signals/Slots - REDO
-The Qt framework used to generate the GUI from common building blocks has an internal message passing scheme similar to a publisher/subscriber model, using instead what are called signals and slots. For instance, the main window widget alerts the render area to the left when a spinbox in the options has been changed via a signal/slot by passing a boolean value. All data coming into the GUI from MOOS passes through an interface that bridges MOOS with two signal/slot pairs: one for the relative path list and for the follower velocity. In this way GUI inputs can be made agnostic to the middleware used, requiring only a simple widget be written in order to be hooked up to a new data stream. All signal and slot connections are made at runtime, when the object instances to which they belong are created.
+The Qt framework used to generate the GUI from common building blocks has an internal message passing scheme similar to a publisher/subscriber model, using instead what are called signals and slots. For instance, the main window widget alerts the render area to the left when a spinbox in the options has been changed via a signal/slot by passing a boolean value. All data coming into the GUI from MOOS passes through an interface that bridges the two with a respective signal/slot pair. In this way GUI inputs can be made agnostic to the middleware used, requiring only a simple widget be written in order to be hooked up to a new data stream. Each of these signal and slot connections are made at runtime, when the object instances to which they belong are created.
 
 %%%% MOOS Messages - input to GUI
 Figure \ref{fig:blackboxflow} depicts the predefined inputs and outputs of the GUI. The primary message passing architecture used to deliver data to the GUI, as depicted in Fig. \ref{fig:blackboxflow}, was the Mission Oriented Operating Suite (MOOS), as developed by \cite{moos}. The GUI was initially developed using postprocessed data collected from an Prowler ATV automously following an Infiniti G35 using the same positioning and radio setup described in Sect. \ref{sec:hardware}. This is made possible by the playback feature of the MOOS framework, which is used in live operation to send raw data between the GPS receiver and the DRTK, TDCP and DAF algorithms, and then to the GUI middleware interface.
@@ -316,7 +316,7 @@ The final form of the monolithic GUI can be seen in Figures \ref{fig:finaldesdri
 
 % the driver screen
 \begin{figure}[ht] \centering \label{fig:finaldesdriv_monolith}
-    \includegraphics[width=6.5in]{./figs/final_design_data.png}
+    \includegraphics[width=5in]{./figs/final_design_data.png}
     \caption{Final monolithic design --- driver view}
 \end{figure}
 
@@ -345,7 +345,7 @@ With the Earth-based incarnation, design goals had been changed considerably. Si
 
 %%%% alerts - TODO get a shot with the data screen
 \begin{figure}[ht] \centering \label{fig:earth_dst}
-    \includegraphics[width=6.5in]{./figs/earth_slow.png}
+    \includegraphics[width=5in]{./figs/earth_slow.png}
     \caption{Following driver being signalled in Google Earth to correct left and slow}
 \end{figure}
 
@@ -362,45 +362,61 @@ Figure \ref{fig:earth_dst} depicts both leader and follower on a straightaway, w
 % Hardware Setup Section
 \section{Hardware Setup} \label{sec:hardware}
 
-All experimental data was taken using Novatel Propak v3 GPS receivers with pinwheel antennas, identical to those used in \cite{scottthesis}. All positioning computation was conducted on an Apple MacBook Pro Laptop running Ubuntu Linux 12.04.1 in a Parallels virtual machine in the rearmost vehicle. Novatel data was relayed directly from receivers in other vehicles to the positioning computer through the use of XTend-PKG $1~W,~900~MHz$ radio modems connected via RS232-USB adapters. This eliminated the need for additional computers, which was found to introduce unacceptable latency into the system. In this manner, a single central hub was able to host the MOOS database while controlling all receivers and data flow to all position algorithms for multiple vehicle testing.
-
 \begin{figure}[ht] \centering \label{fig:hardwarelead}
-    \includegraphics[width=5in]{./figs/leader_hardware.png}
+    \includegraphics[width=5in]{./figs/lead_hardware.jpg}
     \caption{Equipment used in the leading vehicle}
 \end{figure}
 
-% data collection
-The stream of available data may be divided into two categories: raw GPS measurements used to compute a relative path online, and the measurements coming either the receiver or DAF algorithm which is displayed on-screen. When conducting experimental trials for formal analysis, the latter is recorded in order to capture exactly what was displayed to the following driver and examine their performance. The former is excluded in order to reduce the volume of data throughput and increase computing efficiency, as following distance and lateral path deviation are derived from the relative path and follower velocity alone. 
-However, during the develop-test-refine cycle, the inverse is true; raw GPS measurements alone are recorded (again, neglecting other data for efficiency). This is then replayed to simulate online operation as algorithms are tuned.
+All experimental data was taken using Novatel Propak v3 GPS receivers with pinwheel antennas, identical to those used in \cite{scottthesis}. All positioning computation was conducted on an Apple MacBook Pro Laptop running Ubuntu Linux 12.04.1 in a Parallels virtual machine which was located in the rearmost vehicle. This machine also fulfilled hosted and displayed the GUI during all test runs. Novatel data was relayed directly from receivers in other vehicles to the positioning computer through the use of XTend-PKG $900~MHz$ radio modems operating at a power output of $1~W$ and connected via RS232-USB adapters. This eliminated the need for additional computers, which was found to introduce unacceptable latency into the system. In this manner, a single central hub was able to host the MOOS database while controlling all receivers and data flow to all position algorithms without the needing two-way radio communication for the GUI. Figure \ref{fig:hardwarelead} depicts what hardware is necessary in the leading vehicle, and Fig. \ref{fig:hardwarefoll} depicts the hardware placed in the following vehicle, within easy sight of the driver.
 
-\begin{figure}[ht] \centering \label{fig:hardwarefoll}
-    \includegraphics[width=5in]{./figs/follower_hardware.png}
-    \caption{Equipment used in the following vehicle}
+\begin{figure}[ht]
+    \begin{minipage}[b]{0.45\linewidth} \centering \label{fig:antennaefoll}
+        \includegraphics[width=\textwidth]{./figs/foll_antennae.jpg} 
+        \caption{Follower antennae}
+    \end{minipage}
+    \hspace{0.5cm}
+    \begin{minipage}[b]{0.45\linewidth} \centering \label{fig:hardwarefoll}
+        \includegraphics[width=\textwidth]{./figs/foll_hardware.jpg}
+        \caption{Follower interior hardware}
+    \end{minipage}
 \end{figure}
+
+
+% data collection
+The stream of available data may be divided into two categories: raw GPS measurements used to compute a relative path online, and the measurements coming either the receiver or DAF algorithm which is displayed on-screen. When conducting experimental trials for formal analysis, the latter is recorded in order to capture exactly what was displayed to the following driver and examine their performance. The former is excluded in order to reduce the volume of data throughput and increase computing efficiency, as following distance and lateral path deviation are derived from the relative path and follower velocity alone. However, during the develop-test-refine cycle, the inverse is true; raw GPS measurements alone are recorded (again, neglecting other data for efficiency). This is then replayed to simulate online operation as algorithms are tuned.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
 % What tests were performed
 \section{Testing} \label{sec:test}
+In order to formally quantify the ability of the tools developed in Chap. \ref{chap:gui} to assist convoy drivers in the target circumstances, three tests were devised: a lane change replication test, a target spacing maintenance test, and a varied driving test. These were also conducted to compare and contrast the two approaches embodied by each GUI. Since the tools developed before are designed for a single leader/follower pair, as few as two vehicles can be used as a convoy. Until Chap \ref{chap:errprop}, this configuration will be used.
 
 %%%% Lane change replication
 \subsection{Lane Change Replication Test} \label{sec:lanechangetest}
 In determining the usefulness of any tool, it is highly desirable to devise a test which yields concise results that are either completely positive or negative. To this end, a maneuver common in typical roadway driving, the lane change, was used in a situation in which the maneuver could be replicated properly or improperly to produce a binary result. This test takes place on the National Center for Asphalt Technology (NCAT) test track in Opelika, AL, which is a two lane, 1.7 mile oval oval with turns comparable to those found on an interstate highway. The leader rounds a $180^\circ$ turn and upon exiting makes a lane change between any of six cones spaced $10m$ apart along the center stripe at the start of the straightaway. This event is visually obscured from the following driver, who has no foreknowledge of which cone pair will be chosen, so there is a $20\%$ chance of choosing the correct pair simply by guessing. This iteration of this test was performed twice, once with the monolithic GUI and once with the Earth-based GUI. No control run is needed, since a cumulative success rate across all iteration above $20\%$ represents an improvement from driving without navigation assistance. A range of highway driving speeds from 30 mph to 70 mph was used, and forward spacing was not examined except to ensure that it was large enough for the aforementioned visual obstruction.
 
-This focused on aiding a driver in conditions where visibility is totally denied, as foliage and terrain features lie between the two vehicle during the moment of interest. Sensor and display frequencies will play a large role in this outcome. If information is updated with real time interpolation, a delay of at least one timestep (not including calculation time) is present, meaning that a worst-case GPS output frequency of 1.0 Hz will result 1.0 s data lag. For a following vehicle is travelling at 55 mph (24.5872 m/s), a 24.5872 m discrepancy between the path satellite imagery and the actual path. The impact of that behavior is one thing being examined in the lane change replication test. For the monolithic GUI, this test will show whether the range scaling indicators adequately convey distance information so that a driver can determine where to turn, when the interpolation functionality is disabled for rapid updating.
+This focused on aiding a driver in conditions where visibility is totally denied, as foliage and terrain features lie between the two vehicle during the moment of interest. Sensor and display frequencies will play a large role in this outcome. If information is updated with real time interpolation, a delay of at least one timestep (not including calculation time) is present, meaning that a worst-case GPS output frequency of 1.0 Hz will result 1.0 s data lag. For a following vehicle is travelling at 55 mph (24.5872 m/s), a 24.5872 m discrepancy between the path satellite imagery and the actual path. The impact of that behavior is one thing being examined in the lane change replication test. For the monolithic GUI, this test will show whether the range scaling indicators adequately convey distance information so that a driver can determine where to turn, when the interpolation functionality is disabled for rapid updating. The results are outlined in Sec \ref{sec:lanechangetestresults}
 
 %%%% Target Spacing Test
-\subsection{Target Spacing Test} \label{sec:targetspacingtest}
-% smooth intro
-Both vehicles begin motionless at a stop-sign on a side-road which intersects the NCAT test track perpendicularly. Both vehicles turn right onto the track and complete two laps before coming to a stop at starting point. Throughout the test, the following driver is attempting to maintain a speed a close as possible without incurring any distance alerts. While this test does yield data for deviation, it is largely neglected due to being conducted on a roadway with clear lanes which are make path replication easy.
+\subsection{Precision Following Test} \label{sec:targetspacingtest}
+The lane change replication test one example of implementing the path duplication tool, but does not produce the detailed results necessary for a formal conclusion favoring the usefulness of one GUI over the other. Centimeter-level measurements are available, so it is of great interest to determine whether either tools enables a convoy driver to carry out the following task with this same level of precision. The precision following test begins and ends with both vehicles parked atop the center stripe of the NCAT test track. The lead vehicle accelerates to approximately 45 mph then begins a sinusoidal path with a mean about the center stripe, a period of approximately 10 s, and an amplitude of which puts the wheels of the lead vehicle upon the outermost lane marking at the peaks. Once reaching 45 mph, the magnitude of the leader's ground plane velocity vector will vary according to position on the track. Along the two 180$^\circ$ turns it will be approximately 45 mph, and along the straightaways it will be approximately 65 mph. Throughout the test, the following driver is attempting to maintain a inter-vehicular spacing as low as possible without incurring any distance alerts, and accumulate as little deviation over time as possible. 
+This test primarily focused on distinguishing which GUI best provided aid in path duplication; for a comparative analysis, the test was conducted with the aid of each GUI individually, then without any assistance information at all. The results are outlined in Sec. \ref{sec:targetspacingtestresults}
 
 %%%% Circuit Around NCAT
 \subsection{Varied Driving Test} \label{sec:variedtest}
-The above tests represent very specific scenarii that, while examining situations which commonly arise in convoy driving, do not fully cover the full range of behaviors the GUIs are designed to aid.  A singular test was desired which would at once examine all aspects of the graphical tool and produce broad results over multiple driving scenarii. A route around the NCAT facility was devised which included non-lane driving in an environment with plenty of visual references.
+The above tests represent very specific scenarii that, while examining situations which commonly arise in convoy driving, did not fully cover the full range of behaviors the GUIs are designed to aid.  A singular test was desired which would at once examine all aspects of the graphical tool and produce broad results over multiple driving scenarii. A route around the NCAT facility was devised which included non-lane driving in an environment with plenty of visual references. 
 The follower is instructed to maintain a distance as close as possible to the leader without triggering a warning or critical alert for path spacing.
 The skidpad portion of this test is an environment with no visual landmarks by which to localize the leader, as it is a flat, open expanse of asphalt.
-To examine performance in partially denied visibility, this test was conducted in both day- and night-time.
+To examine visibility-limited performance, the test was conducted during both day- and night-time. A satellite image detailing the route taken for this test is shown in Fig. \ref{fig:variedtestroute}, and the results thereof are outlined in Sec. \ref{sec:variedtestresults}
 
+\begin{figure}[ht] \centering \label{fig:variedtestroute}
+    \includegraphics[width=5in]{./figs/varied_test_route.png}
+    \caption{Route taken for the varied driving test}
+\end{figure}
+
+
+%%%%%%%%%%%
+% Results section
 \section{Results} \label{sec:results}
 
 
@@ -413,11 +429,18 @@ To examine performance in partially denied visibility, this test was conducted i
 \subsection{Varied Driving Test Results} \label{sec:variedtestresults}
 
 
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %   Chapter 4
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{Error Propagation in Convoys}
-\label{chap:errprop}
+\chapter{Error Propagation in Convoys} \label{chap:errprop}
+
+\section{Introduction} \label{sec:errintro}
+
+\subsection{Problem Definition}
+
+\section{Experimentation}
 
 
 
@@ -425,12 +448,14 @@ To examine performance in partially denied visibility, this test was conducted i
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %   Chapter 5
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{Conclusions}
-\label{chap:concl}
+\chapter{Conclusion} \label{chap:concl}
 
 
-\section{Future Work}
-\label{sec:futwork}
+\section{Summary of Experimentation} \label{sec:summexper}
+
+\section{Qualitative User Feedback} \label{sec:qual}
+
+\section{Future Work} \label{sec:future}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
