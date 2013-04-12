@@ -149,32 +149,32 @@ Honors Thesis: Important Updates
         - *what specifically does this test?*
     - Skid Pad
         - no visual cues
-        - *hard to replicate path between drivers for consistency...*
         - scoring scheme will need an integral
-    - circuit around NCAT track, parkinglot
-        - driver tries to stay as close as possible without getting too close
-        - change speeds
-        - 2 scenarios with same circuit and same drivers
-            - Nighttime : "Impaired visibility"
-            - Daytime
-        - compare day to night
-        - scoring scheme will be piecewise with integrals
     - Track Loop Twice
         - lane change locations known to leader
         - follower try to maintain constant distance
         - Scoring scheme penalizes being too close much more than being too far
         - examine "steady state" path deviation
 - __Results post-processing explanation__
+    - 
 - __Results__: tables, figures ...
+    - Lane-Change replication with cones:
+        - always lagged, never changed ahead of the leader
+        - due to lantency
 - __Results discussion__
     - Examine data if/when GUI went offline then came back and draw conclusions
 
 
 
 
-<!-- ## Chap 4: Extension to Longer Chains ##
-- Daisy chain with a set configuration
-- Simulate with 3 Vehicles, test?
+ ## Chap 4: Investigation of DRTK Error Propagation in Convoys ##
+
+- Experimentation
+    - Data collected
+        - Static
+        - Fixed baseline dynamic
+        - dynamic baseline
+    - RTK used for truth
 
 
 ## Chap 5: Conclusions ##
@@ -183,4 +183,4 @@ Honors Thesis: Important Updates
     -limitations
 -  Future Work 
     - Very Long chains (~10 vehicles)
-    - audible alerts for the colorblind-->
+    - audible alerts for the colorblind
