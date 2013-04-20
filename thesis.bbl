@@ -57,6 +57,11 @@ Travis, W., and Bevly, D., 2008.
 \newblock In Position, Location and Navigation Symposium, 2008 IEEE/ION,
   pp.~1022 --1032.
 
+\bibitem{qt}
+Blanchette, J., and Summerfield, M., 2008.
+\newblock {\em C++ GUI Programming with Qt 4}, 2~ed.
+\newblock Prentice Hall.
+
 \bibitem{moos}
 Newman, P., 2003.
 \newblock ``Moos: A mission oriented operating suite (tech. rep. oe2003--07)''.
@@ -70,6 +75,11 @@ Snyder, J.~P., 1987.
 \bibitem{laterrformula}
 Weisstein, E.~W.
 \newblock Point-line distance--2-dimensional.
+
+\bibitem{mu}
+Wang, J., Alexander, L., and Rajamani, R., 2005.
+\newblock Gps based real-time tire-road friction coefficient identification.
+\newblock Tech. Rep.~04, Minnesota Department of Transportation.
 
 \bibitem{vdbook}
 Gillespie, T.~D., 2001.

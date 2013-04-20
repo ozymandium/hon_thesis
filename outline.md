@@ -169,6 +169,7 @@ Honors Thesis: Important Updates
 
  ## Chap 4: Investigation of DRTK Error Propagation in Convoys ##
 
+
 - Experimentation
     - Data collected
         - Static
@@ -184,3 +185,11 @@ Honors Thesis: Important Updates
 -  Future Work 
     - Very Long chains (~10 vehicles)
     - audible alerts for the colorblind
+
+- GUI user feedback
+    - Thomas - G35 reverse cam shows path that will be taken based on present steer angle
+        - kinematics
+            - vehicle lengths/steering data
+    - dynamics
+        - prediction - william thesis
+    - lag better than smooth?
