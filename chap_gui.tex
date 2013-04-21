@@ -61,12 +61,15 @@ The effect this had upon readability and being able to intuitively interpret dat
 % Data Dissemenation
 \section{Data Dissemenation} \label{sec:datadiss}
 
+When creating an application to run in realtime, it is of utmost importance that infomation be passed about in a prudent manner, or latency will accumulate and render the application useless. The 
+
+
 Both the GPS receivers and 
 %%%% Qt Signals/Slots - REDO
 The Qt \cite{qt} framework used to generate the GUI from common building blocks has an internal message passing scheme similar to a publisher/subscriber model, using instead what are called signals and slots. For instance, the main window widget alerts the render area to the left when a spinbox in the options has been changed via a signal/slot by passing a boolean value. All data coming into the GUI from MOOS passes through an interface that bridges the two with a respective signal/slot pair. In this way GUI inputs can be made agnostic to the middleware used, requiring only a simple widget be written in order to be hooked up to a new data stream. Each of these signal and slot connections are made at runtime, when the object instances to which they belong are created.
 
 %%%% MOOS Messages - input to GUI
-Figure \ref{fig:blackboxflow} depicts the predefined inputs and outputs of the GUI. The primary message passing architecture used to deliver data to the GUI, as depicted in Fig. \ref{fig:blackboxflow}, was the Mission Oriented Operating Suite (MOOS), as developed by \cite{moos}. The GUI was initially developed using postprocessed data collected from an Prowler ATV automously following an Infiniti G35 using the same positioning and radio setup described in Sect. \ref{sec:hardware}. This is made possible by the playback feature of the MOOS framework, which is used in live operation to send raw data between the GPS receiver and the DRTK, TDCP and DAF algorithms, and then to the GUI middleware interface.
+Figure \ref{fig:blackboxflow} depicts the predefined inputs and outputs of the GUI. The primary message passing architecture used to deliver data to the GUI, as depicted in Fig. \ref{fig:blackboxflow}, was the. The GUI was initially developed using postprocessed data collected from an Prowler ATV automously following an Infiniti G35 using the same positioning and radio setup described in Sect. \ref{sec:hardware}. This is made possible by the playback feature of the MOOS framework, which is used in live operation to send raw data between the GPS receiver and the DRTK, TDCP and DAF algorithms, and then to the GUI middleware interface.
 
 %%%% Specific to Earth GUI
 %% KML server

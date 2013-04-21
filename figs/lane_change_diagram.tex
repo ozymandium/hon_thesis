@@ -10,6 +10,7 @@
 \definecolor{ffcctt}{rgb}{1,0.8,0.2}
 \definecolor{ffzzqq}{rgb}{1,0.6,0}
 
+
 \begin{tikzpicture}[
     scale=0.5,
     line cap=round,
@@ -17,6 +18,8 @@
     >=triangle 45,
     x=1.0cm,y=1.0cm
     ]
+
+    \begin{scope}[shift={(0,-15)}]
 
     \clip(-0.94,-2.06) rectangle (29.18,16.12);
     \draw [line width=5.2pt] (16,10)-- (2,10);
@@ -51,6 +54,9 @@
         \fill [color=ttzzqq,shift={(15.96,2.86)},rotate=270] (0,0) ++(0 pt,6.75pt) -- ++(5.85pt,-10.125pt)--++(-11.69pt,0 pt) -- ++(5.85pt,10.125pt);
         \draw[color=ttzzqq] (14.5,3.32) node {$Follower$};
     \end{scriptsize}
+
+    \end{scope}
+
 \end{tikzpicture}
 
 
