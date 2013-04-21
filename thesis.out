@@ -19,18 +19,19 @@
 \BOOKMARK [2][-]{subsection.2.5.2}{Google Earth GUI}{section.2.5}% 19
 \BOOKMARK [0][-]{chapter.3}{Experimentation}{}% 20
 \BOOKMARK [1][-]{section.3.1}{Hardware Setup}{chapter.3}% 21
-\BOOKMARK [1][-]{section.3.2}{Testing}{chapter.3}% 22
+\BOOKMARK [1][-]{section.3.2}{Definition of Testing Procedures}{chapter.3}% 22
 \BOOKMARK [2][-]{subsection.3.2.1}{Lane Change Replication Test}{section.3.2}% 23
 \BOOKMARK [2][-]{subsection.3.2.2}{Precision Following Test}{section.3.2}% 24
-\BOOKMARK [1][-]{section.3.3}{Results}{chapter.3}% 25
-\BOOKMARK [2][-]{subsection.3.3.1}{Lane Change Replication Test Results}{section.3.3}% 26
-\BOOKMARK [2][-]{subsection.3.3.2}{Precision Following Test Results}{section.3.3}% 27
-\BOOKMARK [0][-]{chapter.4}{Error Propagation in Convoys}{}% 28
-\BOOKMARK [1][-]{section.4.1}{Introduction}{chapter.4}% 29
-\BOOKMARK [1][-]{section.4.2}{Experimentation}{chapter.4}% 30
-\BOOKMARK [1][-]{section.4.3}{Results}{chapter.4}% 31
-\BOOKMARK [0][-]{chapter.5}{Conclusion}{}% 32
-\BOOKMARK [1][-]{section.5.1}{Summary of Experimentation}{chapter.5}% 33
-\BOOKMARK [1][-]{section.5.2}{Qualitative User Feedback}{chapter.5}% 34
-\BOOKMARK [1][-]{section.5.3}{Future Work}{chapter.5}% 35
-\BOOKMARK [0][-]{chapter*.5}{Bibliography}{}% 36
+\BOOKMARK [2][-]{subsection.3.2.3}{}{section.3.2}% 25
+\BOOKMARK [1][-]{section.3.3}{Results}{chapter.3}% 26
+\BOOKMARK [2][-]{subsection.3.3.1}{Lane Change Replication Test Results}{section.3.3}% 27
+\BOOKMARK [2][-]{subsection.3.3.2}{Precision Following Test Results}{section.3.3}% 28
+\BOOKMARK [0][-]{chapter.4}{Error Propagation in Convoys}{}% 29
+\BOOKMARK [1][-]{section.4.1}{Introduction}{chapter.4}% 30
+\BOOKMARK [1][-]{section.4.2}{Experimentation}{chapter.4}% 31
+\BOOKMARK [1][-]{section.4.3}{Results}{chapter.4}% 32
+\BOOKMARK [0][-]{chapter.5}{Conclusion}{}% 33
+\BOOKMARK [1][-]{section.5.1}{Summary of Experimentation}{chapter.5}% 34
+\BOOKMARK [1][-]{section.5.2}{Qualitative User Feedback}{chapter.5}% 35
+\BOOKMARK [1][-]{section.5.3}{Future Work}{chapter.5}% 36
+\BOOKMARK [0][-]{chapter*.5}{Bibliography}{}% 37

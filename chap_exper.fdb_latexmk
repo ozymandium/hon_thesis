@@ -1,0 +1,9 @@
+# Fdb version 3
+["pdflatex"] 1366517516 "chap_exper.tex" "chap_exper.pdf" "chap_exper" 
+  "./figs/lane_change_diagram.tex" 1366517412 2756 0068b6792ea027d1f44e74accd01038c ""
+  "/usr/share/texlive/texmf-dist/tex/latex/base/omlcmr.fd" 1254151887 2110 b6dc71ab969a2e72071817ffae72fb63 ""
+  "chap_exper.aux" 1366504189 8 a94a2480d3289e625eea47cd1b285758 ""
+  "chap_exper.tex" 1366517516 10973 d2a6a55e924054e6f20bb77a7a5aef9a ""
+  (generated)
+  "chap_exper.log"
+  "chap_exper.pdf"
