@@ -1,0 +1,33 @@
+\documentclass[10pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{pgf,tikz}
+\usetikzlibrary{arrows}
+\pagestyle{empty}
+ 
+%<<<<<<<WARNING>>>>>>>
+% PGF/Tikz doesn't support the following mathematical functions:
+% tan, cosh, acosh, sinh, asinh, tanh, atanh
+
+% Plotting will be done using GNUPLOT
+% GNUPLOT must be installed and you must allow Latex to call external programs by
+% Adding the following option to your compiler
+% shell-escape    OR    enable-write18 
+% Example: pdflatex --shell-escape file.tex 
+
+\begin{document}
+\definecolor{qqttff}{rgb}{0,0.2,1}
+\definecolor{ffccqq}{rgb}{1,0.8,0}
+\begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=1.0cm,y=1.0cm]
+\clip(-2.3,-1.64) rectangle (27.4,16.98);
+\draw [line width=4.4pt] (0,4)-- (20,4);
+\draw [line width=4.4pt] (0,0)-- (20,0);
+\draw [line width=2.4pt,dash pattern=on 5pt off 5pt,color=ffccqq] (0,2)-- (20,2);
+\draw[line width=2pt,dotted,color=qqttff, smooth,samples=100,domain=0.0:20.0] plot[parametric] function{t,1.5*sin((t/2)*180/pi)+2};
+\draw (3.38,4)-- (3.38,4.5);
+\draw (15.88,4.5)-- (15.88,4);
+\draw [->] (3.55,4.25) -- (15.7,4.25);
+\begin{scriptsize}
+\draw[color=black] (10.14,4.46) node {T = 10 s};
+\end{scriptsize}
+\end{tikzpicture}
+\end{document}
