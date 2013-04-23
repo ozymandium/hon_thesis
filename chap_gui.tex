@@ -61,24 +61,33 @@ The effect this had upon readability and being able to intuitively interpret dat
 % Data Dissemenation
 \section{Data Dissemenation} \label{sec:datadiss}
 
-When creating an application to run in realtime, it is of utmost importance that infomation be passed about in a prudent manner, or latency will accumulate and render the application useless. The 
+When creating an application to run in realtime, it is of utmost importance that infomation be passed about in a prudent manner, or latency will accumulate and render the application  useless.
+% had to use moos.
+The MOOS framework \cite{moos} was already in place for communication between the DRTK, TDCP, and DAF algorithms, and the GPS receivers used.
+% do more intro here.
 
+% moos
+MOOS comprises a publisher-subscriber message passing system with a single central database which may hold floating point numbers or strings. The `Messaging Architecture' object in Fig.~\ref{fig:blackboxflow} refers to the MOOS database and its ecosystem, and it serves purely as a source of data, meaning that the `Messaging Interface' object in the same figure is a MOOS application created as a means of retrieving this data and converting it into a useable form.
+Both GUIs were initially developed using postprocessed data collected from an Prowler ATV automously following an Infiniti G35---the original use of the DAF algorithm---using the same positioning and radio setup described in Sect. \ref{sec:hardware}. This was made possible by the playback feature of the MOOS framework, which is used to broadcast data from a text file as if it were streaming live.
+Sec. \ref{sec:test} describes how selectivity was exercised during data collection to minimize memory usage while maximizing the usefulness of the data that was collected when it was replayed.
 
-Both the GPS receivers and 
-%%%% Qt Signals/Slots - REDO
-The Qt \cite{qt} framework used to generate the GUI from common building blocks has an internal message passing scheme similar to a publisher/subscriber model, using instead what are called signals and slots. For instance, the main window widget alerts the render area to the left when a spinbox in the options has been changed via a signal/slot by passing a boolean value. All data coming into the GUI from MOOS passes through an interface that bridges the two with a respective signal/slot pair. In this way GUI inputs can be made agnostic to the middleware used, requiring only a simple widget be written in order to be hooked up to a new data stream. Each of these signal and slot connections are made at runtime, when the object instances to which they belong are created.
+%%%% Qt Signals/Slots - alright.
+Both GUIs were constructed using the Qt \cite{qt} framework to varying degrees; the interface backend of the monolithic GUI relied entirely upon a Qt window and components, and the command interface of the Earth-based GUI (see Sec \ref{sec:finaldes_earth}) was constructed similarly. Many items in each window may be changed by the user or update based on incoming data, and must subsequenty interact with other items in the window. For instance, when the user changes a $\mu$ value using the tab in Fig.~\ref{sec:finaldes_monolith}, the corresponding variable being accessed by the function which calculates stopping distance thresholds must then be changed. Qt has an internal message passing scheme similar to a publisher/subscriber model, using instead what are called signals and slots. Continuing the example above, when that $\mu$ value is changed the `spinbox' by which the user changed it then emits a signal which is broadcast out. It is then received by all connected slots. These signal/slot connections are made at runtime, when the object instances to which they belong are created.
 
-%%%% MOOS Messages - input to GUI
-Figure \ref{fig:blackboxflow} depicts the predefined inputs and outputs of the GUI. The primary message passing architecture used to deliver data to the GUI, as depicted in Fig. \ref{fig:blackboxflow}, was the. The GUI was initially developed using postprocessed data collected from an Prowler ATV automously following an Infiniti G35 using the same positioning and radio setup described in Sect. \ref{sec:hardware}. This is made possible by the playback feature of the MOOS framework, which is used in live operation to send raw data between the GPS receiver and the DRTK, TDCP and DAF algorithms, and then to the GUI middleware interface.
+% talk
+% In this way GUI inputs can be made agnostic to the middleware used, requiring only a simple widget be written in order to be hooked up to a new data stream. 
 
-%%%% Specific to Earth GUI
+%%%% Specific to Earth GUI - alright.
 %% KML server
-Every detail displayed in the Earth GUI at any instant is defined using the a document written in the Keyhole Markup Language. These documents must be generated at whatever screen refresh rate is desired. Supplying KML documents updating in excess of 10 Hz required contsruction of a local server which was built using the Tornado web framework. Each KML document contains 3D view information supplied by the controls located in a view tab located in the command interface described in Sec. \ref{sec:finaldes_earth}. The object which is controlled is a virtual camera perspective above the satellite imagery specified by a point of focus on which to center the screen (determined by a combination of vehicle positions), altitude above that point, tilt from vertical, and heading relative to north.
+Every detail displayed in the Earth GUI at any instant is defined using a document written in the Keyhole Markup Language. These documents must be generated at whatever screen refresh rate is desired. Supplying KML documents updating in excess of 10 Hz required contsruction of a local server which was built using the Tornado web framework. Each KML document contains 3D view information supplied by the controls located in a view tab located in the command interface described in Sec. \ref{sec:finaldes_earth}. The object which is controlled is a virtual camera perspective above the satellite imagery specified by a point of focus on which to center the screen (determined by a combination of vehicle positions), altitude above that point, tilt from vertical, and heading relative to north.
 %% passing middleware object instance references
 All this information is easily accessible in a central location by creating a single information object. A reference to this instance is passed to all applications which need to either update it with new data or retrieve a snapshot of the latest data from it. In this manner, creation of alternative middleware interfaces is greatly simplified.
 
+
+
 %%%%%%%%%%%%%%
 % Calculations
+%%%%%%%%%%%%%%
 \section{Calculations} \label{sec:guicalc}
 
 % UTM coordinates - REDO
