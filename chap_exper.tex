@@ -82,8 +82,12 @@ This test primarily focused on distinguishing which GUI best provided aid in pat
 \subsection{Zero Landmark Test} \label{sec:zerolandmarktest}
 The precision following test took place in an environment abundant in visual landmarks by which to localize, such as lane markings and road signs. Given the motivation for these tools, it is necessary to examine the performance of both GUIs in a situation where this type of assistance is denied. The zero landmark test was therefore constructed to determine the impact of removing visual awareness of surrounds as well as waypoints along the leaders path to assist in replicating it.
 
-Both vehicles began parked in a large, open expanse of flat asphalt (`skidpad') with excellent GPS coverage. There are no clearly visible artifacts upon the ground, though some objects are visible at the outer edges of the skidpad. To further obscure visual following, the test was conducted at night. The lead vehicle drove in chaotic patterns intended present a path with is difficult to follow while the following vehicle attempted to adhere to the path as well as possible and maintain the closest possible curvilinear separation distance without triggering any alert messages. Sec. \ref{sec:zerolandmarkresults} outlines the results of the zero landmark test.
+Both vehicles began parked in a large, open expanse of flat asphalt (`skidpad') with excellent GPS coverage. There are no clearly visible artifacts upon the ground, though some objects are visible at the outer edges of the skidpad. To further obscure visual following, the test was conducted at night. The lead vehicle drove in chaotic patterns intended present a path with is difficult to follow while the following vehicle attempted to adhere to the path as well as possible and maintain the closest possible curvilinear separation distance without triggering any alert messages. Sec. \ref{sec:zerolandmarkresults} outlines the results of the zero landmark test, and the path taken by the leader in one of the runs is shown in Fig.~\ref{fig:zerolandmarkpath}
 
+\begin{figure}[ht] \centering
+    \includegraphics[width=5in]{./figs/zero_landmark_path.png}
+    \caption{Path taken by lead vehicle during a single run of the zero landmark test} \label{fig:zerolandmarkpath}
+\end{figure}
 
 
 
@@ -113,7 +117,7 @@ Table \ref{tab:lanechangeresults} shows the results of all runs of the lane chan
     4       &       5   &    5 \\ \hline   
 \end{tabular} \label{tab:lanechangeresults} \end{table}
 
-Figures~\ref{fig:lanechange_earth} and~\ref{fig:lanechange_mono} show what the driver saw onscreen during 
+Figures~\ref{fig:lanechange_earth} and~\ref{fig:lanechange_mono} show what the driver saw onscreen prior to attempting to make the correct lane change using the Earth GUI and the monolithic GUI, respectivley.
 
 \begin{figure}[ht] \centering
     \begin{minipage}[b]{0.45\linewidth} \centering 
@@ -136,6 +140,7 @@ Figures~\ref{fig:lanechange_earth} and~\ref{fig:lanechange_mono} show what the d
 
 % Explain the run-specific charts
 Shown in Figs. \ref{fig:precisionresults_earth} , \ref{fig:precisionresults_monolith} , and \ref{fig:precisionresults_control} are the best of all runs of the precision following test using the Earth-based GUI, monolithic GUI, and no GUI at all, respectivley. The criterion for selecting the `best' run was that which had the lowest combined percentage of timesteps when an alert was issued for either distance or deviation. Figure \ref{fig:precision_alerts} outlines how often alerts occurred during each data run.
+
 
 
 
