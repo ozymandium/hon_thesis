@@ -82,11 +82,22 @@ This test primarily focused on distinguishing which GUI best provided aid in pat
 \subsection{Zero Landmark Test} \label{sec:zerolandmarktest}
 The precision following test took place in an environment abundant in visual landmarks by which to localize, such as lane markings and road signs. Given the motivation for these tools, it is necessary to examine the performance of both GUIs in a situation where this type of assistance is denied. The zero landmark test was therefore constructed to determine the impact of removing visual awareness of surrounds as well as waypoints along the leaders path to assist in replicating it.
 
+Both vehicles began parked in a large, open expanse of flat asphalt (`skidpad') with excellent GPS coverage. There are no clearly visible artifacts upon the ground, though some objects are visible at the outer edges of the skidpad. To further obscure visual following, the test was conducted at night. The lead vehicle drove in chaotic patterns intended present a path with is difficult to follow while the following vehicle attempted to adhere to the path as well as possible and maintain the closest possible curvilinear separation distance without triggering any alert messages. Sec. \ref{sec:zerolandmarkresults} outlines the results of the zero landmark test.
+
+
+
+
+
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Results section
 \section{Results} \label{sec:results}
 
-When at any point a path is uncalculable, due to satellite outage, outlying values, course errors, or other errors, the path reported is of length one (a single point at the position of the leader). When this occurs, the following distance becomes 0.0, and these instances are ignored in tabulation of the following distance score.
+In processing the collected data, some
+% technicalities
+When at any point a path is uncalculable, due to satellite outage, outlying values, course errors, or other errors, the path reported is of length one (a single point at the position of the leader). When this occurs, the following distance becomes 0.0, and these instances were ignored in tabulation of the following distance score.
+
 
 %%%%% Lane Change between Cones
 \subsection{Lane Change Replication Test Results} \label{sec:lanechangetestresults}
@@ -119,10 +130,12 @@ Figures~\ref{fig:lanechange_earth} and~\ref{fig:lanechange_mono} show what the d
 
 
 
+
 %%%%% Follow the Path around the track
 \subsection{Precision Following Test Results} \label{sec:precisionfollowingresults}
 
-Shown in Figs. \ref{fig:precisionresults_earth} \ref{fig:precisionresults_monolith} are the best of all runs of the precision following test. 
+% Explain the run-specific charts
+Shown in Figs. \ref{fig:precisionresults_earth} , \ref{fig:precisionresults_monolith} , and \ref{fig:precisionresults_control} are the best of all runs of the precision following test using the Earth-based GUI, monolithic GUI, and no GUI at all, respectivley. The criterion for selecting the `best' run was that which had the lowest combined percentage of timesteps when an alert was issued for either distance or deviation. Figure \ref{fig:precision_alerts} outlines how often alerts occurred during each data run.
 
 
 
@@ -130,5 +143,6 @@ Shown in Figs. \ref{fig:precisionresults_earth} \ref{fig:precisionresults_monoli
 %%%%% Skidpad drive around
 \subsection{Zero Landmark Test Results} \label{sec:zerolandmarkresults}
 
-Shown in Figs. \ref{fig:precisionresults_earth} \ref{fig:precisionresults_monolith} are the best of all runs of the precision following test. 
+% Explain the run-specific charts
+Shown in Figs. \ref{fig:zeroresults_earth} , \ref{fig:zeroresults_monolith} , and \ref{fig:zeroresults_control} are the best of all runs of the zero landmark test using the Earth-based GUI, monolithic GUI, and no GUI at all, respectivley. The criterion for selecting the `best' run was that which had the lowest combined percentage of timesteps when an alert was issued for either distance or deviation. Figure \ref{fig:zero_alerts} outlines how often alerts occurred during each data run.
 
