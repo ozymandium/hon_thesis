@@ -6,45 +6,45 @@ Database file #1: thesis.bib
 Warning--entry type for "laterrformula" isn't style-file defined
 --line 161 of file thesis.bib
 Warning--empty year in laterrformula
-You've used 15 entries,
+You've used 16 entries,
             1984 wiz_defined-function locations,
-            558 strings with 6020 characters,
-and the built_in function-call counts, 3290 in all, are:
-= -- 267
-> -- 129
+            562 strings with 6102 characters,
+and the built_in function-call counts, 3460 in all, are:
+= -- 281
+> -- 136
 < -- 1
-+ -- 53
-- -- 38
-* -- 165
-:= -- 489
-add.period$ -- 44
-call.type$ -- 15
-change.case$ -- 14
++ -- 56
+- -- 40
+* -- 173
+:= -- 515
+add.period$ -- 47
+call.type$ -- 16
+change.case$ -- 15
 chr.to.int$ -- 0
-cite$ -- 16
-duplicate$ -- 191
-empty$ -- 357
-format.name$ -- 38
-if$ -- 770
+cite$ -- 17
+duplicate$ -- 201
+empty$ -- 377
+format.name$ -- 40
+if$ -- 810
 int.to.chr$ -- 0
-int.to.str$ -- 15
-missing$ -- 10
-newline$ -- 77
-num.names$ -- 15
-pop$ -- 93
+int.to.str$ -- 16
+missing$ -- 12
+newline$ -- 82
+num.names$ -- 16
+pop$ -- 100
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 91
+skip$ -- 93
 stack$ -- 0
 substring$ -- 143
-swap$ -- 59
+swap$ -- 60
 text.length$ -- 1
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
 warning$ -- 1
-while$ -- 23
-width$ -- 17
-write$ -- 157
+while$ -- 24
+width$ -- 18
+write$ -- 168
 (There were 2 warnings)
