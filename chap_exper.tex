@@ -69,7 +69,14 @@ The lane change replication test focused on aiding a driver in conditions where 
 
 %%%% Target Spacing Test
 \subsection{Precision Following Test} \label{sec:targetspacingtest}
-The lane change replication test is one example of implementing the path duplication tool, but does not produce the detailed results necessary for a formal conclusion favoring the usefulness of one GUI over the other. Centimeter-level measurements are available, so it is of great interest to determine whether either tool enables a convoy driver to carry out the following task with this improved level of precision. The precision following test begins and ends with both vehicles parked atop the center stripe of the NCAT test track. The lead vehicle accelerates to approximately 45 mph then begins a sinusoidal path with a mean about the center stripe, a period of approximately 10 s, and an amplitude that puts the wheels of the lead vehicle upon the outermost lane marking at the peaks. Once reaching 45 mph, the magnitude of the leader's ground plane velocity vector will vary according to position on the track. Along the two 180$^\circ$ turns it will be approximately 45 mph, and along the straightaways it will be approximately 65 mph. Throughout the test, the following driver is attempting to maintain a inter-vehicular spacing as low as possible without incurring any distance alerts, and accumulate as little deviation over time as possible. 
+The lane change replication test is one example of implementing the path duplication tool, but does not produce the detailed results necessary for a formal conclusion favoring the usefulness of one GUI over the other. Centimeter-level measurements are available, so it is of great interest to determine whether either tool enables a convoy driver to carry out the following task with this improved level of precision. The precision following test begins and ends with both vehicles parked atop the center stripe of the NCAT test track. The lead vehicle accelerates to approximately 45 mph then begins a sinusoidal path with a mean about the center stripe, a period of approximately 10 s, and an amplitude that puts the wheels of the lead vehicle upon the outermost lane marking at the peaks. Once reaching 45 mph, the magnitude of the leader's ground plane velocity vector will vary according to position on the track. Along the two 180$^\circ$ turns it will be approximately 45 mph, and along the straightaways it will be approximately 65 mph. Throughout the test, the following driver is attempting to maintain a inter-vehicular spacing as low as possible without incurring any distance alerts, and accumulate as little deviation over time as possible.
+
+% \input{./figs/precision_following_diagram.tex}
+\begin{figure}[ht] \centering
+    \includegraphics[width=6.5in]{./figs/precision_following_diagram.png}
+    \caption{Diagram of the precision following test procedure} \label{fig:precisionfollowingdiagram}
+\end{figure}
+
 This test primarily focused on distinguishing which GUI best provided aid in path duplication; for a comparative analysis, the test was conducted with the aid of each GUI individually, then without any assistance information at all. As this test was conducted in an environment equivalent to most American two-lane roads and the leader does not stray from the two outer lane markings, it was anticipated that the lateral deviation should be bounded by approximately the width of the road minus the track width of the widest vehicle, or $5.8~m$. This allows for scrutiny of the deviation in greater detail than when the lateral deviation is not bounded by design. Sec. \ref{sec:precisionfollowingresults} outlines the results of the precision following test.
 
 \subsection{Zero Landmark Test} \label{sec:zerolandmarktest}
@@ -79,42 +86,49 @@ The precision following test took place in an environment abundant in visual lan
 % Results section
 \section{Results} \label{sec:results}
 
+When at any point a path is uncalculable, due to satellite outage, outlying values, course errors, or other errors, the path reported is of length one (a single point at the position of the leader). When this occurs, the following distance becomes 0.0, and these instances are ignored in tabulation of the following distance score.
+
 %%%%% Lane Change between Cones
 \subsection{Lane Change Replication Test Results} \label{sec:lanechangetestresults}
 
-\begin{figure}[ht] \caption{Results from all runs of the lane change replication test} \centering \label{fig:lanechangeresults}
-    \includegraphics[width=4in]{./figs/lane_change_results.png}
-\end{figure}
+Table \ref{tab:lanechangeresults} shows the results of all runs of the lane change replication test. It is plain to see that in every instance where a lane change was made between the improper cone pair, the follower changed lanes later than did the leader. This is attributed to latency existing in the combined system from calculation and driver reaction.
 
-Figure \ref{fig:lanechangeresults} shows the results of all runs of the lane change replication test.
+\begin{table}[htbp] \centering \caption{Cone pairs chosen in the lane change replication test}
+\begin{tabular}{c|cc} 
+    Run \#  &     Leader&    Follower \\ \hline\hline
+    1       &       1   &    3 \\
+    2       &       3   &    4   \\
+    3       &       2   &    3   \\
+    4       &       5   &    5 \\ \hline   
+\end{tabular} \label{tab:lanechangeresults} \end{table}
 
-It is plain to see that in every instance where a lane change was made between the improper cone pair, the follower changed lanes later than did the leader. This is attributed to latency existing in the combined system from calculation and driver reaction.
+Figures~\ref{fig:lanechange_earth} and~\ref{fig:lanechange_mono} show what the driver saw onscreen during 
 
 \begin{figure}[ht] \centering
-    \includegraphics[width=4in]{./figs/lane_change.png}
-    \caption{Earth GUI as follower enters a lane change} \label{fig:lanechange_earth}
+    \begin{minipage}[b]{0.45\linewidth} \centering 
+        \includegraphics[width=3in]{./figs/lane_change.png}
+        \caption{Earth GUI as follower enters a lane change} \label{fig:lanechange_earth}
+    \end{minipage}
+    \hspace{0.5cm}
+    \begin{minipage}[b]{0.45\linewidth} \centering
+        \includegraphics[width=3in]{./figs/lane_change_mono.png}
+        \caption{Monolithic GUI as follower enters a lane change} \label{fig:lanechange_mono}
+    \end{minipage}
 \end{figure}
 
-\begin{figure}[ht] \centering
-    \includegraphics[width=4in]{./figs/lane_change_mono.png}
-    \caption{Monolithic GUI as follower enters a lane change} \label{fig:lanechange_mono}
-\end{figure}
+
 
 
 %%%%% Follow the Path around the track
 \subsection{Precision Following Test Results} \label{sec:precisionfollowingresults}
 
-\begin{figure}[ht] \centering \label{fig:precisionresults_earth}
-    \includegraphics[width=5in]{./figs/dst_dev_earth_tracklap.png}
-    \caption{Best run of the precision following test using Earth GUI}
-\end{figure}
-
-\begin{figure}[ht] \centering \label{fig:precisionresults_monolith}
-    \includegraphics[width=5in]{./figs/dst_dev_monolith_tracklap.png}
-    \caption{Best run of the precision following test using monolith GUI}
-\end{figure}
-
 Shown in Figs. \ref{fig:precisionresults_earth} \ref{fig:precisionresults_monolith} are the best of all runs of the precision following test. 
 
-When at any point a path is uncalculable, due to satellite outage, outlying values, course errors, or other errors, the path reported is of length one (a single point at the position of the leader). When this occurs, the following distance becomes 0.0, and these instances are ignored in tabulation of the following distance score.
+
+
+
+%%%%% Skidpad drive around
+\subsection{Zero Landmark Test Results} \label{sec:zerolandmarkresults}
+
+Shown in Figs. \ref{fig:precisionresults_earth} \ref{fig:precisionresults_monolith} are the best of all runs of the precision following test. 
 

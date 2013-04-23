@@ -11,6 +11,7 @@
     \usetikzlibrary{calc, arrows, shapes}
     \usetkzobj{angles} % important you want to use angles
 
+\usepackage{caption} \captionsetup[table]{skip=10pt}
 
 % enable expand math support
 \usepackage{amsmath}
@@ -29,6 +30,10 @@
 \usepackage[intoc]{nomencl}
 \renewcommand{\nomname}{ \sc List of Abbreviations}
 \makenomenclature
+
+% Appendices are written like regular chapters
+\usepackage[toc,page]{appendix}
+\appendixpageoff\appendixtocoff
 
 % click on links to jump in pdf - should come last of usepackages
 \usepackage{hyperref}
@@ -113,8 +118,16 @@ Thank people here ...
 \input{chap_intro}
 \input{chap_gui}
 \input{chap_exper}
-\input{chap_errprop}
+% \input{chap_errprop}
 \input{chap_concl}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%   Appendices
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{appendices}
+\input{thesis_appendices}
+\end{appendices}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

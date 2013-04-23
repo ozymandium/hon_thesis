@@ -92,38 +92,8 @@ The most crucial calculations are performed upon the vector of relative path poi
 \end{align}
 The underlying assumption here is that the GPS antenna is placed on the lateral center of the vehicle. Once this value has been determined, it may simply be compared against user-input threshold values for warning and critical states to determine whether to issue an alert as discussed in Secs. \ref{sec:finaldes_monolith} and \ref{sec:finaldes_earth}.
 
-% RPV diagram
-\begin{figure}[ht] \centering
-\begin{tikzpicture}[
-        scale=5,
-        axis/.style={thin, ->, >=stealth'},
-        every node/.style={circle, color=black}   ]
-    % axis
-    \draw[axis] (-0.1,0) -- (0.2,0) node(xline)[right] {$X$};
-    \draw[axis] (0,-0.1) -- (0,0.2) node(yline)[above] {$Y$};
-    % points
-    \coordinate (a) at (0.35,0.35);
-    \coordinate (b) at (0.6,0.6);
-    \coordinate (c) at (0.85,0.85);
-    \coordinate (d) at (0.85,0.35);
-    % right angle
-    \tkzMarkRightAngle[fill=gray!20,size=.05](a,b,d)
-    \node[draw,circle,inner sep=2pt,fill=blue] at (a) {};
-    \node[draw,circle,inner sep=2pt,fill=green] at (b) {};
-    \node[draw,circle,inner sep=2pt,fill=blue] at (c) {};
-    \node[draw,circle,inner sep=2pt,fill=red] at (d) {};
-    % point labels
-    \node [below left] at (a)  {$(x_1,y_1)$};
-    \node [left] at (b)  {$(x_3,y_3)$};
-    \node [above right] at (c) {$(x_2,y_2)$};
-    \node [below right] at (d) {$(x_0,y_0)$};
-    % path arrow
-    \draw[very thick,blue,->] (a) -- (c) node [pos=0.75, sloped, above, color=blue] {path};
-    % dev arrow
-    \draw[very thick,red,->] (d) -- (b) node [pos=0.5, sloped, above, color=red] {dev};
-\end{tikzpicture}
-\caption{Key path points near to the follower} \label{fig:pathpts}
-\end{figure}
+% pathpts diagram
+\input{pathpts_diagram}
 
 %%%% Calculating the distance
 Next, a measure of the curvilinear distance separating the leader and follower is necessary for collision avoidance purposes. To do this, it is assumed that the follower will adhere to the path, and that the current position of the follower lies along rearmost path line at point $(x_3, y_3)$ where $m_{12}$ and $m_{03}$ represent the slopes of the rearmost path line and the perpendicular deviation line, respectively. Finding this point is possible by use the relations in Eqs. \eqref{eq:devprojx} and \eqref{eq:devprojy}. The line segment between it and $(x_1,y_1)$ is removed, and the magnitudes of all other lines are summed to obtain the curvilinear spacing between the two GPS antennae. 
