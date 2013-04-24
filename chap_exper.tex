@@ -67,6 +67,7 @@ In determining the usefulness of any tool, it is highly desirable to devise a te
 
 The lane change replication test focused on aiding a driver in conditions where visibility is totally denied, as foliage and terrain features lie between the two vehicle during the moment of interest. Sensor and display frequencies will play a large role in this outcome. If information is updated with real time interpolation, a delay of at least one timestep (not including calculation time) is present, meaning that a worst-case GPS output frequency of 1.0 Hz will result 1.0 s data lag. When this is the case, the error in . The impact of that behavior is one thing being examined in the lane change replication test. For the monolithic GUI, this test will show whether the range scaling indicators adequately convey distance information so that a driver can determine where to turn, when the interpolation functionality is disabled for rapid updating. Sec. \ref{sec:lanechangetestresults} outlines the results of the lane change replication test.
 
+
 %%%% Target Spacing Test
 \subsection{Precision Following Test} \label{sec:targetspacingtest}
 The lane change replication test is one example of implementing the path duplication tool, but does not produce the detailed results necessary for a formal conclusion favoring the usefulness of one GUI over the other. Centimeter-level measurements are available, so it is of great interest to determine whether either tool enables a convoy driver to carry out the following task with this improved level of precision. The precision following test begins and ends with both vehicles parked atop the center stripe of the NCAT test track. The lead vehicle accelerates to approximately 45 mph then begins a sinusoidal path with a mean about the center stripe, a period of approximately 10 s, and an amplitude that puts the wheels of the lead vehicle upon the outermost lane marking at the peaks. Once reaching 45 mph, the magnitude of the leader's ground plane velocity vector will vary according to position on the track. Along the two 180$^\circ$ turns it will be approximately 45 mph, and along the straightaways it will be approximately 65 mph. Throughout the test, the following driver is attempting to maintain a inter-vehicular spacing as low as possible without incurring any distance alerts, and accumulate as little deviation over time as possible.
@@ -79,17 +80,17 @@ The lane change replication test is one example of implementing the path duplica
 
 This test primarily focused on distinguishing which GUI best provided aid in path duplication; for a comparative analysis, the test was conducted with the aid of each GUI individually, then without any assistance information at all. As this test was conducted in an environment equivalent to most American two-lane roads and the leader does not stray from the two outer lane markings, it was anticipated that the lateral deviation should be bounded by approximately the width of the road minus the track width of the widest vehicle, or $5.8~m$. This allows for scrutiny of the deviation in greater detail than when the lateral deviation is not bounded by design. Sec. \ref{sec:precisionfollowingresults} outlines the results of the precision following test.
 
+
+%%%% Can't see anything
 \subsection{Zero Landmark Test} \label{sec:zerolandmarktest}
 The precision following test took place in an environment abundant in visual landmarks by which to localize, such as lane markings and road signs. Given the motivation for these tools, it is necessary to examine the performance of both GUIs in a situation where this type of assistance is denied. The zero landmark test was therefore constructed to determine the impact of removing visual awareness of surrounds as well as waypoints along the leaders path to assist in replicating it.
 
 Both vehicles began parked in a large, open expanse of flat asphalt (`skidpad') with excellent GPS coverage. There are no clearly visible artifacts upon the ground, though some objects are visible at the outer edges of the skidpad. To further obscure visual following, the test was conducted at night. The lead vehicle drove in chaotic patterns intended present a path with is difficult to follow while the following vehicle attempted to adhere to the path as well as possible and maintain the closest possible curvilinear separation distance without triggering any alert messages. Sec. \ref{sec:zerolandmarkresults} outlines the results of the zero landmark test, and the path taken by the leader in one of the runs is shown in Fig.~\ref{fig:zerolandmarkpath}
 
 \begin{figure}[ht] \centering
-    \includegraphics[width=5in]{./figs/zero_landmark_path.png}
+    \includegraphics[width=4in]{./figs/zero_landmark_path.png}
     \caption{Path taken by lead vehicle during a single run of the zero landmark test} \label{fig:zerolandmarkpath}
 \end{figure}
-
-
 
 
 
@@ -100,13 +101,15 @@ Both vehicles began parked in a large, open expanse of flat asphalt (`skidpad') 
 
 In processing the collected data, some
 % technicalities
-When at any point a path is uncalculable, due to satellite outage, outlying values, course errors, or other errors, the path reported is of length one (a single point at the position of the leader). When this occurs, the following distance becomes 0.0, and these instances were ignored in tabulation of the following distance score.
+When at any point a path is incalculable, due to satellite outage, outlying values, course errors, or other errors, the path reported is of length one (a single point at the position of the leader). When this occurs, the following distance becomes 0.0, and these instances were ignored in tabulation of the following distance score.
 
 
 %%%%% Lane Change between Cones
 \subsection{Lane Change Replication Test Results} \label{sec:lanechangetestresults}
 
-Table \ref{tab:lanechangeresults} shows the results of all runs of the lane change replication test. It is plain to see that in every instance where a lane change was made between the improper cone pair, the follower changed lanes later than did the leader. This is attributed to latency existing in the combined system from calculation and driver reaction.
+Table \ref{tab:lanechangeresults} shows the results of all runs of the lane change replication test. Figures~\ref{fig:lanechange_earth} and~\ref{fig:lanechange_mono} show what the driver saw on the screen prior to attempting to make the correct lane change using the Earth GUI and the monolithic GUI, respectively.
+% Always changed lanes too late
+It is plain to see that in every instance where a lane change was made between the improper cone pair, the follower changed lanes later than did the leader. This is attributed to latency existing in the combined system from calculation and driver reaction.
 
 \begin{table}[htbp] \centering \caption{Cone pairs chosen in the lane change replication test}
 \begin{tabular}{c|cc} 
@@ -117,7 +120,11 @@ Table \ref{tab:lanechangeresults} shows the results of all runs of the lane chan
     4       &       5   &    5 \\ \hline   
 \end{tabular} \label{tab:lanechangeresults} \end{table}
 
-Figures~\ref{fig:lanechange_earth} and~\ref{fig:lanechange_mono} show what the driver saw onscreen prior to attempting to make the correct lane change using the Earth GUI and the monolithic GUI, respectivley.
+% Accuracy of google earth stuff
+As mentioned previously, the DRTK algorithm sacrifices accuracy in the global coordinate frame in favor of high accuracy in relative coordinate frames. In the case of path following, this means that at any time the current RPV to the leader from the follower will be extremely accurate. 
+% TDCP accuracy
+% When moving, path points will decrease in accuracy from the leader to the follower due to the time-dependent nature of TDCP accuracies.
+Google Earth, on the other hand, has been found to contain errors with a mean of 19.0 m , and a standard deviation of 12.3 m by \cite{ge_accuracy}. All points of interest (leader and all path points) are placed on the Google Earth screen by using the standalone GPS position of the follower and adding the RPV from the leader. Even ignoring the errors in standalone GPS, a 19.0 m translation from the true position would put all objects drivers use to orient themselves by well away from their true position as observed by the naked eye. However, the relative positions and scale on the Google Earth screen would still remain true. This was known during the testing, but testers still reported that this issue caused problems when determining where to change lanes.
 
 \begin{figure}[ht] \centering
     \begin{minipage}[b]{0.45\linewidth} \centering 
@@ -133,16 +140,13 @@ Figures~\ref{fig:lanechange_earth} and~\ref{fig:lanechange_mono} show what the d
 
 
 
-
-
 %%%%% Follow the Path around the track
 \subsection{Precision Following Test Results} \label{sec:precisionfollowingresults}
 
 % Explain the run-specific charts
-Shown in Figs. \ref{fig:precisionresults_earth} , \ref{fig:precisionresults_monolith} , and \ref{fig:precisionresults_control} are the best of all runs of the precision following test using the Earth-based GUI, monolithic GUI, and no GUI at all, respectivley. The criterion for selecting the `best' run was that which had the lowest combined percentage of timesteps when an alert was issued for either distance or deviation. Figure \ref{fig:precision_alerts} outlines how often alerts occurred during each data run.
+Shown in Figs. \ref{fig:precisionresults_earth} , \ref{fig:precisionresults_monolith} , and \ref{fig:precisionresults_control} are the best of all runs of the precision following test using the Earth-based GUI, monolithic GUI, and no GUI at all, respectively. The criterion for selecting the `best' run was that which had the lowest combined percentage of timesteps when an alert was issued for either distance or deviation. Figure \ref{fig:precision_alerts} outlines how often alerts occurred during each data run.
 
-
-
+In all runs without any aid from a GUI, drivers maintained significantly smaller follower distances than with visual aids. 
 
 
 %%%%% Skidpad drive around
@@ -150,4 +154,9 @@ Shown in Figs. \ref{fig:precisionresults_earth} , \ref{fig:precisionresults_mono
 
 % Explain the run-specific charts
 Shown in Figs. \ref{fig:zeroresults_earth} , \ref{fig:zeroresults_monolith} , and \ref{fig:zeroresults_control} are the best of all runs of the zero landmark test using the Earth-based GUI, monolithic GUI, and no GUI at all, respectivley. The criterion for selecting the `best' run was that which had the lowest combined percentage of timesteps when an alert was issued for either distance or deviation. Figure \ref{fig:zero_alerts} outlines how often alerts occurred during each data run.
+
+Drivers were most likely to over- or under-correct for path deviations, and due to lag in the system, had delayed reaction times to 
+
+% Problems with the zero landmark test
+The goal was to deprive drivers of visual landmarks during the test, which 
 

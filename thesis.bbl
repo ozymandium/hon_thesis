@@ -86,6 +86,12 @@ Gillespie, T.~D., 2001.
 \newblock {\em Fundamentals of Vehicle Dynamics}.
 \newblock Society of Automotive Engineers, Inc.
 
+\bibitem{ge_accuracy}
+Potere, D., 2008.
+\newblock ``Horizontal positional accuracy of google earth’s high-resolution
+  imagery archive''.
+\newblock {\em Sensors, \textbf{ 8}}(12), pp.~7973--7981.
+
 \bibitem{calgary}
 Cannon, M., Basnayake, S., Syed, C.~S., and Lachapelle, G., 2003.
 \newblock ``Precise gps sensor substytem for vehicle platoon control''.
