@@ -28,7 +28,7 @@
 
 % for list of abbreviations
 \usepackage[intoc]{nomencl}
-\renewcommand{\nomname}{ \sc List of Abbreviations}
+\renewcommand{\nomname}{\sc List of Abbreviations}
 \makenomenclature
 
 % Appendices are written like regular chapters
@@ -43,7 +43,7 @@
 % \newtheorem{theorem}{Theorem}[chapter]
 
 %%%%%% Define variables
-\title{A Visual Driver Aid for Convoy Following Using Dynamic Base Real-Time Kinematic Positioning}
+\title{Visual Driver Aids for Convoy Following Using Dynamic Base Real-Time Kinematic Positioning}
 \author{Robert Grissom Cofield}
 \date{May 5, 2013}
 \copyrightyear{2013}
@@ -63,27 +63,15 @@
 \ApprovalPage
 \TitlePage
 \CopyrightPage
-
-\begin{vita}%\def\romanpages{0}
-Robert Cofield ...
-\end{vita}
-
-
-\begin{abstract}
-Abstract goes here ...
-\end{abstract}
-
-
-\begin{acknowledgments}
-Thank people here ...
-\end{acknowledgments}
-
+\begin{vita} \input{vita} \end{vita}
+\begin{abstract} \input{abstract} \end{abstract}
+\begin{acknowledgments} \input{acknowledgments} \end{acknowledgments} 
 
 \style{ASME}
 \software{
     cProfiler,
     Google Earth v7.0.3.8542,
-    \LaTeX, TikZ, 
+    \LaTeX,
     MATLAB v7
     Matplotlib,
     MOOS v10,
@@ -95,8 +83,9 @@ Thank people here ...
     Qt v4.8.3,
     Qt4 Designer,
     SciPy,
-    Sublime Text 2,  
     simplekml v1.2.1,
+    Sublime Text 2,  
+    TikZ, 
     Tornado v2.3,
     Ubuntu Linux 12.04.1 \& 12.10
 }
@@ -105,7 +94,6 @@ Thank people here ...
 \tableofcontents
 \listoffigures
 \listoftables
-
 \printnomenclature[0.75in] 
 
 \end{romanpages}

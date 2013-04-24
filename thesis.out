@@ -1,7 +1,7 @@
 \BOOKMARK [0][-]{Doc-Start}{Acknowledgments}{}% 1
 \BOOKMARK [0][-]{chapter*.2}{List of Figures}{}% 2
 \BOOKMARK [0][-]{chapter*.3}{ List of Tables}{}% 3
-\BOOKMARK [0][-]{chapter*.4}{ List of Abbreviations}{}% 4
+\BOOKMARK [0][-]{chapter*.4}{List of Abbreviations}{}% 4
 \BOOKMARK [0][-]{chapter.1}{Introduction}{}% 5
 \BOOKMARK [1][-]{section.1.1}{Motivation}{chapter.1}% 6
 \BOOKMARK [1][-]{section.1.2}{Comparison of Positioning Solutions for Real-Time Following}{chapter.1}% 7
@@ -27,10 +27,7 @@
 \BOOKMARK [2][-]{subsection.3.3.1}{Lane Change Replication Test Results}{section.3.3}% 27
 \BOOKMARK [2][-]{subsection.3.3.2}{Precision Following Test Results}{section.3.3}% 28
 \BOOKMARK [2][-]{subsection.3.3.3}{Zero Landmark Test Results}{section.3.3}% 29
-\BOOKMARK [0][-]{chapter.4}{Conclusion}{}% 30
-\BOOKMARK [1][-]{section.4.1}{Summary of Experimentation}{chapter.4}% 31
-\BOOKMARK [1][-]{section.4.2}{Qualitative User Feedback}{chapter.4}% 32
-\BOOKMARK [1][-]{section.4.3}{Future Work}{chapter.4}% 33
-\BOOKMARK [0][-]{Appendix.a.A}{Precision Following Test Figures}{}% 34
-\BOOKMARK [0][-]{Appendix.a.B}{Zero Landmark Test Figures}{}% 35
-\BOOKMARK [0][-]{chapter*.28}{Bibliography}{}% 36
+\BOOKMARK [0][-]{chapter.4}{Conclusions \046 Future Work}{}% 30
+\BOOKMARK [0][-]{Appendix.a.A}{Precision Following Test Figures}{}% 31
+\BOOKMARK [0][-]{Appendix.a.B}{Zero Landmark Test Figures}{}% 32
+\BOOKMARK [0][-]{chapter*.34}{Bibliography}{}% 33

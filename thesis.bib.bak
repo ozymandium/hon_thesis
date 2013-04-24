@@ -95,6 +95,20 @@
   year = {2003}
 }
 
+@ARTICLE{ge_accuracy,
+  author = {Potere, David},
+  title = {Horizontal Positional Accuracy of Google Earth’s High-Resolution
+	Imagery Archive},
+  journal = {Sensors},
+  year = {2008},
+  volume = {8},
+  pages = {7973--7981},
+  number = {12},
+  doi = {10.3390/s8127973},
+  issn = {1424-8220},
+  url = {http://www.mdpi.com/1424-8220/8/12/7973}
+}
+
 @MANUAL{projections,
   title = {Map Projections: A Working Manual},
   author = {Snyder, John P.},
@@ -177,6 +191,16 @@
   year = {2000},
   owner = {rgcofield},
   timestamp = {2013.01.31}
+}
+
+@PHDTHESIS{williamthesis,
+  author = {William J. Woodall},
+  title = {Low-Bandwidth Three Dimensional Mapping and Latency Reducing Model
+	Prediction to Improve Teleoperation of Robotic Vehicles},
+  school = {Auburn University},
+  year = {2012},
+  owner = {rgcofield},
+  timestamp = {2013.04.24}
 }
 
 @comment{jabref-meta: selector_publisher:}

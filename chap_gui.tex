@@ -17,7 +17,7 @@ The inputs necessary to relay that information were then determined to be, at a 
 
 % Black box info flow chart
 \begin{figure}[ht] \centering 
-    \includegraphics[width=6.5in]{./figs/blackbox_flowchart.png}
+    \includegraphics[width=5in]{./figs/blackbox_flowchart.png}
     \caption{High level information flow architecture in and out of the GUI} \label{fig:blackboxflow}
 \end{figure}
 
@@ -65,7 +65,7 @@ The effect this had upon readability and being able to intuitively interpret dat
 When creating an application to run in realtime, it is of utmost importance that infomation be passed about in a prudent manner, or latency will accumulate and render the application  useless. The MOOS framework \cite{moos} was already in place for communication between the DRTK, TDCP, and DAF algorithms, and the GPS receivers used. However, it is desireable to have a middleware interface that can easily accomodate a data stream incoming from any middleware, and be attached to the GUI in an agnostic manner with minimal effort. Furthermore, in designing the real-time interpolation described in Sec. \ref{sec:interp}, it became apparent that the process needed to be performed at the earliest possible instance to avoid over-complication with the GUI itself. During testing and debugging of the interpolator, an alternative approach was needed to verify its functionality, so a scheme was devised whereby all measurements were held until the slowest measurement---the path vector---had been updated, so integration of this was needed as an option. To summarize, a middleware interface was needed to agnostically and robustly join with any number of messaging frameworks, perform a real-time interpolation on all data before doing that---or simply synchronize if so desired---and then pass that data into the GUI. The solution is outlined below, and depicted graphically in Fig. \ref{fig:midw_diagram}.
 
 \begin{figure}[ht] \centering 
-    \includegraphics[width=6.5in]{./figs/middleware_diagram.png}
+    \includegraphics[width=5in]{./figs/middleware_diagram.png}
     \caption{Algorithm for interfacing middlewares with the GUI backend} \label{fig:midw_diagram}
 \end{figure}
 
