@@ -11,7 +11,8 @@
     \usetikzlibrary{calc, arrows, shapes}
     \usetkzobj{angles} % important you want to use angles
 
-\usepackage{caption} \captionsetup[table]{skip=10pt}
+\usepackage{caption}
+\captionsetup[table]{skip=10pt}
 
 % enable expand math support
 \usepackage{amsmath}
@@ -27,8 +28,8 @@
 % }
 
 % for list of abbreviations
-\usepackage[intoc]{nomencl}
-\renewcommand{\nomname}{\sc List of Abbreviations}
+% \usepackage[intoc]{nomencl}
+\usepackage{nomencl}
 \makenomenclature
 
 % Appendices are written like regular chapters
@@ -94,7 +95,12 @@
 \tableofcontents
 \listoffigures
 \listoftables
-\printnomenclature[0.75in] 
+
+% nomenclature
+\renewcommand{\nomname}{\sc List of Abbreviations}
+\printnomenclature[0.75in]
+\addcontentsline{toc}{chapter}{List of Abbreviations}
+
 
 \end{romanpages}
 

@@ -103,7 +103,7 @@ Both vehicles began parked in a large, open expanse of flat asphalt (`skidpad') 
 % technicalities
 When at any point a path is incalculable due to satellite outage, the path reported is of length one (a single point at the position of the leader). When this occurs, the following distance becomes 0.0, and these instances were ignored in examination of data runs. Refer to Apps. \ref{app:precisionresults} and \ref{app:zeroresults} for the majority of figures detailing the results of experimentation.
 
-Rearranging Eq. \ref{eq:stopdist} to solve for $\mu$ at every time step given the curvilinear following distance, as in Eq. \ref{eq:mureq}, yields what friction coefficient $\mu_{require}$ is necessary at any instant for the following vehicle to stop without impacting the lead vehicle.
+Rearranging Eq. \eqref{eq:stopdist} to solve for $\mu$ at every time step given the curvilinear following distance, as in Eq. \eqref{eq:mureq}, yields what friction coefficient $\mu_{require}$ is necessary at any instant for the following vehicle to stop without impacting the lead vehicle.
 \begin{align} \label{eq:mureq}
     \mu_{required} &= \left( \frac {1} {d g} \right) \left(\frac {|\bar{v}|^2} {2} \right)
 \end{align}

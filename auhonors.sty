@@ -276,9 +276,10 @@ Computer software used: {{\expandafter\em\@software}\hspace*{\fill}}\par
 
 
 
-\def\listfigurename{\sc List of Figures}
+\def\listfigurename{List of Figures}
+\def\listfigurenamesc{\sc List of Figures}
 \def\listoffigures{\@restonecolfalse\if@twocolumn\@restonecoltrue\onecolumn
- \fi\chapter*{\listfigurename\@mkboth
+ \fi\chapter*{\listfigurenamesc\@mkboth
  {{\listfigurename}}{{\listfigurename}}}
  \addcontentsline{toc}{chapter}{\listfigurename}
   {\@starttoc{lof}}\if@restonecol
@@ -290,9 +291,10 @@ Computer software used: {{\expandafter\em\@software}\hspace*{\fill}}\par
 
 \def\l@figure{\par\addvspace{\bigskipamount}\pagebreak[2]
  \@dottedtocline{1}{0.1em}{2.3em}}
-\def\listtablename{ \sc List of Tables}
+\def\listtablename{List of Tables}
+\def\listtablenamesc{\sc List of Tables}
 \def\listoftables{\@restonecolfalse\if@twocolumn\@restonecoltrue\onecolumn
- \fi\chapter*{\listtablename\@mkboth
+ \fi\chapter*{\listtablenamesc\@mkboth
  {{\listtablename}}{{\listtablename}}}
  \addcontentsline{toc}{chapter}{\listtablename}
  {\vspace{-\bigskipamount}\singlespace\@starttoc{lot}}\if@restonecol
